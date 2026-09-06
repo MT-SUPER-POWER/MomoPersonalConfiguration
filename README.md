@@ -24,7 +24,9 @@ MomoPersonalConfiguration/
 │       │   └── config/    # 各插件的独立配置 (hop.lua, surround.lua 等)
 │       ├── public/        # 公共基础配置 (Leader 键、公共按键)
 │       └── vsc/           # VS Code Neovim 专属配置 (keymap & config)
-└── zed/                   # Zed 编辑器预留配置
+├── zed/                   # Zed 编辑器统一配置
+│   ├── keymap.json        # Zed 快捷键映射（对齐 VS Code/Neovim 肌肉记忆）
+│   └── settings.json      # Zed 编辑器与 Vim 模式配置
 ```
 
 ---
@@ -170,6 +172,50 @@ MomoPersonalConfiguration/
 | **智能引号** (`q`) | **`ciq`** | `'str'`, `"str"`, `` `str` `` ➡️ 引号内清空 | **通杀所有引号**，无需肉眼区分单双引号或反引号，直接改引号内 |
 | **智能括号** (`b`) | **`cib`** | `(...)`, `[...]`, `{...}` ➡️ 括号内清空 | **通杀所有括号**，自动匹配最近的一对圆/方/花括号 |
 | **下一个目标** (`in`) | **`cin(`** | 光标在行首，直接改该行后方的第一个 `(...)` | **隔空就地修改**，无需先把光标移到括号内部 |
+
+---
+
+## 三、 Zed 编辑器专属适配与对齐 (`zed/settings.json` & `zed/keymap.json`)
+
+Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式。本仓库已将 Zed 的快捷键模型与 Antigravity IDE / Neovim 实现了 **100% 肌肉记忆对齐**。
+
+- **Windows 本地生效路径**：`%APPDATA%\Zed\`（即 `C:\Users\shuhe\AppData\Roaming\Zed\`）
+- **核心配置理念**：保持 Leader 为 <kbd>Space</kbd>，窗口、文件、搜索、折叠完全沿用同一套按键哲学。
+
+### 1. 全局面板与界面控制 (`Workspace` 作用域)
+
+| 快捷键 | Zed Action 命令 | 对应功能说明 |
+| :--- | :--- | :--- |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `workspace::ToggleLeftDock` | 切换**左侧边栏**（文件项目面板） |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `pane::CloseActiveItem` | 关闭当前页面 |
+
+---
+
+### 2. Zed Vim 模式对齐按键表 (Normal 模式)
+
+| 场景分类 | 快捷键 | Zed Action 命令 | 功能说明 |
+| :--- | :--- | :--- | :--- |
+| **检索查找** | <kbd>/</kbd> 或 `<leader>fw` | `buffer_search::Deploy` | **触发 Zed 原生文件内搜索栏** |
+| **检索查找** | `<leader>fa` | `file_finder::Toggle` | 快速检索打开文件 (Quick Open) |
+| **检索查找** | `<leader>fg` | `pane::DeploySearch` | 全局文字搜索 (Live Grep) |
+| **检索查找** | `<leader>fb` | `tab_switcher::Toggle` | 查看已打开的标签列表 (Buffers) |
+| **文件与格式** | `<leader>fs` | `workspace::Save` | 保存当前文件 |
+| **文件与格式** | `<leader>ff` | `editor::Format` | **文档格式化** (Visual 模式下局部格式化) |
+| **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
+| **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
+| **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
+| **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在拆分窗口间**直接移动光标焦点** |
+| **分屏最大化** | `<leader>wm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
+| **单文件投掷** | `<leader>w` + <kbd>h/j/k/l</kbd> | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏 |
+| **分屏组互换** | `<leader>wx` | `workspace::SwapPaneAdjacent` | **左右分屏整组极速对调** |
+| **分屏组移动** | `<leader>w` + <kbd>H/J/K/L</kbd> | `workspace::SwapPane...` | 整个分屏组**向左/下/上/右**对调交换 |
+| **代码折叠** | `zc` / `zo` | `editor::Fold` / `editor::UnfoldLines` | 折叠 / 展开当前代码块 |
+| **代码折叠** | `za` | `editor::ToggleFold` | 切换代码折叠状态 |
+| **代码折叠** | `zM` / `zR` | `editor::FoldAll` / `editor::UnfoldAll` | 全部折叠 / 全部展开 |
 
 ---
 

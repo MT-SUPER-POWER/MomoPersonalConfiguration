@@ -1,0 +1,157 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  // =========== COMMON CONFIG =============
+  "base_keymap": "VSCode",
+  "tab_size": 2,
+  "cursor_blink": true,
+  "icon_theme": "Material Icon Theme",
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "SynthWave 84 Dark",
+  },
+  "auto_indent_on_paste": true,
+  "ensure_final_newline_on_save": true,
+  "minimap": {
+    "show": "never"
+  },
+  "scrollbar": {
+    "axes": {
+      "horizontal": false,
+      "vertical": false
+    }
+  },
+  "relative_line_numbers": "enabled",
+
+  // =========== VIM CONFIG =============
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "default_mode": "normal"
+  },
+
+  // =========== EDITOR CONFIG =============
+  "buffer_font_size": 17.0,
+  "buffer_font_weight": 450.0,
+  "buffer_line_height": {
+    "custom": 1.5
+  },
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_fallbacks": [
+    "JetBrainsMono Nerd Font"
+  ],
+
+  // =========== UI CONFIG (Not Editor but the software itself) =============
+  "ui_font_size": 16.0,
+  "ui_font_weight": 350.0,
+  "ui_font_family": "JetBrains Mono",
+  "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
+
+  // =========== TERMINAL CONFIG =============
+  "terminal": {
+    "font_weight": 350.0,
+    "font_size": 15.0,
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_fallbacks": [
+      "JetBrains Mono",
+      "JetBrainsMono Nerd Font"
+    ],
+    "line_height": {
+      "custom": 1.5
+    }
+  },
+
+  // ============= AGENT CONFIG =============
+  "agent": {
+    "sidebar_side": "left",
+    "default_model": {
+      "provider": "openai-subscribed",
+      "model": "gpt-5.3-codex-spark",
+      "enable_thinking": true,
+      "effort": "high"
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "agent_ui_font_size": 16.0,
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    }
+  },
+
+  "cli_default_open_behavior": "existing_window",
+  "diff_view_style": "unified",
+  "markdown_preview_font_family": "JetBrains Mono",
+
+  "edit_predictions": {
+    "provider": "zed"
+  },
+
+  "project_panel": {
+    "git_status": true,
+    "auto_fold_dirs": false
+  },
+  "outline_panel": {
+    "git_status": true
+  },
+  "global_lsp_settings": {
+    "semantic_token_rules": [
+      {
+        "token_type": "interface",
+        "token_modifiers": [],
+        "style": [],
+        "foreground_color": "#b8ce82ff",
+        "background_color": null,
+        "underline": null,
+        "strikethrough": null,
+        "font_weight": null,
+        "font_style": null
+      },
+      {
+        "token_type": "struct",
+        "token_modifiers": [],
+        "style": [],
+        "foreground_color": "#86c691ff",
+        "background_color": null,
+        "underline": null,
+        "strikethrough": null,
+        "font_weight": null,
+        "font_style": null
+      },
+      {
+        "token_type": "inactive",
+        "token_modifiers": [],
+        "style": [],
+        "foreground_color": "#6a6a6aff",
+        "background_color": null,
+        "underline": null,
+        "strikethrough": null,
+        "font_weight": null,
+        "font_style": null
+      }
+    ]
+  },
+  "tab_bar": {
+    "show": true
+  },
+  "tabs": {
+    "git_status": true
+  },
+  "sticky_scroll": {
+    "enabled": false
+  },
+  "gutter": {
+    "line_numbers": true
+  },
+}

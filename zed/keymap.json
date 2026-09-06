@@ -1,0 +1,101 @@
+// Zed keymap
+// 对应 MomoPersonalConfiguration 核心键位习惯统一映射
+[
+  // =========================================================
+  // 1. 全局面板与工作区控制 (与 keyboards.jsonc 保持一致)
+  // =========================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // 切换左侧文件树 (与 VS Code Ctrl+B 一致)
+      "ctrl-b": "workspace::ToggleLeftDock",
+      // 切换右侧辅助栏 (与 VS Code Ctrl+Alt+B 一致)
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+      // 切换底部终端面板 (与 VS Code Shift+Alt+J 一致)
+      "shift-alt-j": "workspace::ToggleBottomDock",
+      // 查看问题/诊断面板 (与 VS Code Shift+Alt+M 一致)
+      "shift-alt-m": "diagnostics::Deploy",
+      // 唤起 AI 对话面板 (与 VS Code Ctrl+Shift+I 一致)
+      "ctrl-shift-i": "agent::ToggleFocus",
+      // 关闭当前页面 (与 VS Code Ctrl+Shift+W 一致)
+      "ctrl-shift-w": "pane::CloseActiveItem"
+    }
+  },
+
+  // =========================================================
+  // 2. Normal 模式核心快捷键 (Vim 模式下且非操作符等待态)
+  // =========================================================
+  {
+    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "bindings": {
+      // ------------ 检索与搜索 ------------
+      // / 与 space fw 统一呼出原生文件内搜索
+      "/": "buffer_search::Deploy",
+      "space f w": "buffer_search::Deploy",
+      // 快速找文件 (Quick Open)
+      "space f a": "file_finder::Toggle",
+      // 全局搜索文本 (Live Grep)
+      "space f g": "pane::DeploySearch",
+      // 查看已打开的标签页列表 (Buffers)
+      "space f b": "tab_switcher::Toggle",
+
+      // ------------ 文件与格式化 ------------
+      "space f s": "workspace::Save",
+      "space f f": "editor::Format",
+
+      // ------------ 标签页轮转与关闭 ------------
+      // J / K 快速轮转左右标签页
+      "shift-j": "pane::ActivatePrevItem",
+      "shift-k": "pane::ActivateNextItem",
+      // 关闭当前/全部标签
+      "space c c": "pane::CloseActiveItem",
+      "space c a": "pane::CloseAllItems",
+
+      // ------------ 跨分屏切换光标焦点 (Ctrl + hjkl) ------------
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+
+      // ------------ 分屏最大化 ------------
+      "space w m": "workspace::ToggleZoom",
+
+      // ------------ 分屏与文件调度 (小写单文件，大写整组) ------------
+      // 【单文件】跨分屏投掷
+      "space w h": ["workspace::MoveItemToPaneInDirection", { "direction": "left" }],
+      "space w l": ["workspace::MoveItemToPaneInDirection", { "direction": "right" }],
+      "space w j": ["workspace::MoveItemToPaneInDirection", { "direction": "down" }],
+      "space w k": ["workspace::MoveItemToPaneInDirection", { "direction": "up" }],
+
+      // 【整组分屏】极速对调与移动
+      "space w x": "workspace::SwapPaneAdjacent",
+      "space w shift-h": "workspace::SwapPaneLeft",
+      "space w shift-l": "workspace::SwapPaneRight",
+      "space w shift-j": "workspace::SwapPaneDown",
+      "space w shift-k": "workspace::SwapPaneUp",
+
+      // ------------ 代码折叠 ------------
+      "z c": "editor::Fold",
+      "z o": "editor::UnfoldLines",
+      "z a": "editor::ToggleFold",
+      "z shift-m": "editor::FoldAll",
+      "z shift-r": "editor::UnfoldAll"
+    }
+  },
+
+  // =========================================================
+  // 3. Visual 模式补充按键
+  // =========================================================
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting",
+    "bindings": {
+      // 选区按 / 直接搜索选中内容
+      "/": "buffer_search::Deploy",
+      // 局部格式化
+      "space f f": "editor::Format",
+      // 切换标签
+      "shift-j": "pane::ActivatePrevItem",
+      "shift-k": "pane::ActivateNextItem"
+    }
+  }
+]
