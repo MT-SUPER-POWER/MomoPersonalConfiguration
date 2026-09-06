@@ -214,7 +214,11 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
 | **LSP 悬停** | `gh` | `editor::Hover` | 查看当前符号的**类型定义与悬停文档** |
 | **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`） |
-| **分屏最大化** | `<leader>wm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
+| **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **单步精细微调**分屏大小（左/右/下/上） |
+| **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd> | `action::Sequence` | **大步快速调宽/调窄**（连调 5 档） |
+| **免前缀连调** | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **无需敲前缀，按住 Ctrl+Alt 连击 hjkl 即按即调** |
+| **平分所有分屏** | `<leader>r=` 或 `<leader>w=` | `workspace::ResetPaneSizes` | **一键平分所有窗口宽度** (50% / 50%) |
+| **分屏最大化** | `<leader>wm` 或 `<leader>rm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
 | **单文件投掷** | `<leader>w` + <kbd>h/j/k/l</kbd> | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏 |
 | **分屏组互换** | `<leader>wx` | `workspace::SwapPaneAdjacent` | **左右分屏整组极速对调** |
 | **分屏组移动** | `<leader>w` + <kbd>H/J/K/L</kbd> | `workspace::SwapPane...` | 整个分屏组**向左/下/上/右**对调交换 |
@@ -279,4 +283,3 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 | **整块删除废弃函数** | **`daf`** | Delete Around Function（连函数声明带体整块删） |
 | **复制整个引号里的内容** | **`yiq`** 或 **`yi"`** | Yank Inside Quote（纯文本直接进剪贴板） |
 | **快速选中 HTML/JSX 标签内部** | **`cit`** | Change Inside Tag（清空 `<div>...</div>` 内部） |
-

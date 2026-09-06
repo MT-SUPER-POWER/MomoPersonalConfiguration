@@ -97,8 +97,27 @@
       // 保留 gh 直达悬停文档，防止与 shift-k 轮转冲突后无法看类型定义
       "g h": "editor::Hover",
 
-      // ------------ 分屏最大化 ------------
+      // ------------ 分屏尺寸调整 (对齐 <leader>r 与 <leader>w) ------------
+      // 【单步精细微调】
+      "space r h": "vim::ResizePaneLeft",
+      "space r l": "vim::ResizePaneRight",
+      "space r j": "vim::ResizePaneDown",
+      "space r k": "vim::ResizePaneUp",
+      // 【大步快速微调 (连续执行 5 档微调)】
+      "space r shift-h": ["action::Sequence", ["vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft"]],
+      "space r shift-l": ["action::Sequence", ["vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight"]],
+      "space r shift-j": ["action::Sequence", ["vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown"]],
+      "space r shift-k": ["action::Sequence", ["vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp"]],
+      // 【一键平分 / 最大化】
+      "space r =": "workspace::ResetPaneSizes",
+      "space r m": "workspace::ToggleZoom",
+      "space w =": "workspace::ResetPaneSizes",
       "space w m": "workspace::ToggleZoom",
+      // 【免前缀连续微调利器 (按住 Ctrl+Alt 连击 hjkl 即按即调)】
+      "ctrl-alt-h": "vim::ResizePaneLeft",
+      "ctrl-alt-l": "vim::ResizePaneRight",
+      "ctrl-alt-j": "vim::ResizePaneDown",
+      "ctrl-alt-k": "vim::ResizePaneUp",
 
       // ------------ 分屏与文件调度 (小写单文件，大写整组) ------------
       // 【单文件】跨分屏投掷
