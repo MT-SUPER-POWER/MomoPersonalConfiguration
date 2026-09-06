@@ -19,7 +19,9 @@ MomoPersonalConfiguration/
 ├── nvim/                  # Neovim 专属配置
 │   ├── init.lua           # Neovim 主入口
 │   └── lua/
-│       ├── plugins/       # 插件安装 (Surround, Hop, 多光标)
+│       ├── plugins/       # 插件管理与配置解耦
+│       │   ├── init.lua   # 仅负责 lazy.nvim 引导与插件下载声明
+│       │   └── config/    # 各插件的独立配置 (hop.lua, surround.lua 等)
 │       ├── public/        # 公共基础配置 (Leader 键、公共按键)
 │       └── vsc/           # VS Code Neovim 专属配置 (keymap & config)
 └── zed/                   # Zed 编辑器预留配置
@@ -128,14 +130,7 @@ MomoPersonalConfiguration/
 - `<leader><leader>cd`：双字符搜索跳转
 - `<leader><leader>f`：输入字符串正则匹配跳转
 
-#### ② 多光标操作 (`vscode-multi-cursor.nvim`)
-- `<leader>n`：选中当前单词，并向后查找添加多光标
-- `<leader>p`：选中当前单词，并向前查找添加多光标
-- `<leader>x`：取消当前所在单词的光标
-- `mc`：创建光标；`mcc`：清除所有多光标
-- `mi` / `ma`：在选区每行开头 / 结尾批量插入光标
-
-#### ③ 符号包裹 (`tpope/vim-surround`)
+#### ② 符号包裹 (`tpope/vim-surround`)
 - `cs"'`：将 `"hello"` 改为 `'hello'`
 - `ds"`：删除引号，`"hello"` 变为 `hello`
 - `ysiw)`：将当前词用括号包裹，变为 `(hello)`

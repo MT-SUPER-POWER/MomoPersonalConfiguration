@@ -1,0 +1,16 @@
+-- * ==========================================================
+-- *            Vim-Surround Plugin Configuration
+-- * ==========================================================
+-- tpope/vim-surround 属于经典 Vim 符号包裹插件，默认开箱即用：
+--
+-- 常用动作速记：
+-- 1. 修改包裹符号 (cs - change surroundings):
+--    cs"'  -> 将 "hello" 改为 'hello'
+--    cs'<q> -> 将 'hello' 改为 <q>hello</q>
+-- 2. 删除包裹符号 (ds - delete surroundings):
+--    ds"   -> 将 "hello" 变为 hello
+-- 3. 添加包裹符号 (ys - you surround):
+--    ysiw) -> 为光标所在词添加括号，变为 (hello)
+--    ysiw" -> 为光标所在词添加引号，变为 "hello"
+-- 4. Visual 模式包裹：
+--    选中文本后按 S" -> 为选区添加外层引号
