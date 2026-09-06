@@ -1,0 +1,78 @@
+[
+  // 关闭当前页面
+  {
+    "key": "ctrl+shift+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  // 不允许命令关闭整个软件
+  {
+    "key": "ctrl+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  // Left Panel 总开关，减少了限制条件
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  // Right Panel 总开关，减少了限制条件
+  {
+    "key": "ctrl+alt+b",
+    "command": "workbench.action.toggleAuxiliaryBar"
+  },
+  // Bottom Panel 的总开关
+  {
+    "key": "shift+alt+j",
+    "command": "workbench.action.togglePanel"
+  },
+  // Bottom Panel 的错误部分
+  {
+    "key": "shift+alt+m",
+    "command": "workbench.actions.view.problems",
+    "when": "workbench.panel.markers.view.active"
+  },
+  // Bottom Panel 的错误部分关闭原生的快捷键
+  {
+    "key": "ctrl+shift+m",
+    "command": "-workbench.actions.view.problems",
+    "when": "workbench.panel.markers.view.active"
+  },
+  // 最大化底部面板
+  {
+    "key": "ctrl+f11",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  // 最大化侧边面板
+  {
+    "key": "ctrl+f12",
+    "command": "workbench.action.toggleMaximizedAuxiliaryBar"
+  },
+  // 关闭 ctrl+e 的默认快捷键，防止和 VIM 的下拉冲突
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpen"
+  },
+  // 防止误触发提交全部
+  {
+    "key": "ctrl+k",
+    "command": "-git.commitAll",
+    "when": "!inDebugMode && !operationInProgress && !terminalFocus"
+  },
+  // 防止打开默认的终端
+  {
+    "key": "ctrl+shift+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  // 聚焦 agy ide AI 对话
+  {
+    "key": "ctrl+shift+i",
+    "command": "antigravity.toggleChatFocus"
+  },
+  // 取消绑定原生的 agy ide AI 对话原生快捷键
+  {
+    "key": "ctrl+l",
+    "command": "-antigravity.toggleChatFocus",
+    "when": "!terminalFocus"
+  },
+  // ================= 移动分屏位置  =================
+]
