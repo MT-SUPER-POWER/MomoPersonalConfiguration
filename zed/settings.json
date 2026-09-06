@@ -29,14 +29,12 @@
     }
   },
   "relative_line_numbers": "enabled",
-
   // =========== VIM CONFIG =============
   "vim_mode": true,
   "vim": {
     "toggle_relative_line_numbers": true,
     "default_mode": "normal"
   },
-
   // =========== EDITOR CONFIG =============
   "buffer_font_size": 17.0,
   "buffer_font_weight": 450.0,
@@ -47,13 +45,13 @@
   "buffer_font_fallbacks": [
     "JetBrainsMono Nerd Font"
   ],
-
   // =========== UI CONFIG (Not Editor but the software itself) =============
   "ui_font_size": 16.0,
   "ui_font_weight": 350.0,
   "ui_font_family": "JetBrains Mono",
-  "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
-
+  "ui_font_fallbacks": [
+    "JetBrainsMono Nerd Font Mono"
+  ],
   // =========== TERMINAL CONFIG =============
   "terminal": {
     "font_weight": 350.0,
@@ -67,7 +65,6 @@
       "custom": 1.5
     }
   },
-
   // ============= AGENT CONFIG =============
   "agent": {
     "sidebar_side": "left",
@@ -89,15 +86,12 @@
       "type": "registry"
     }
   },
-
   "cli_default_open_behavior": "existing_window",
   "diff_view_style": "unified",
   "markdown_preview_font_family": "JetBrains Mono",
-
   "edit_predictions": {
     "provider": "zed"
   },
-
   "project_panel": {
     "git_status": true,
     "auto_fold_dirs": false
