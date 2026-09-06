@@ -50,6 +50,7 @@ MomoPersonalConfiguration/
 | <kbd>Ctrl</kbd> + <kbd>F12</kbd>                  | `toggleMaximizedAuxiliaryBar` | **最大化 / 恢复**右侧辅助栏            |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `antigravity.toggleChatFocus` | 聚焦唤起 **AI 编程对话**面板           |
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                  | `focusActiveEditorGroup`      | 从终端焦点**一键切回代码编辑器**       |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd>                    | `editor.action.showHover`     | **唤起 / 聚焦函数悬停文档窗口**（聚焦后按 <kbd>j</kbd>/<kbd>k</kbd> 上下平滑滚动，<kbd>q</kbd> 或 <kbd>Esc</kbd> 关闭） |
 
 > **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）、`Ctrl+K`（防误提交 Git）、`Ctrl+L` 与 `Ctrl+Shift+C`。
 
@@ -212,7 +213,7 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
 | **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
 | **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
-| **LSP 悬停** | `gh` | `editor::Hover` | 查看当前符号的**类型定义与悬停文档** |
+| **LSP 悬停** | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor::Hover` | 查看当前函数的**类型定义与悬停文档窗口** |
 | **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`） |
 | **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **单步精细微调**分屏大小（左/右/下/上） |
 | **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd> | `action::Sequence` | **大步快速调宽/调窄**（连调 5 档） |

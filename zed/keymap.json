@@ -30,7 +30,9 @@
       // 唤起 AI 对话面板 (与 VS Code Ctrl+Shift+I 一致)
       "ctrl-shift-i": "agent::ToggleFocus",
       // 终端/面板与代码区一键轮转焦点 (对应 VS Code Ctrl+Esc)
-      "ctrl-escape": "workspace::ActivateNextPane"
+      "ctrl-escape": "workspace::ActivateNextPane",
+      // 唤起悬停提示与快速文档 (与 VS Code Ctrl+Q 一致)
+      "ctrl-q": "editor::Hover"
     }
   },
 
@@ -94,7 +96,8 @@
       "space c a": "pane::CloseAllItems",
 
       // ------------ LSP 悬停与文档查看 ------------
-      // 保留 gh 直达悬停文档，防止与 shift-k 轮转冲突后无法看类型定义
+      // ctrl-q 与 gh 直达悬停文档，方便随时查看类型与函数说明
+      "ctrl-q": "editor::Hover",
       "g h": "editor::Hover",
 
       // ------------ 分屏尺寸调整 (对齐 <leader>r 与 <leader>w) ------------

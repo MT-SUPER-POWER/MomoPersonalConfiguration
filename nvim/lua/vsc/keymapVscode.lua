@@ -229,3 +229,15 @@ end, { desc = 'Unfold Recursively' })
 vim.keymap.set('n', 'za', function()
     vscode.action('editor.toggleFold')
 end, { desc = 'Toggle Fold' })
+
+-- -----------------------------------------------------------
+-- 7. 悬停提示与快速文档 (Hover / Quick Doc)
+-- -----------------------------------------------------------
+-- Ctrl+Q 或 gh 唤起 / 聚焦悬停文档提示窗口
+vim.keymap.set('n', '<C-q>', function()
+    vscode.action('editor.action.showHover')
+end, { desc = 'Show / Focus Hover Documentation' })
+
+vim.keymap.set('n', 'gh', function()
+    vscode.action('editor.action.showHover')
+end, { desc = 'Show / Focus Hover Documentation' })
