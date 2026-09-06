@@ -2,11 +2,23 @@
 // 对应 MomoPersonalConfiguration 核心键位习惯统一映射
 [
   // =========================================================
-  // 1. 全局面板与工作区控制 (与 keyboards.jsonc 保持一致)
+  // 1. 根级与窗口级安全拦截 (解决 Ctrl+Shift+W 被全局 CloseWindow 覆盖的问题)
+  // =========================================================
+  {
+    "context": "Window",
+    "bindings": {
+      // 彻底替换全局行为：Ctrl+Shift+W 仅关闭当前 Tab，绝不意外关闭整个 Zed 软件窗口
+      "ctrl-shift-w": "pane::CloseActiveItem"
+    }
+  },
+
+  // =========================================================
+  // 2. 全局工作区与面板控制 (对齐 keyboards.jsonc)
   // =========================================================
   {
     "context": "Workspace",
     "bindings": {
+      "ctrl-shift-w": "pane::CloseActiveItem",
       // 切换左侧文件树 (与 VS Code Ctrl+B 一致)
       "ctrl-b": "workspace::ToggleLeftDock",
       // 切换右侧辅助栏 (与 VS Code Ctrl+Alt+B 一致)
@@ -17,20 +29,52 @@
       "shift-alt-m": "diagnostics::Deploy",
       // 唤起 AI 对话面板 (与 VS Code Ctrl+Shift+I 一致)
       "ctrl-shift-i": "agent::ToggleFocus",
-      // 关闭当前页面 (与 VS Code Ctrl+Shift+W 一致)
-      "ctrl-shift-w": "pane::CloseActiveItem"
+      // 终端/面板与代码区一键轮转焦点 (对应 VS Code Ctrl+Esc)
+      "ctrl-escape": "workspace::ActivateNextPane"
     }
   },
 
   // =========================================================
-  // 2. Normal 模式核心快捷键 (Vim 模式下且非操作符等待态)
+  // 3. 终端与侧边栏特定交互
   // =========================================================
   {
-    "context": "Editor && vim_mode == normal && vim_operator == none && !VimWaiting",
+    "context": "Terminal",
     "bindings": {
+      // 从终端一键跳回代码编辑器焦点
+      "ctrl-escape": "workspace::ActivateNextPane",
+      // 允许在终端内直接使用跨分屏方向键切回编辑区
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp"
+    }
+  },
+
+  // =========================================================
+  // 4. Editor 内 Normal 模式核心按键 (高优先级覆盖：压制 Vim 冲突键，确保走特定功能)
+  //    增加 !menu 约束：当处于补全/提示下拉列表时，不抢占按键，保障 IDE 补全顺畅
+  // =========================================================
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      // ------------ 核心界面快捷键覆盖 (强行压制 Vim 的 PageUp / 光标下移等冲突) ------------
+      // 压制 Vim 的 ctrl-b (PageUp)，强制走切换左侧边栏
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+      "shift-alt-j": "workspace::ToggleBottomDock",
+      "shift-alt-m": "diagnostics::Deploy",
+      "ctrl-shift-i": "agent::ToggleFocus",
+      "ctrl-shift-w": "pane::CloseActiveItem",
+
+      // ------------ 跨分屏切换焦点 (压制 Vim 的 ctrl-j 下移光标等) ------------
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+
       // ------------ 检索与搜索 ------------
-      // / 与 space fw 统一呼出原生文件内搜索
-      "/": "buffer_search::Deploy",
+      // 原生 / 保留给 Vim 原生精准搜索（支持 n / N 逐项跳转）
+      // space fw 调出原生 GUI 搜索条
       "space f w": "buffer_search::Deploy",
       // 快速找文件 (Quick Open)
       "space f a": "file_finder::Toggle",
@@ -44,18 +88,14 @@
       "space f f": "editor::Format",
 
       // ------------ 标签页轮转与关闭 ------------
-      // J / K 快速轮转左右标签页
       "shift-j": "pane::ActivatePrevItem",
       "shift-k": "pane::ActivateNextItem",
-      // 关闭当前/全部标签
       "space c c": "pane::CloseActiveItem",
       "space c a": "pane::CloseAllItems",
 
-      // ------------ 跨分屏切换光标焦点 (Ctrl + hjkl) ------------
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-k": "workspace::ActivatePaneUp",
+      // ------------ LSP 悬停与文档查看 ------------
+      // 保留 gh 直达悬停文档，防止与 shift-k 轮转冲突后无法看类型定义
+      "g h": "editor::Hover",
 
       // ------------ 分屏最大化 ------------
       "space w m": "workspace::ToggleZoom",
@@ -72,28 +112,19 @@
       "space w shift-h": "workspace::SwapPaneLeft",
       "space w shift-l": "workspace::SwapPaneRight",
       "space w shift-j": "workspace::SwapPaneDown",
-      "space w shift-k": "workspace::SwapPaneUp",
-
-      // ------------ 代码折叠 ------------
-      "z c": "editor::Fold",
-      "z o": "editor::UnfoldLines",
-      "z a": "editor::ToggleFold",
-      "z shift-m": "editor::FoldAll",
-      "z shift-r": "editor::UnfoldAll"
+      "space w shift-k": "workspace::SwapPaneUp"
     }
   },
 
   // =========================================================
-  // 3. Visual 模式补充按键
+  // 5. Visual 模式补充按键
   // =========================================================
   {
-    "context": "Editor && vim_mode == visual && !VimWaiting",
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
-      // 选区按 / 直接搜索选中内容
-      "/": "buffer_search::Deploy",
-      // 局部格式化
+      "ctrl-shift-w": "pane::CloseActiveItem",
+      "ctrl-b": "workspace::ToggleLeftDock",
       "space f f": "editor::Format",
-      // 切换标签
       "shift-j": "pane::ActivatePrevItem",
       "shift-k": "pane::ActivateNextItem"
     }

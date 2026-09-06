@@ -182,24 +182,28 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 - **Windows 本地生效路径**：`%APPDATA%\Zed\`（即 `C:\Users\shuhe\AppData\Roaming\Zed\`）
 - **核心配置理念**：保持 Leader 为 <kbd>Space</kbd>，窗口、文件、搜索、折叠完全沿用同一套按键哲学。
 
-### 1. 全局面板与界面控制 (`Workspace` 作用域)
+### 1. 全局面板与界面控制 (`Window` & `Workspace` 作用域)
 
-| 快捷键 | Zed Action 命令 | 对应功能说明 |
-| :--- | :--- | :--- |
-| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `workspace::ToggleLeftDock` | 切换**左侧边栏**（文件项目面板） |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `pane::CloseActiveItem` | 关闭当前页面 |
+| 快捷键 | 所在作用域 | Zed Action 命令 | 对应功能说明与避坑点 |
+| :--- | :--- | :--- | :--- |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `Window` / `Workspace` | `pane::CloseActiveItem` | **关闭当前页面**（根级拦截，**彻底杜绝触发全局 `CloseWindow` 退出整个 Zed**） |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `Workspace` | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
+| <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `Terminal` / `Workspace` | `workspace::ActivateNextPane` | 从终端或面板**一键切回代码编辑器** |
 
 ---
 
 ### 2. Zed Vim 模式对齐按键表 (Normal 模式)
 
-| 场景分类 | 快捷键 | Zed Action 命令 | 功能说明 |
+> **冲突防护机制**：核心按键均受 `!menu` 约束保护，弹出代码补全下拉建议时绝不抢按键；同时在编辑器内压制 Vim 默认的 `ctrl-j` (光标下移) 与 `ctrl-b` (向上翻页)。
+
+| 场景分类 | 快捷键 | Zed Action 命令 | 功能说明与机制 |
 | :--- | :--- | :--- | :--- |
-| **检索查找** | <kbd>/</kbd> 或 `<leader>fw` | `buffer_search::Deploy` | **触发 Zed 原生文件内搜索栏** |
+| **检索查找** | <kbd>/</kbd> | `vim::Search` | **保持 Vim 原生搜索**（支持 `n` / `N` 上下快速跳词） |
+| **检索查找** | `<leader>fw` | `buffer_search::Deploy` | 调出 Zed 原生底部 GUI 搜索输入条 |
 | **检索查找** | `<leader>fa` | `file_finder::Toggle` | 快速检索打开文件 (Quick Open) |
 | **检索查找** | `<leader>fg` | `pane::DeploySearch` | 全局文字搜索 (Live Grep) |
 | **检索查找** | `<leader>fb` | `tab_switcher::Toggle` | 查看已打开的标签列表 (Buffers) |
@@ -208,14 +212,12 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
 | **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
 | **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
-| **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在拆分窗口间**直接移动光标焦点** |
+| **LSP 悬停** | `gh` | `editor::Hover` | 查看当前符号的**类型定义与悬停文档** |
+| **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`） |
 | **分屏最大化** | `<leader>wm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
 | **单文件投掷** | `<leader>w` + <kbd>h/j/k/l</kbd> | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏 |
 | **分屏组互换** | `<leader>wx` | `workspace::SwapPaneAdjacent` | **左右分屏整组极速对调** |
 | **分屏组移动** | `<leader>w` + <kbd>H/J/K/L</kbd> | `workspace::SwapPane...` | 整个分屏组**向左/下/上/右**对调交换 |
-| **代码折叠** | `zc` / `zo` | `editor::Fold` / `editor::UnfoldLines` | 折叠 / 展开当前代码块 |
-| **代码折叠** | `za` | `editor::ToggleFold` | 切换代码折叠状态 |
-| **代码折叠** | `zM` / `zR` | `editor::FoldAll` / `editor::UnfoldAll` | 全部折叠 / 全部展开 |
 
 ---
 
