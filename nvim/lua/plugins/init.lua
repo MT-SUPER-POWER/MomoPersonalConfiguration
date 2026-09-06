@@ -20,9 +20,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- 2. 插件安装声明列表（具体配置解耦至 lua/plugins/config/ 目录中）
 require("lazy").setup({
-    -- 符号包裹增强插件
+    -- 现代化纯 Lua 符号包裹插件 (ysiw, cs, ds)
     {
-        "tpope/vim-surround",
+        "kylechui/nvim-surround",
+        version = "*", -- 锁定最新稳定版本
+        event = "VeryLazy",
         config = function()
             require("plugins.config.surround")
         end,
@@ -33,6 +35,16 @@ require("lazy").setup({
         "smoka7/hop.nvim",
         config = function()
             require("plugins.config.hop")
+        end,
+    },
+
+    -- 强化文本对象插件 (daa, cia, cif, ciq 等)
+    {
+        "echasnovski/mini.ai",
+        version = "*",
+        event = "VeryLazy",
+        config = function()
+            require("plugins.config.ai")
         end,
     },
 })
