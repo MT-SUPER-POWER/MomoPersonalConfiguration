@@ -49,6 +49,7 @@
   "diffEditor.hideUnchangedRegions.enabled": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
+  // 审查和比较视图中的长行按可视宽度换行。
   "diffEditor.wordWrap": "on",
   "markdown.preview.fontSize": 16,
   "mermaidViewer.previewAppearance": "matchVSCode",

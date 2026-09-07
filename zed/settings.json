@@ -47,6 +47,8 @@
   "buffer_font_fallbacks": [
     "JetBrainsMono Nerd Font"
   ],
+  // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
+  "soft_wrap": "editor_width",
   // =========== UI CONFIG (Not Editor but the software itself) =============
   "ui_font_size": 16.0,
   "ui_font_weight": 350.0,

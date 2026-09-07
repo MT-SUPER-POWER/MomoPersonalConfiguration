@@ -95,6 +95,11 @@
     "command": "-antigravity.toggleChatFocus",
     "when": "!terminalFocus"
   },
+  // 禁用新建 AI 对话，避免 Ctrl+Shift+L 误触后替换当前会话。
+  {
+    "key": "ctrl+shift+l",
+    "command": "-antigravity.startNewConversation"
+  },
   // 拷贝文件绝对路径
   {
     "key": "ctrl+shift+c",
