@@ -51,6 +51,15 @@
     "key": "ctrl+e",
     "command": "-workbench.action.quickOpen"
   },
+  // Ctrl+Shift+N 改为快速打开文件，避免误触新建窗口
+  {
+    "key": "ctrl+shift+n",
+    "command": "-workbench.action.newWindow"
+  },
+  {
+    "key": "ctrl+shift+n",
+    "command": "workbench.action.quickOpen"
+  },
   // 防止误触发提交全部
   {
     "key": "ctrl+k",

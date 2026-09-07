@@ -42,6 +42,7 @@ MomoPersonalConfiguration/
 | 快捷键                                            | 动作 / 命令                   | 功能说明                               |
 | :------------------------------------------------ | :---------------------------- | :------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `closeActiveEditor`           | 关闭当前页面（已屏蔽退出整个软件）     |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `workbench.action.quickOpen`  | 快速检索并打开文件（已屏蔽新建窗口）   |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd>                    | `toggleSidebarVisibility`     | 切换**左侧边栏**（文件树）显示/隐藏    |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>   | `toggleAuxiliaryBar`          | 切换**右侧辅助栏**显示/隐藏            |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>  | `togglePanel`                 | 切换**底部面板**（终端/输出）显示/隐藏 |
@@ -188,6 +189,7 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | 快捷键 | 所在作用域 | Zed Action 命令 | 对应功能说明与避坑点 |
 | :--- | :--- | :--- | :--- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `Window` / `Workspace` | `pane::CloseActiveItem` | **关闭当前页面**（根级拦截，**彻底杜绝触发全局 `CloseWindow` 退出整个 Zed**） |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `Workspace` / `Editor` | `file_finder::Toggle` | 快速检索并打开文件（已解除 `workspace::NewWindow`） |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |

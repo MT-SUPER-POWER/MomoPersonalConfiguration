@@ -2,17 +2,6 @@
 // 对应 MomoPersonalConfiguration 核心键位习惯统一映射
 [
   // =========================================================
-  // 1. 根级与窗口级安全拦截 (解决 Ctrl+Shift+W 被全局 CloseWindow 覆盖的问题)
-  // =========================================================
-  {
-    "context": "Window",
-    "bindings": {
-      // 彻底替换全局行为：Ctrl+Shift+W 仅关闭当前 Tab，绝不意外关闭整个 Zed 软件窗口
-      "ctrl-shift-w": "pane::CloseActiveItem"
-    }
-  },
-
-  // =========================================================
   // 2. 全局工作区与面板控制 (对齐 keyboards.jsonc)
   // =========================================================
   {
@@ -32,7 +21,9 @@
       // 终端/面板与代码区一键轮转焦点 (对应 VS Code Ctrl+Esc)
       "ctrl-escape": "workspace::ActivateNextPane",
       // 唤起悬停提示与快速文档 (与 VS Code Ctrl+Q 一致)
-      "ctrl-q": "editor::Hover"
+      "ctrl-q": "editor::Hover",
+      // 快速打开文件，避免误触新建窗口
+      "ctrl-shift-n": "file_finder::Toggle"
     }
   },
 
@@ -67,6 +58,7 @@
       "shift-alt-m": "diagnostics::Deploy",
       "ctrl-shift-i": "agent::ToggleFocus",
       "ctrl-shift-w": "pane::CloseActiveItem",
+      "ctrl-shift-n": "file_finder::Toggle",
 
       // ------------ 跨分屏切换焦点 (压制 Vim 的 ctrl-j 下移光标等) ------------
       "ctrl-h": "workspace::ActivatePaneLeft",
@@ -90,7 +82,7 @@
       "space f f": "editor::Format",
 
       // ------------ 标签页轮转与关闭 ------------
-      "shift-j": "pane::ActivatePrevItem",
+      "shift-j": "pane::ActivatePreviousItem",
       "shift-k": "pane::ActivateNextItem",
       "space c c": "pane::CloseActiveItem",
       "space c a": "pane::CloseAllItems",
@@ -145,10 +137,18 @@
     "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
       "ctrl-shift-w": "pane::CloseActiveItem",
+      "ctrl-shift-n": "file_finder::Toggle",
       "ctrl-b": "workspace::ToggleLeftDock",
       "space f f": "editor::Format",
-      "shift-j": "pane::ActivatePrevItem",
+      "shift-j": "pane::ActivatePreviousItem",
       "shift-k": "pane::ActivateNextItem"
+    }
+  },
+  // 取消绑定关闭 zed 窗口防止误操作
+  {
+    "unbind": {
+      "ctrl-shift-w": "workspace::CloseWindow",
+      "ctrl-shift-n": "workspace::NewWindow"
     }
   }
 ]
