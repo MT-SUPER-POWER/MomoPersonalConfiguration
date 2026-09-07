@@ -4,7 +4,7 @@
 
 - **核心编辑器**：Antigravity IDE (基于 VS Code 架构)
 - **Vim 驱动**：[vscode-neovim](https://github.com/vscode-neovim/vscode-neovim) (由本地真实 Neovim 实例驱动)
-- **配置索引**：`agy ide/settings.json` 通过 `vscode-neovim.neovimInitVimPaths.win32` 索引至 `nvim/init.lua` 统一管理。
+- **配置索引**：`agy ide/settings.jsonc` 通过 `vscode-neovim.neovimInitVimPaths.win32` 索引至 `nvim/init.lua` 统一管理。
 
 ---
 
@@ -15,7 +15,7 @@ MomoPersonalConfiguration/
 ├── README.md              # 个人配置速查手册（本文件）
 ├── agy ide/               # Antigravity IDE / VS Code 配置
 │   ├── keyboards.jsonc    # IDE 全局自定义按键绑定
-│   └── settings.json      # IDE 核心配置文件
+│   └── settings.jsonc     # IDE 核心配置文件（按功能分区并附注释）
 ├── nvim/                  # Neovim 专属配置
 │   ├── init.lua           # Neovim 主入口
 │   └── lua/
@@ -45,6 +45,7 @@ MomoPersonalConfiguration/
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `workbench.action.quickOpen`  | 快速检索并打开文件（已屏蔽新建窗口）   |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd>                    | `toggleSidebarVisibility`     | 切换**左侧边栏**（文件树）显示/隐藏    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor.action.joinLines` | 编辑器内合并当前行与下一行 |
+| <kbd>Shift</kbd> + <kbd>F6</kbd>                  | `editor.action.rename` | 重命名光标处符号及其引用 |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>   | `toggleAuxiliaryBar`          | 切换**右侧辅助栏**显示/隐藏            |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>  | `togglePanel`                 | 切换**底部面板**（终端/输出）显示/隐藏 |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>  | `view.problems`               | 快速聚焦**错误与问题面板**             |
@@ -195,6 +196,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `Workspace` / `Editor` | `file_finder::Toggle` | 快速检索并打开文件（已解除 `workspace::NewWindow`） |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / Vim `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
 | <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> | `Editor`（非补全菜单） | `editor::Copy` / `Paste` / `Cut` | 恢复系统复制、粘贴、剪切，不受 Vim 模式拦截 |
+| <kbd>Shift</kbd> + <kbd>F6</kbd> | `Editor`（非补全菜单） | `editor::Rename` | 重命名光标处符号及其引用 |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |

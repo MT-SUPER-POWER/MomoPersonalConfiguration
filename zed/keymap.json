@@ -51,7 +51,9 @@
     "bindings": {
       "ctrl-c": "editor::Copy",
       "ctrl-v": "editor::Paste",
-      "ctrl-x": "editor::Cut"
+      "ctrl-x": "editor::Cut",
+      // 对齐 Shift+F6：重命名光标处的符号及其引用
+      "shift-f6": "editor::Rename"
     }
   },
 

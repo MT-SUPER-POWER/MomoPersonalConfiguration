@@ -1,0 +1,213 @@
+{
+  // =========================================================
+  // 窗口与工作台：启动布局、导航树与全局界面位置
+  // =========================================================
+  "window.zoomLevel": 0.3,
+  "workbench.startupEditor": "none",
+  "workbench.editor.showTabs": "multiple",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.activityBar.location": "top",
+  "workbench.auxiliaryActivityBar.location": "default",
+  "workbench.tips.enabled": true,
+  "explorer.compactFolders": false,
+  "explorer.autoReveal": true,
+  "workbench.tree.indent": 10,
+  "workbench.tree.enableStickyScroll": true,
+  "breadcrumbs.enabled": true,
+
+  // =========================================================
+  // 编辑器体验：字体、光标、滚动、补全与基础编辑行为
+  // =========================================================
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', 'JetBrains Mono', monospace",
+  "editor.fontSize": 17,
+  "editor.lineHeight": 2,
+  "editor.tabSize": 2,
+  "editor.lineNumbers": "relative",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.horizontal": "hidden",
+  "editor.scrollbar.vertical": "hidden",
+  "editor.stickyScroll.enabled": false,
+  "editor.lightbulb.enabled": "off",
+  "editor.formatOnPaste": true,
+  "editor.colorDecorators": true,
+  "editor.suggest.showIcons": true,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on",
+  },
+
+  // =========================================================
+  // 文件、差异比较与预览：保存时清理、Diff 阅读和文档字号
+  // =========================================================
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.wordWrap": "on",
+  "markdown.preview.fontSize": 16,
+  "mermaidViewer.previewAppearance": "matchVSCode",
+  "mermaidViewer.useVSCodeTheme": false,
+  "mermaidViewer.theme": "dark",
+
+  // =========================================================
+  // 终端、调试与版本控制
+  // =========================================================
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', 'JetBrains Mono', monospace",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.lineHeight": 1.2,
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.stickyScroll.enabled": false,
+  "debug.console.fontSize": 15,
+  "debug.inlineValues": false,
+  "git.autofetch": true,
+  "gitlens.graph.details.location": "auto",
+  "go.toolsManagement.autoUpdate": true,
+
+  // =========================================================
+  // vscode-neovim：Windows Neovim 进程、配置入口与按键转发
+  // ctrlKeys 列表中的组合键由 Neovim 处理，而非 VS Code 默认命令。
+  // =========================================================
+  "vscode-neovim.neovimExecutablePaths.win32": "D:\\Apps\\Dev\\nvim\\bin\\nvim.exe",
+  "vscode-neovim.neovimInitVimPaths.win32": "D:\\Github\\MomoPersonalConfiguration\\nvim\\init.lua",
+  "vscode-neovim.wslDistribution": "Ubuntu-24.04",
+  "vscode-neovim.ctrlKeysForNormalMode": [
+    "b", "d", "e", "f", "h", "i", "j", "k", "l", "m", "o", "r",
+    "t", "u", "y", "/", "]", "backspace", "delete", "g", "up", "down",
+    "left", "right",
+  ],
+  "vscode-neovim.ctrlKeysForInsertMode": [
+    "a", "d", "h", "j", "m", "o", "r", "t", "u", "w",
+  ],
+
+  // =========================================================
+  // 扩展运行与 AI：推荐提示、扩展宿主 affinity 和会话视图
+  // =========================================================
+  "extensions.ignoreRecommendations": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1,
+  },
+  "chat.viewSessions.orientation": "stacked",
+
+  // =========================================================
+  // 自定义界面样式：移除多余阴影/边框，并微调标题栏与光标外观
+  // 由 custom-ui-style 扩展注入；CSS 选择器和值保持原样。
+  // =========================================================
+  "custom-ui-style.stylesheet": {
+    ".notification-toast": "box-shadow: none !important",
+    ".quick-input-widget.show-file-icons": "box-shadow: none !important",
+    ".quick-input-widget": "top: 25vh !important",
+    ".quick-input-list .scrollbar": "display: none",
+    ".monaco-action-bar.quick-input-inline-action-bar": "display: none",
+    ".editor-widget.find-widget": "box-shadow: none; border-radius: 4px",
+    ".quick-input-titlebar": "background: #100B15 !important",
+    ".monaco-workbench .part.editor > .content .editor-group-container > .title.title-border-bottom:after": "display: none",
+    ".monaco-scrollable-element > .shadow.top": "display: none",
+    ".sidebar .title-label": "padding: 0 !important",
+    ".sidebar": "border: none !important",
+    ".monaco-workbench .monaco-list:not(.element-focused):focus:before": "outline: none !important",
+    ".monaco-list-row.focused": "outline: none !important",
+    ".monaco-editor .scroll-decoration": "display: none",
+    ".title.show-file-icons .label-container .monaco-icon-label.file-icon": "justify-content: center; padding: 0 !important",
+    ".title .monaco-icon-label:after": "margin-right: 0",
+    ".monaco-workbench .part.editor > .content .editor-group-container > .title > .label-container > .title-label": "padding-left: 60px",
+    ".title .monaco-icon-label.file-icon": "margin: 0 60px",
+    ".monaco-editor .cursors-layer .cursor": "background-image: linear-gradient(135deg, #ffaffc 10%, #DA70D6 100%)",
+    ".monaco-workbench .pane-composite-part>.title>.composite-bar-container, .monaco-workbench .pane-composite-part>.header-or-footer>.composite-bar-container": "display: flex; justify-content: center;",
+  },
+
+  // =========================================================
+  // TODO 标记：todo-tree 负责项目树，todohighlight 负责编辑器内高亮
+  // =========================================================
+  "todo-tree.tree.flat": true,
+  "todo-tree.highlights.enabled": false,
+  "todo-tree.filtering.excludeGlobs": [
+    "**/vendor/**", "**/node_modules/**", "**/dist/**", "**/bower_components/**",
+    "**/build/**", "**/.vscode/**", "**/.github/**", "**/_output/**", "**/*.min.*",
+    "**/*.map", "**/*.md", "**/*.MD",
+  ],
+  "todo-tree.general.tags": [
+    "TODO", "FIXME", "DEBUG", "WARNING", "BUG", "NOTE", "OPTIMIZE", "REVIEW", "DEPRECATED",
+  ],
+  "todohighlight.exclude": [
+    "**/node_modules/**", "**/dist/**", "**/build/**", "**/out/**", "**/coverage/**", "**/.vscode/**",
+  ],
+  "todohighlight.keywords": [
+    { "text": "TODO:", "color": "#ff37a6", "backgroundColor": "#2d0036", "border": "1px solid #ff37a6", "borderRadius": "2px" },
+    { "text": "FIXME:", "color": "#00fff7", "backgroundColor": "#1a0036", "border": "1px solid #00fff7", "borderRadius": "2px" },
+    { "text": "DEBUG:", "color": "#ffe600", "backgroundColor": "#2d0036", "border": "1px solid #ffe600", "borderRadius": "2px" },
+    { "text": "WARNING:", "color": "#c16b4f", "backgroundColor": "none", "border": "1px solid #ffe600", "borderRadius": "2px" },
+    { "text": "BUG:", "color": "#ff005e", "backgroundColor": "#2d0036", "border": "1px solid #ff005e", "borderRadius": "2px" },
+    { "text": "NOTE:", "color": "#00fff7", "backgroundColor": "#2d0036", "border": "1px solid #00fff7", "borderRadius": "2px" },
+    { "text": "OPTIMIZE:", "color": "#ff37a6", "backgroundColor": "#1a0036", "border": "1px solid #ff37a6", "borderRadius": "2px" },
+    { "text": "REVIEW:", "color": "#3cff00", "backgroundColor": "#1a0036", "border": "1px solid #ffe600", "borderRadius": "2px" },
+    { "text": "DEPRECATED:", "color": "#b45309", "backgroundColor": "#1a0036", "border": "1px solid #fcd34d", "borderRadius": "4px" },
+  ],
+
+  // =========================================================
+  // 主题与语法着色：SynthWave84 基础主题，以及 C# 类型令牌覆写
+  // =========================================================
+  "workbench.colorTheme": "SynthWave84",
+  "colorize.decoration_type": "dot",
+  "colorize.languages": ["dart", "*"],
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "interface": { "foreground": "#b8ce82" },
+      "namespace": "#cccccc",
+      "enum": "#b8ce82",
+      "struct": { "foreground": "#86C691" },
+      "inactive": { "foreground": "#6A6A6A" },
+    },
+  },
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      { "scope": "entity.name.type.interface.cs", "settings": { "foreground": "#b8ce82" } },
+      { "scope": "entity.name.type.enum.cs", "settings": { "foreground": "#b8ce82" } },
+      { "scope": "entity.name.type.struct.cs", "settings": { "foreground": "#86C691" } },
+      { "scope": "variable.other.enummember.cs", "settings": { "foreground": "#4FC1FF" } },
+    ],
+  },
+
+  // =========================================================
+  // 文件类型与语言专属格式化
+  // =========================================================
+  "[mdx]": { "editor.defaultFormatter": "unifiedjs.vscode-mdx" },
+  "[dockercompose]": { "editor.defaultFormatter": "ms-azuretools.vscode-containers" },
+  "[jsonc]": { "editor.defaultFormatter": "vscode.json-language-features" },
+  "[json]": { "editor.defaultFormatter": "vscode.json-language-features" },
+  "workbench.editorAssociations": { "*.html": "default" },
+
+  // =========================================================
+  // 其他工作台与安全设置
+  // =========================================================
+  "security.promptForLocalFileProtocolHandling": false,
+
+  // =========================================================
+  // 跨 Profile 同步：列表中的设置自动应用到所有 IDE Profile
+  // =========================================================
+  "workbench.settings.applyToAllProfiles": [
+    "http.proxy", "http.proxyStrictSSL", "window.zoomLevel", "update.mode",
+    "extensions.ignoreRecommendations", "editor.fontSize", "editor.fontFamily", "editor.lineHeight",
+    "editor.lineNumbers", "editor.cursorSmoothCaretAnimation", "editor.cursorBlinking", "editor.smoothScrolling",
+    "editor.minimap.enabled", "editor.stickyScroll.enabled", "editor.formatOnPaste", "editor.scrollbar.vertical",
+    "editor.scrollbar.horizontal", "editor.lightbulb.enabled", "editor.suggest.showIcons", "editor.quickSuggestions",
+    "workbench.editor.showTabs", "workbench.startupEditor", "workbench.activityBar.location", "workbench.tree.indent",
+    "workbench.tree.enableStickyScroll", "workbench.tips.enabled", "breadcrumbs.enabled", "explorer.compactFolders",
+    "terminal.integrated.fontSize", "terminal.integrated.fontFamily", "terminal.integrated.lineHeight",
+    "terminal.integrated.fontLigatures.enabled", "terminal.integrated.stickyScroll.enabled",
+    "terminal.integrated.defaultProfile.windows", "files.trimTrailingWhitespace", "files.insertFinalNewline",
+    "extensions.experimental.affinity", "vscode-neovim.useWSL", "vscode-neovim.wslDistribution",
+    "vscode-neovim.ctrlKeysForNormalMode", "github.copilot.nextEditSuggestions.enabled", "github.copilot.enable",
+    "chat.mcp.gallery.enabled", "chat.mcp.autostart", "custom-ui-style.font.sansSerif", "custom-ui-style.stylesheet",
+    "todo-tree.tree.flat", "todo-tree.highlights.enabled", "todo-tree.filtering.excludeGlobs", "todo-tree.general.tags",
+    "todohighlight.exclude", "todohighlight.keywords", "better-comments.tags", "debug.console.fontSize",
+    "markdown.preview.fontSize", "editor.tabSize", "workbench.iconTheme", "editor.colorDecorators",
+    "colorize.decoration_type", "colorize.languages",
+  ],
+}

@@ -66,6 +66,12 @@
     "command": "editor.action.joinLines",
     "when": "editorTextFocus && !inSnippetMode"
   },
+  // 对齐 Shift+F6：重命名光标处的符号及其引用
+  {
+    "key": "shift+f6",
+    "command": "editor.action.rename",
+    "when": "editorTextFocus && editorHasRenameProvider"
+  },
   // 防止误触发提交全部
   {
     "key": "ctrl+k",
