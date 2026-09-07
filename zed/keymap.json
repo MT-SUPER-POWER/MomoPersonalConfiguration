@@ -44,7 +44,19 @@
   },
 
   // =========================================================
-  // 4. Editor 内 Normal 模式核心按键 (高优先级覆盖：压制 Vim 冲突键，确保走特定功能)
+  // 4. 恢复常用系统编辑快捷键，避免 Vim 模式拦截
+  // =========================================================
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+      "ctrl-x": "editor::Cut"
+    }
+  },
+
+  // =========================================================
+  // 5. Editor 内 Normal 模式核心按键 (高优先级覆盖：压制 Vim 冲突键，确保走特定功能)
   //    增加 !menu 约束：当处于补全/提示下拉列表时，不抢占按键，保障 IDE 补全顺畅
   // =========================================================
   {
@@ -59,6 +71,8 @@
       "ctrl-shift-i": "agent::ToggleFocus",
       "ctrl-shift-w": "pane::CloseActiveItem",
       "ctrl-shift-n": "file_finder::Toggle",
+      // 合并当前行与下一行；!menu 由当前上下文保证，不抢补全菜单
+      "ctrl-shift-j": "editor::JoinLines",
 
       // ------------ 跨分屏切换焦点 (压制 Vim 的 ctrl-j 下移光标等) ------------
       "ctrl-h": "workspace::ActivatePaneLeft",
@@ -131,13 +145,14 @@
   },
 
   // =========================================================
-  // 5. Visual 模式补充按键
+  // 6. Visual 模式补充按键
   // =========================================================
   {
     "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
     "bindings": {
       "ctrl-shift-w": "pane::CloseActiveItem",
       "ctrl-shift-n": "file_finder::Toggle",
+      "ctrl-shift-j": "editor::JoinLines",
       "ctrl-b": "workspace::ToggleLeftDock",
       "space f f": "editor::Format",
       "shift-j": "pane::ActivatePreviousItem",

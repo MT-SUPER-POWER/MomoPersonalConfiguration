@@ -44,6 +44,7 @@ MomoPersonalConfiguration/
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `closeActiveEditor`           | 关闭当前页面（已屏蔽退出整个软件）     |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `workbench.action.quickOpen`  | 快速检索并打开文件（已屏蔽新建窗口）   |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd>                    | `toggleSidebarVisibility`     | 切换**左侧边栏**（文件树）显示/隐藏    |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor.action.joinLines` | 编辑器内合并当前行与下一行 |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>   | `toggleAuxiliaryBar`          | 切换**右侧辅助栏**显示/隐藏            |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>  | `togglePanel`                 | 切换**底部面板**（终端/输出）显示/隐藏 |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>  | `view.problems`               | 快速聚焦**错误与问题面板**             |
@@ -181,6 +182,8 @@ MomoPersonalConfiguration/
 
 Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式。本仓库已将 Zed 的快捷键模型与 Antigravity IDE / Neovim 实现了 **100% 肌肉记忆对齐**。
 
+Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity IDE 中，`y` / `d` / `p` 与 <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>Ctrl</kbd> + <kbd>V</kbd> 共用内容；Zed 也明确设为对所有 Vim 操作使用系统剪贴板。
+
 - **Windows 本地生效路径**：`%APPDATA%\Zed\`（即 `C:\Users\shuhe\AppData\Roaming\Zed\`）
 - **核心配置理念**：保持 Leader 为 <kbd>Space</kbd>，窗口、文件、搜索、折叠完全沿用同一套按键哲学。
 
@@ -190,7 +193,8 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | :--- | :--- | :--- | :--- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `Window` / `Workspace` | `pane::CloseActiveItem` | **关闭当前页面**（根级拦截，**彻底杜绝触发全局 `CloseWindow` 退出整个 Zed**） |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `Workspace` / `Editor` | `file_finder::Toggle` | 快速检索并打开文件（已解除 `workspace::NewWindow`） |
-| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / Vim `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> | `Editor`（非补全菜单） | `editor::Copy` / `Paste` / `Cut` | 恢复系统复制、粘贴、剪切，不受 Vim 模式拦截 |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
@@ -212,6 +216,7 @@ Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式
 | **检索查找** | `<leader>fb` | `tab_switcher::Toggle` | 查看已打开的标签列表 (Buffers) |
 | **文件与格式** | `<leader>fs` | `workspace::Save` | 保存当前文件 |
 | **文件与格式** | `<leader>ff` | `editor::Format` | **文档格式化** (Visual 模式下局部格式化) |
+| **文件与格式** | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor::JoinLines` | 合并当前行与下一行（仅 Vim 编辑器且不在补全菜单时生效） |
 | **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
 | **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
 | **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |

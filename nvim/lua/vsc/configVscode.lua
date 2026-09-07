@@ -9,9 +9,10 @@ end
 -- 1. 将 Neovim 内部的通知统一桥接到 VS Code 右下角通知栏
 vim.notify = vscode.notify
 
--- 2. 剪贴板集成（如果在 WSL 环境下使用 VS Code 原生剪贴板 API）
+-- 2. 剪贴板集成：默认 Vim 寄存器与 VS Code / Windows 系统剪贴板共用内容
 if vim.g.vscode_clipboard then
     vim.g.clipboard = vim.g.vscode_clipboard
+    vim.opt.clipboard:append("unnamedplus")
 end
 
 -- 3. 解决 VS Code 中 j/k 移动意外触发展开折叠（Issue #58 核心方案）

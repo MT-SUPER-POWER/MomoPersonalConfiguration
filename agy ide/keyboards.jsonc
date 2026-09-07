@@ -9,7 +9,7 @@
     "key": "ctrl+shift+w",
     "command": "-workbench.action.closeWindow"
   },
-  // Left Panel 总开关，减少了限制条件
+  // 左侧栏总开关
   {
     "key": "ctrl+b",
     "command": "workbench.action.toggleSidebarVisibility"
@@ -59,6 +59,12 @@
   {
     "key": "ctrl+shift+n",
     "command": "workbench.action.quickOpen"
+  },
+  // 编辑器内合并当前行与下一行；不影响面板或终端
+  {
+    "key": "ctrl+shift+j",
+    "command": "editor.action.joinLines",
+    "when": "editorTextFocus && !inSnippetMode"
   },
   // 防止误触发提交全部
   {
