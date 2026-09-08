@@ -1,0 +1,13 @@
+{
+	"dline": {
+		"scope": "go,javascript,typescript,cpp,c,rust,java,csharp,php,kotlin",
+		"prefix": [
+			"dline",
+			"dl"
+		],
+		"body": [
+			"// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ $1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+		],
+		"description": "long divided line"
+	}
+}

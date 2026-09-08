@@ -178,6 +178,26 @@
       "space space w": "vim::HelixJumpToWord"
     }
   },
+  // 文件树快捷键；输入文件名时不接管字母键。
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "%": null,
+      "shift-r": null,
+      "x": null,
+      "s": null,
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "d": ["project_panel::Trash", { "skip_prompt": false }],
+      "shift-d": ["project_panel::Delete", { "skip_prompt": false }],
+      "r": "project_panel::Rename",
+      "ctrl-shift-c": "project_panel::CopyPath",
+      "alt-shift-c": "workspace::CopyRelativePath",
+      "ctrl-k ctrl-shift-c": null,
+      "alt-shift-r": "project_panel::RevealInFileManager",
+      "alt-shift-s": "project_panel::OpenWithSystem"
+    }
+  },
   // 取消绑定关闭 zed 窗口防止误操作
   {
     "unbind": {

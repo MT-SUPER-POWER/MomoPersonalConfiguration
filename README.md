@@ -38,6 +38,20 @@ MomoPersonalConfiguration/
 
 Starship 的配置来源与使用方式见 [Starship 配置说明](starship/README.md)。
 
+## 代码片段（agyIDE / Zed）
+
+| 项目 | 说明 |
+| --- | --- |
+| agyIDE 存档 | `agy ide/snippets/`，对应 `%APPDATA%\Antigravity IDE\User\snippets\` |
+| Zed 配置 | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分 |
+| 分区标题 | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME` |
+| 简单分隔线 | `dline` / `dl`，保留原有 Go、JS、TS、C/C++、Rust、Java、C#、PHP、Kotlin 范围 |
+| 使用 | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题 |
+| 后续同步 | 将对应仓库目录内的片段复制到上述本机目录；不是自动双向同步，同名文件覆盖前先合并本机修改 |
+| Zed 适配 | 触发词别名拆成独立条目；Vue 使用 `vue.js.json`、TSX 使用 `tsx.json`、C# 使用 `csharp.json`；EditorConfig 使用 `#` 注释 |
+
+Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.dev/docs/snippets)。未安装的语言扩展需先启用；此处不安装扩展。
+
 # ⌨️ 快捷键速查表 (Cheat Sheet)
 
 > **前缀说明**：`<leader>` 键已映射为空格键 <kbd>Space</kbd>。
@@ -321,6 +335,26 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 | 结束编辑        | `Esc`                                        | `Esc`                             |
 | 注意            | 最后跳到的候选尚未记录，用 `Space w s` 加入  | Visual 退出不等于仅取消当前项     |
 | 语义重命名      | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左                              |
+
+### 文件树快捷键（agyIDE / Zed）
+
+以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.json`。
+
+| 操作 | 快捷键 |
+| --- | --- |
+| 新建文件 | `a` |
+| 新建文件夹 | `A` |
+| 移到回收站 | `d` |
+| 完全删除 | `D`（`Shift+D`） |
+| 重命名文件或文件夹 | `r` |
+| 复制绝对路径 | `Ctrl+Shift+C` |
+| 复制相对路径 | `Alt+Shift+C`（agyIDE 沿用原生作用域，编辑器中也可用；旧 `Ctrl+K Ctrl+Shift+C` 已解绑） |
+| 在系统文件管理器中显示 | `Alt+Shift+R` |
+| 用默认应用打开（仅 Zed） | `Alt+Shift+S` |
+
+删除使用各编辑器原有的确认设置；Zed 显式保留确认提示。agyIDE 的 `d` 仅在所选项目支持回收站时启用，不回退为完全删除。agyIDE 暂未配置“用系统默认应用打开”的等价命令。
+
+原 Vim 文件树按键 `%`（`Shift+5`）、`Shift+R`、`x`、`s` 和原复制相对路径组合键已解除；`d` 改为移到回收站。其他按键保持原样。
 
 ### Hop 风格单词跳转（agyIDE / Zed）
 

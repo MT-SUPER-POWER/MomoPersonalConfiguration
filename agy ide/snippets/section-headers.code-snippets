@@ -1,0 +1,54 @@
+{
+  "Antigravity C-Style Section Header": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact,c,cpp,csharp,java,go,rust,swift,kotlin,scala,dart,php,vue,svelte,scss,less,jsonc,proto,groovy,cs",
+    "prefix": [
+      "header",
+      "section",
+      "divider",
+      "sec"
+    ],
+    "body": [
+      "// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入反重力 (Antigravity) 双斜杠标准分块分隔线"
+  },
+  "Antigravity Hash-Style Section Header": {
+    "scope": "python,shellscript,bash,sh,yaml,dockerfile,toml,r,ruby,perl,powershell",
+    "prefix": [
+      "header",
+      "section",
+      "divider",
+      "sec"
+    ],
+    "body": [
+      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入反重力 (Antigravity) 井号标准分块分隔线"
+  },
+  "Antigravity SQL Section Header": {
+    "scope": "sql,editorconfig",
+    "prefix": [
+      "header",
+      "section",
+      "divider",
+      "sec"
+    ],
+    "body": [
+      "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入反重力 (Antigravity) SQL 标准分块分隔线"
+  },
+  "Antigravity HTML Section Header": {
+    "scope": "html,xml,svg,markdown",
+    "prefix": [
+      "header",
+      "section",
+      "divider",
+      "sec"
+    ],
+    "body": [
+      "<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->"
+    ],
+    "description": "插入反重力 (Antigravity) HTML/XML/MD 标准分块分隔线"
+  }
+}

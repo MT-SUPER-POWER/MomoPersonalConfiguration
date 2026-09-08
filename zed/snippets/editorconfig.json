@@ -1,0 +1,30 @@
+{
+  "Antigravity SQL Section Header (header)": {
+    "prefix": "header",
+    "body": [
+      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入SQL 标准分块分隔线"
+  },
+  "Antigravity SQL Section Header (section)": {
+    "prefix": "section",
+    "body": [
+      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入SQL 标准分块分隔线"
+  },
+  "Antigravity SQL Section Header (divider)": {
+    "prefix": "divider",
+    "body": [
+      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入SQL 标准分块分隔线"
+  },
+  "Antigravity SQL Section Header (sec)": {
+    "prefix": "sec",
+    "body": [
+      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    ],
+    "description": "插入SQL 标准分块分隔线"
+  }
+}

@@ -1,4 +1,55 @@
 [
+  // 文件树快捷键（与 Zed 对齐）；输入文件名时不触发。
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+a",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
+  },
+  {
+    "key": "d",
+    "command": "moveFileToTrash",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly && explorerResourceMoveableToTrash"
+  },
+  {
+    "key": "shift+d",
+    "command": "deleteFile",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "copyFilePath",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+  },
+  // 沿用原生作用域，只替换按键；同时解除旧组合键的两条默认绑定。
+  {
+    "key": "ctrl+k ctrl+shift+c",
+    "command": "-copyRelativeFilePath"
+  },
+  {
+    "key": "alt+shift+c",
+    "command": "copyRelativeFilePath",
+    "when": "!editorFocus"
+  },
+  {
+    "key": "alt+shift+c",
+    "command": "copyRelativeFilePath",
+    "when": "editorFocus"
+  },
+  {
+    "key": "alt+shift+r",
+    "command": "revealFileInOS",
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && resourceScheme == file"
+  },
   // 关闭当前页面
   {
     "key": "ctrl+shift+w",

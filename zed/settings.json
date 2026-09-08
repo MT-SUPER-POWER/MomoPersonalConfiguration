@@ -8,11 +8,138 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   // =========== COMMON CONFIG =============
-  // Vue 符号重命名由 vtsls 配合 Vue TypeScript 插件提供。
+  "git_panel": {
+    "group_by": "staging",
+    "tree_view": true,
+  },
+  "base_keymap": "VSCode",
+  "tab_size": 2,
+  "cursor_blink": true,
+  "icon_theme": "Material Icon Theme",
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "SynthWave 84 Dark",
+  },
+  // 文件树面板
+  "project_panel": {
+    "git_status": true, // git 状态
+    "auto_fold_dirs": false, // 防止里面单独文件的时候时候这些为一个
+  },
+  // 大纲面板
+  "outline_panel": {
+    "git_status": true,
+  },
+  "markdown_preview_font_family": "JetBrains Mono",
+  "auto_indent_on_paste": true,
+  "ensure_final_newline_on_save": true,
+  "minimap": {
+    "show": "never",
+  },
+  "scrollbar": {
+    "axes": {
+      "horizontal": false,
+      "vertical": false,
+    },
+  },
+  "relative_line_numbers": "enabled",
+  "tab_bar": {
+    "show": true,
+  },
+  "tabs": {
+    "git_status": true,
+  },
+  "sticky_scroll": {
+    "enabled": false,
+  },
+
+  // =========== VIM CONFIG =============
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "default_mode": "normal",
+    // 保持 Ctrl+C 与 Vim 的 y/d 等操作共用 Windows 系统剪贴板
+    "use_system_clipboard": "always",
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ EDITOR CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  "buffer_font_size": 18.0,
+  "buffer_font_weight": 450.0,
+  "buffer_line_height": {
+    "custom": 1.7999999523162842,
+  },
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_fallbacks": ["JetBrainsMono Nerd Font"],
+  // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
+  "soft_wrap": "editor_width",
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UI CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  "ui_font_size": 16.0,
+  "ui_font_weight": 350.0,
+  "ui_font_family": "JetBrains Mono",
+  "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TERMINAL CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  "terminal": {
+    "font_weight": 350.0,
+    "font_size": 15.0,
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_fallbacks": ["JetBrains Mono", "JetBrainsMono Nerd Font"],
+    "line_height": {
+      "custom": 1.5,
+    },
+    "shell": "system",
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ AGENT CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  "agent": {
+    "sandbox_permissions": {
+      "allow_unsandboxed": true,
+      "write_paths": [
+        {
+          "requested": "D:\\Github\\Scopify",
+          "resolved": "D:\\Github\\Scopify",
+          "on_windows_fs": true,
+        },
+      ],
+    },
+    "sidebar_side": "left",
+    "default_model": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "enable_thinking": true,
+      "effort": "high",
+    },
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "agent_ui_font_size": 15.0,
+  "agent_servers": {
+    "claude-acp": {
+      "default_config_options": {
+        "effort": "max",
+        "model": "glm-5.3[1M]",
+      },
+      "type": "registry",
+    },
+    "codex-acp": {
+      "default_config_options": {
+        "reasoning_effort": "xhigh",
+        "model": "gpt-5.3-codex-spark",
+      },
+      "type": "registry",
+    },
+  },
+  "edit_predictions": {
+    "copilot": {},
+    "provider": "zed",
+  },
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ LSP CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "languages": {
     "Vue.js": {
-      "language_servers": ["vtsls", "vue-language-server", "..."]
-    }
+      "language_servers": ["vtsls", "vue-language-server", "..."],
+    },
   },
   "lsp": {
     "vtsls": {
@@ -25,156 +152,12 @@
                 "location": "C:/Users/shuhe/AppData/Local/Zed/extensions/work/vue",
                 "languages": ["vue.js"],
                 "enableForWorkspaceTypeScriptVersions": true,
-                "configNamespace": "typescript"
-              }
-            ]
-          }
-        }
-      }
-    }
-  },
-  "base_keymap": "VSCode",
-  "tab_size": 2,
-  "cursor_blink": true,
-  "icon_theme": "Material Icon Theme",
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "SynthWave 84 Dark",
-  },
-  "auto_indent_on_paste": true,
-  "ensure_final_newline_on_save": true,
-  "minimap": {
-    "show": "never"
-  },
-  "scrollbar": {
-    "axes": {
-      "horizontal": false,
-      "vertical": false
-    }
-  },
-  "relative_line_numbers": "enabled",
-  // =========== VIM CONFIG =============
-  "vim_mode": true,
-  "vim": {
-    "toggle_relative_line_numbers": true,
-    "default_mode": "normal",
-    // 保持 Ctrl+C 与 Vim 的 y/d 等操作共用 Windows 系统剪贴板
-    "use_system_clipboard": "always"
-  },
-  // =========== EDITOR CONFIG =============
-  "buffer_font_size": 17.0,
-  "buffer_font_weight": 450.0,
-  "buffer_line_height": {
-    "custom": 1.5
-  },
-  "buffer_font_family": "JetBrains Mono",
-  "buffer_font_fallbacks": [
-    "JetBrainsMono Nerd Font"
-  ],
-  // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
-  "soft_wrap": "editor_width",
-  // =========== UI CONFIG (Not Editor but the software itself) =============
-  "ui_font_size": 16.0,
-  "ui_font_weight": 350.0,
-  "ui_font_family": "JetBrains Mono",
-  "ui_font_fallbacks": [
-    "JetBrainsMono Nerd Font Mono"
-  ],
-  // =========== TERMINAL CONFIG =============
-  "terminal": {
-    "font_weight": 350.0,
-    "font_size": 15.0,
-    "font_family": "JetBrainsMono Nerd Font",
-    "font_fallbacks": [
-      "JetBrains Mono",
-      "JetBrainsMono Nerd Font"
-    ],
-    "line_height": {
-      "custom": 1.5
-    }
-  },
-  // ============= AGENT CONFIG =============
-  "agent": {
-    "sidebar_side": "left",
-    "default_model": {
-      "provider": "openai-subscribed",
-      "model": "gpt-5.3-codex-spark",
-      "enable_thinking": true,
-      "effort": "high"
-    },
-    "favorite_models": [],
-    "model_parameters": []
-  },
-  "agent_ui_font_size": 16.0,
-  "agent_servers": {
-    "claude-acp": {
-      "type": "registry"
-    },
-    "codex-acp": {
-      "type": "registry"
-    }
-  },
-  "cli_default_open_behavior": "existing_window",
-  "diff_view_style": "unified",
-  "markdown_preview_font_family": "JetBrains Mono",
-  "edit_predictions": {
-    "provider": "zed"
-  },
-  "project_panel": {
-    "git_status": true,
-    "auto_fold_dirs": false
-  },
-  "outline_panel": {
-    "git_status": true
-  },
-  "global_lsp_settings": {
-    "semantic_token_rules": [
-      {
-        "token_type": "interface",
-        "token_modifiers": [],
-        "style": [],
-        "foreground_color": "#b8ce82ff",
-        "background_color": null,
-        "underline": null,
-        "strikethrough": null,
-        "font_weight": null,
-        "font_style": null
+                "configNamespace": "typescript",
+              },
+            ],
+          },
+        },
       },
-      {
-        "token_type": "struct",
-        "token_modifiers": [],
-        "style": [],
-        "foreground_color": "#86c691ff",
-        "background_color": null,
-        "underline": null,
-        "strikethrough": null,
-        "font_weight": null,
-        "font_style": null
-      },
-      {
-        "token_type": "inactive",
-        "token_modifiers": [],
-        "style": [],
-        "foreground_color": "#6a6a6aff",
-        "background_color": null,
-        "underline": null,
-        "strikethrough": null,
-        "font_weight": null,
-        "font_style": null
-      }
-    ]
-  },
-  "tab_bar": {
-    "show": true
-  },
-  "tabs": {
-    "git_status": true
-  },
-  "sticky_scroll": {
-    "enabled": false
-  },
-  "gutter": {
-    "line_numbers": true
+    },
   },
 }
