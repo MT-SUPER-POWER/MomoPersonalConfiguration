@@ -14,6 +14,15 @@
     "key": "ctrl+b",
     "command": "workbench.action.toggleSidebarVisibility"
   },
+  // Ctrl+Shift+B 打开并聚焦大纲，替换默认的构建任务快捷键。
+  {
+    "key": "ctrl+shift+b",
+    "command": "-workbench.action.tasks.build"
+  },
+  {
+    "key": "ctrl+shift+b",
+    "command": "outline.focus"
+  },
   // Right Panel 总开关，减少了限制条件
   {
     "key": "ctrl+alt+b",

@@ -20,6 +20,14 @@ vim.opt.rtp:prepend(lazypath)
 
 -- 2. 插件安装声明列表（具体配置解耦至 lua/plugins/config/ 目录中）
 require("lazy").setup({
+    -- agyIDE：在 Normal 模式积累选区，再交给 VS Code 原生多光标编辑。
+    {
+        "vscode-neovim/vscode-multi-cursor.nvim",
+        cond = not not vim.g.vscode,
+        config = function()
+            require("plugins.config.multicursor")
+        end,
+    },
     -- 现代化纯 Lua 符号包裹插件 (ysiw, cs, ds)
     {
         "kylechui/nvim-surround",

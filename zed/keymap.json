@@ -10,6 +10,8 @@
       "ctrl-shift-w": "pane::CloseActiveItem",
       // 切换左侧文件树 (与 VS Code Ctrl+B 一致)
       "ctrl-b": "workspace::ToggleLeftDock",
+      // 打开大纲面板并切换焦点。
+      "ctrl-shift-b": "outline_panel::ToggleFocus",
       // 切换右侧辅助栏 (与 VS Code Ctrl+Alt+B 一致)
       "ctrl-alt-b": "workspace::ToggleRightDock",
       // 切换底部终端面板 (与 VS Code Shift+Alt+J 一致)
@@ -52,6 +54,8 @@
       "ctrl-c": "editor::Copy",
       "ctrl-v": "editor::Paste",
       "ctrl-x": "editor::Cut",
+      // 编辑器内显式覆盖，确保 Vim 模式也能打开大纲。
+      "ctrl-shift-b": "outline_panel::ToggleFocus",
       // 对齐 Shift+F6：重命名光标处的符号及其引用
       "shift-f6": "editor::Rename"
     }
@@ -159,6 +163,19 @@
       "space f f": "editor::Format",
       "shift-j": "pane::ActivatePreviousItem",
       "shift-k": "pane::ActivateNextItem"
+    }
+  },
+  // 多光标选择：保留原有 wl/wL 分屏操作，n/N 表示下一个/上一个。
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      "space w n": "vim::SelectNext",
+      "space w shift-n": "vim::SelectPrevious",
+      "space w >": ["editor::SelectNext", { "replace_newest": true }],
+      "space w <": ["editor::SelectPrevious", { "replace_newest": true }],
+      "space w a": "editor::SelectAllMatches",
+      // 对齐 agyIDE 的 Hop 单词跳转：空格、空格、w，再输入目标标签。
+      "space space w": "vim::HelixJumpToWord"
     }
   },
   // 取消绑定关闭 zed 窗口防止误操作

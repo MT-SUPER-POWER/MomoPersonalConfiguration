@@ -293,3 +293,27 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 | **整块删除废弃函数** | **`daf`** | Delete Around Function（连函数声明带体整块删） |
 | **复制整个引号里的内容** | **`yiq`** 或 **`yi"`** | Yank Inside Quote（纯文本直接进剪贴板） |
 | **快速选中 HTML/JSX 标签内部** | **`cit`** | Change Inside Tag（清空 `<div>...</div>` 内部） |
+
+### 多光标选择（agyIDE / Zed）
+
+按键依次输入；大写 `N` 表示 `Shift+N`。
+
+| 按键 | agyIDE（Normal） | Zed（Normal / Visual） |
+| --- | --- | --- |
+| `Space w n` | 记录当前词，移动到下一个候选 | 添加下一个同名选区 |
+| `Space w N` | 记录当前词，移动到上一个候选 | 添加上一个同名选区 |
+| `Space w s` | 原地选中 / 取消当前单词，保留其他记录 | 未绑定：暂无已确认的等价原生命令 |
+| `Space w > / <` | 跳过当前候选，向后 / 向前查找 | 替换最近选区为下一个 / 上一个匹配 |
+| `Space w a` | 全选同名词并进入原生多光标编辑 | 全选同名词，按 `c` 替换 |
+| `Space w c` | Visual：记录选区；Normal：接 `iw` 记录当前词 | 未绑定 |
+| 开始替换 | `Space w e` → 输入新文字 | 选好后 `c` → 输入新文字 |
+| 清空记录 | 编辑前按 `Space w q` | — |
+| 结束编辑 | `Esc` | `Esc` |
+| 注意 | 最后跳到的候选尚未记录，用 `Space w s` 加入 | Visual 退出不等于仅取消当前项 |
+| 语义重命名 | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左 |
+
+### Hop 风格单词跳转（agyIDE / Zed）
+
+| 编辑器 | 快捷键（依次按） | 功能 | 取消 |
+| --- | --- | --- | --- |
+| agyIDE / Zed | `Space Space w` → 目标标签 | Normal 跳转到单词；Visual 扩展选区 | `Esc` |

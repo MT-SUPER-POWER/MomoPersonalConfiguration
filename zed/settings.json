@@ -8,6 +8,31 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   // =========== COMMON CONFIG =============
+  // Vue 符号重命名由 vtsls 配合 Vue TypeScript 插件提供。
+  "languages": {
+    "Vue.js": {
+      "language_servers": ["vtsls", "vue-language-server", "..."]
+    }
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "vtsls": {
+          "tsserver": {
+            "globalPlugins": [
+              {
+                "name": "@vue/typescript-plugin",
+                "location": "C:/Users/shuhe/AppData/Local/Zed/extensions/work/vue",
+                "languages": ["vue.js"],
+                "enableForWorkspaceTypeScriptVersions": true,
+                "configNamespace": "typescript"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
   "base_keymap": "VSCode",
   "tab_size": 2,
   "cursor_blink": true,
