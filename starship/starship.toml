@@ -1,0 +1,138 @@
+# ==============================================================================
+# 🎨 【核心图标与符号集中配置区】(所有 ICON 与用户 LOGO 集中在此)
+# ==============================================================================
+#
+# 常用备选用户 LOGO（可直接复制字符替换下方的图标）：
+#   󰄛 (小猫咪)   󱄄 (魔法星)    (小幽灵)    (像素爱心)
+#    (经典终端)  (代码括号) 󰚌 (赛博机器) 󰈸 (动力火焰)
+#    (用户剪影)  (璀璨钻石) 󰖄 (闪电风暴) ▲ (经典三角)
+#
+
+add_newline = false
+
+# ==============================================================================
+# 🧩 【经典无暇马卡龙胶囊链：第一行全局状态，第二行极简输入】
+# 解决 PowerShell 下右侧提示符 (right_format) 闪烁与跳行问题
+# ==============================================================================
+
+format = """
+$hostname\
+[](fg:#363A4F bg:#f38ba8)\
+$directory\
+[](fg:#f38ba8 bg:#f5a97f)\
+$git_branch\
+$git_status\
+[](fg:#f5a97f bg:#a6e3a1)\
+$nodejs\
+$python\
+$rust\
+$golang\
+[](fg:#a6e3a1 bg:#cba6f7)\
+$cmd_duration\
+[](fg:#cba6f7 bg:#89dceb)\
+$time\
+[](fg:#89dceb bg:#a6e3a1)\
+[ ~ ](bg:#a6e3a1 fg:#1e1e2e bold)\
+[ ](fg:#a6e3a1)\
+$line_break\
+$character"""
+
+# ------------------------------------------------------------------------------
+# 1. 第二行：用户 LOGO 与输入提示符
+# ------------------------------------------------------------------------------
+[character]
+success_symbol = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #cba6f7) "
+error_symbol   = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #f38ba8) "
+
+# ------------------------------------------------------------------------------
+# 2. 第一行：系统标识与主机名 (深蓝灰底: #363A4F)
+# ------------------------------------------------------------------------------
+[hostname]
+ssh_only = false
+trim_at = ""
+style = "bg:#363A4F fg:#A6E3A1 bold"
+format = "[  $hostname ]($style)"
+
+# ------------------------------------------------------------------------------
+# 3. 第一行：工作目录 (马卡龙粉底: #f38ba8)
+# ------------------------------------------------------------------------------
+[directory]
+style = "bg:#f38ba8 fg:#1e1e2e bold"
+format = "[  $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# ------------------------------------------------------------------------------
+# 4. 第一行：独立项目与开发语言模块 (独立色块，完整文件与后缀检测)
+# ------------------------------------------------------------------------------
+
+# Git 分支 (独立蜜桃橙底)
+[git_branch]
+symbol = " "
+style = "bg:#f5a97f fg:#1e1e2e bold"
+format = "[ $symbol$branch ]($style)"
+
+# Git 状态
+[git_status]
+style = "bg:#f5a97f fg:#ed254e bold"
+format = "[$all_status$ahead_behind ]($style)"
+conflicted = "󰞇 "
+ahead      = "⇡${count}"
+behind     = "⇣${count}"
+diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked  = ""
+modified   = "!"
+staged     = "+"
+renamed    = "»"
+deleted    = "✘"
+
+# Node.js 环境 (独立薄荷绿底)
+[nodejs]
+symbol = " "
+style = "bg:#a6e3a1 fg:#1e1e2e bold"
+format = "[ $symbol$version ]($style)"
+detect_files = ["package.json", ".nvmrc", "node_modules", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lockb"]
+detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts", "jsx", "tsx"]
+
+# Python 环境 (独立薄荷绿底)
+[python]
+symbol = " "
+style = "bg:#a6e3a1 fg:#1e1e2e bold"
+format = "[ $symbol$version ]($style)"
+detect_files = [".python-version", "Pipfile", "__init__.py", "pyproject.toml", "requirements.txt", "setup.py", "main.py"]
+detect_extensions = ["py"]
+
+# Rust 环境 (独立薄荷绿底)
+[rust]
+symbol = " "
+style = "bg:#a6e3a1 fg:#1e1e2e bold"
+format = "[ $symbol$version ]($style)"
+detect_files = ["Cargo.toml"]
+detect_extensions = ["rs"]
+
+# Golang 环境 (独立薄荷绿底)
+[golang]
+symbol = " "
+style = "bg:#a6e3a1 fg:#1e1e2e bold"
+format = "[ $symbol$version ]($style)"
+detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
+detect_extensions = ["go"]
+
+
+# ------------------------------------------------------------------------------
+# 5. 第一行：命令耗时 (薰衣草紫底: #cba6f7)
+# ------------------------------------------------------------------------------
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+style = "bg:#cba6f7 fg:#1e1e2e bold"
+format = "[ 󱎫 $duration ]($style)"
+
+# ------------------------------------------------------------------------------
+# 6. 第一行：当前时间 (天蓝底: #89dceb)
+# ------------------------------------------------------------------------------
+[time]
+disabled = false
+time_format = "%I:%M %p"
+style = "bg:#89dceb fg:#1e1e2e bold"
+format = "[  $time ]($style)"
