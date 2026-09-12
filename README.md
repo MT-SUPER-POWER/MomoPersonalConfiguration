@@ -1,6 +1,6 @@
 # 我的个人软件配置存档 (MomoPersonalConfiguration)
 
-本项目是个人开发环境与 IDE / Neovim / Starship 配置的集中管理与备份归档仓库。
+本项目是个人开发环境与 IDE / Neovim / Starship / Typora 配置的集中管理与备份归档仓库。
 
 - **核心编辑器**：Antigravity IDE (基于 VS Code 架构)
 - **Vim 驱动**：[vscode-neovim](https://github.com/vscode-neovim/vscode-neovim) (由本地真实 Neovim 实例驱动)
@@ -29,6 +29,9 @@ MomoPersonalConfiguration/
 │   ├── README.md          # 配置来源与 PowerShell 加载说明
 │   ├── starship.toml      # 当前主题原样归档
 │   └── init.ps1           # 从仓库加载配置的 PowerShell 入口
+├── typora/                # Typora 自写 Claude 风格主题
+│   ├── README.md          # 主题来源与同步说明
+│   └── themes/            # claude-like.css、claude-like-dark.css
 ├── zed/                   # Zed 编辑器统一配置
 │   ├── keymap.json        # Zed 快捷键映射（对齐 VS Code/Neovim 肌肉记忆）
 │   └── settings.json      # Zed 编辑器与 Vim 模式配置
@@ -37,6 +40,8 @@ MomoPersonalConfiguration/
 ---
 
 Starship 的配置来源与使用方式见 [Starship 配置说明](starship/README.md)。
+
+Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说明](typora/README.md)。
 
 ## 代码片段（agyIDE / Zed）
 
