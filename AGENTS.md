@@ -12,18 +12,19 @@
 
 ## 去哪里修改
 
-| 要做的事 | 文件或目录 |
-| --- | --- |
-| 调整 Antigravity IDE 设置、字体、终端或 Neovim 入口 | `agy ide/settings.jsonc` |
-| 调整 IDE 全局快捷键 | `agy ide/keyboards.jsonc`（沿用现有文件名） |
-| 调整 Neovim 加载顺序 | `nvim/init.lua` |
-| 调整两种 Neovim 使用方式共用的配置、按键 | `nvim/lua/public/` |
-| 调整 IDE 中的 Neovim 行为、按键 | `nvim/lua/vsc/` |
-| 调整独立运行的 Neovim | `nvim/lua/nvim/` |
-| 添加或调整插件声明 | `nvim/lua/plugins/init.lua` |
-| 调整具体插件的配置 | `nvim/lua/plugins/config/` |
-| 调整 Zed 设置或快捷键 | `zed/settings.json`、`zed/keymap.json` |
-| 调整 Starship 主题或 PowerShell 加载方式 | `starship/starship.toml`、`starship/init.ps1` |
+| 要做的事                                            | 文件或目录                                    |
+| --------------------------------------------------- | --------------------------------------------- |
+| 调整 Antigravity IDE 设置、字体、终端或 Neovim 入口 | `agy ide/settings.jsonc`                      |
+| 调整 IDE 全局快捷键                                 | `agy ide/keyboards.jsonc`（沿用现有文件名）   |
+| 调整 Neovim 加载顺序                                | `nvim/init.lua`                               |
+| 调整两种 Neovim 使用方式共用的配置、按键            | `nvim/lua/public/`                            |
+| 调整 IDE 中的 Neovim 行为、按键                     | `nvim/lua/vsc/`                               |
+| 调整独立运行的 Neovim                               | `nvim/lua/nvim/`                              |
+| 添加或调整插件声明                                  | `nvim/lua/plugins/init.lua`                   |
+| 调整具体插件的配置                                  | `nvim/lua/plugins/config/`                    |
+| 调整 Zed 设置或快捷键                               | `zed/settings.json`、`zed/keymap.json`        |
+| 调整 Starship 主题或 PowerShell 加载方式            | `starship/starship.toml`、`starship/init.ps1` |
+| 调整 snippet(快速生成模板)                          | `agy ide/snippets/*`、`zed/snippets/*`        |
 
 `nvim/lazy-lock.json` 保存插件版本。不要为了无关任务更新它。`vscode/` 当前为空，不是配置入口。
 
@@ -38,6 +39,43 @@ Antigravity IDE 的 `vscode-neovim` 扩展通过 `agy ide/settings.jsonc` 指向
 3. 根据 `vim.g.vscode` 选择分支：在 IDE 中加载 `vsc/`，独立运行时加载 `nvim/`。
 
 Zed 使用自己的配置和内置 Vim 模式，不加载这些 Lua 文件。Starship 单独管理终端提示符，加载方式见 [starship/README.md](starship/README.md)。
+
+## 快速定位代码的工具
+
+这个项目下面配有 `codegraph` 工具，可以配合官方的[文档](https://github.com/colbymchenry/codegraph/blob/main/README.md)，快速定位问题所在的位置
+
+下面是他 CLI 的参考:
+
+```bash
+codegraph                         # Run interactive installer
+codegraph install                 # Run installer (explicit)
+codegraph uninstall               # Remove CodeGraph from your agents AND the CLI (--keep-cli for configs only)
+codegraph init [path]             # Initialize a project + build its graph (one step)
+codegraph uninit [path]           # Remove CodeGraph from a project (--force to skip prompt)
+codegraph index [path]            # Full index (--force to re-index, --quiet for less output)
+codegraph sync [path]             # Incremental update
+codegraph status [path]           # Show statistics
+codegraph unlock [path]           # Remove a stale lock file that's blocking indexing
+codegraph query <search>          # Search symbols (--kind, --limit, --json)
+codegraph explore <query>         # Relevant symbols' source + call paths in one shot (same output as the codegraph_explore MCP tool)
+codegraph node <symbol|file>      # One symbol's source + callers, or read a file with line numbers (same output as codegraph_node)
+codegraph files [path]            # Show file structure (--format, --filter, --max-depth, --json)
+codegraph callers <symbol>        # Find what calls a function/method (--limit, --json)
+codegraph callees <symbol>        # Find what a function/method calls (--limit, --json)
+codegraph impact <symbol>         # Analyze what code is affected by changing a symbol (--depth, --json)
+codegraph affected [files...]     # Find test files affected by changes (see below)
+codegraph daemon                  # Manage background daemons — pick one to stop (alias: daemons)
+codegraph telemetry [on|off]      # Show or change anonymous usage telemetry
+codegraph upgrade [version]       # Update to the latest release (--check, --force)
+codegraph version                 # Print the installed version (also -v, --version)
+codegraph help [command]          # Show help, optionally for one command
+```
+
+### 使用 Codegraph 的注意事项
+
+- `.codegraph/` 是使用 `codegraph init` 的产物，如果当下目录下面没有，可以主动和用户提醒一下告知
+- 如果可以使用 `codegraph` 的话，经可能使用，原生的 grep 读取方式相较于这个还是太慢了，而且很难建立关联性问题
+- 如果真的遇到了使用 `codegraph` 无法解决的问题，请使用原生的 grep 等读取方式
 
 ## 修改时遵循什么
 
