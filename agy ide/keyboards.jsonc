@@ -49,11 +49,6 @@
     "command": "copyRelativeFilePath",
     "when": "!editorFocus"
   },
-  {
-    "key": "alt+shift+c",
-    "command": "copyRelativeFilePath",
-    "when": "editorFocus"
-  },
   // 使用系统`文件管理器`打开文件/文件夹所在的位置
   {
     "key": "alt+shift+r",
@@ -63,6 +58,11 @@
   // ==========================================================
   //            标签页关闭与退出保护
   // ==========================================================
+  // 不使用 ctrl + w 关闭当前文件
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.closeActiveEditor"
+  },
   // 关闭当前页面
   {
     "key": "ctrl+shift+w",
@@ -109,22 +109,22 @@
   {
     "key": "ctrl+alt+h",
     "command": "workbench.action.decreaseViewWidth",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
   },
   {
     "key": "ctrl+alt+j",
     "command": "workbench.action.increaseViewHeight",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
   },
   {
     "key": "ctrl+alt+k",
     "command": "workbench.action.decreaseViewHeight",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
   },
   {
     "key": "ctrl+alt+l",
     "command": "workbench.action.increaseViewWidth",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
   },
   // ==========================================================
   //            大纲、面板与最大化
