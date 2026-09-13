@@ -54,7 +54,6 @@
   "sticky_scroll": {
     "enabled": false,
   },
-
   // =========== VIM CONFIG =============
   "vim_mode": true,
   "vim": {
@@ -63,7 +62,6 @@
     // 保持 Ctrl+C 与 Vim 的 y/d 等操作共用 Windows 系统剪贴板
     "use_system_clipboard": "always",
   },
-
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ EDITOR CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "buffer_font_size": 18.0,
   "buffer_font_weight": 450.0,
@@ -71,27 +69,31 @@
     "custom": 1.7999999523162842,
   },
   "buffer_font_family": "JetBrains Mono",
-  "buffer_font_fallbacks": ["JetBrainsMono Nerd Font"],
+  "buffer_font_fallbacks": [
+    "JetBrainsMono Nerd Font"
+  ],
   "soft_wrap": "editor_width", // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
-
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UI CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "ui_font_size": 16.0,
   "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
-  "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
-
+  "ui_font_fallbacks": [
+    "JetBrainsMono Nerd Font Mono"
+  ],
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TERMINAL CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "terminal": {
     "font_weight": 350.0,
     "font_size": 15.0,
     "font_family": "JetBrainsMono Nerd Font",
-    "font_fallbacks": ["JetBrains Mono", "JetBrainsMono Nerd Font"],
+    "font_fallbacks": [
+      "JetBrains Mono",
+      "JetBrainsMono Nerd Font"
+    ],
     "line_height": {
       "custom": 1.5,
     },
     "shell": "system",
   },
-
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ AGENT CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "agent": {
     "sandbox_permissions": {
@@ -136,11 +138,20 @@
     "copilot": {},
     "provider": "zed",
   },
-
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ LSP CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "languages": {
     "Vue.js": {
-      "language_servers": ["vtsls", "vue-language-server", "..."],
+      "language_servers": [
+        "vtsls",
+        "vue-language-server",
+        "..."
+      ],
+    },
+    "Lua": {
+      "language_servers": [
+        "lua-language-server",
+        "..."
+      ],
     },
   },
   "lsp": {
@@ -152,7 +163,9 @@
               {
                 "name": "@vue/typescript-plugin",
                 "location": "C:/Users/shuhe/AppData/Local/Zed/extensions/work/vue",
-                "languages": ["vue.js"],
+                "languages": [
+                  "vue.js"
+                ],
                 "enableForWorkspaceTypeScriptVersions": true,
                 "configNamespace": "typescript",
               },

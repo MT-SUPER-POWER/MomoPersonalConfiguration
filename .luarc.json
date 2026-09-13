@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "LuaJIT",
+  "runtime.path": [
+    "?.lua",
+    "?/init.lua",
+    "nvim/lua/?.lua",
+    "nvim/lua/?/init.lua"
+  ],
+  "diagnostics.globals": [
+    "vim"
+  ],
+  "workspace.checkThirdParty": false,
+  "workspace.library": [
+    "D:/Apps/Dev/nvim/share/nvim/runtime/lua",
+    "${3rd}/luv/library",
+    "C:/Users/shuhe/AppData/Local/nvim-data/lazy/lazy.nvim/lua",
+    "C:/Users/shuhe/AppData/Local/nvim-data/lazy/nvim-surround/lua",
+    "C:/Users/shuhe/AppData/Local/nvim-data/lazy/hop.nvim/lua",
+    "C:/Users/shuhe/AppData/Local/nvim-data/lazy/mini.ai/lua",
+    "C:/Users/shuhe/AppData/Local/nvim-data/lazy/vscode-multi-cursor.nvim/lua"
+  ],
+  "completion.callSnippet": "Replace",
+  "completion.keywordSnippet": "Replace",
+  "completion.showWord": "Fallback"
+}
