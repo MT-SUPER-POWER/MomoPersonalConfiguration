@@ -7,7 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  // =========== COMMON CONFIG =============
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ COMMON CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  "cli_default_open_behavior": "existing_window",
   "git_panel": {
     "group_by": "staging",
     "tree_view": true,
@@ -23,6 +24,7 @@
   },
   // 文件树面板
   "project_panel": {
+    "dock": "left",
     "git_status": true, // git 状态
     "auto_fold_dirs": false, // 防止里面单独文件的时候时候这些为一个
   },
@@ -70,12 +72,11 @@
   },
   "buffer_font_family": "JetBrains Mono",
   "buffer_font_fallbacks": ["JetBrainsMono Nerd Font"],
-  // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
-  "soft_wrap": "editor_width",
+  "soft_wrap": "editor_width", // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
 
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UI CONFIG ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   "ui_font_size": 16.0,
-  "ui_font_weight": 350.0,
+  "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
   "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
 
@@ -105,8 +106,8 @@
     },
     "sidebar_side": "left",
     "default_model": {
-      "provider": "deepseek",
-      "model": "deepseek-v4-flash",
+      "provider": "openai-subscribed",
+      "model": "gpt-5.3-codex-spark",
       "enable_thinking": true,
       "effort": "high",
     },
@@ -124,7 +125,8 @@
     },
     "codex-acp": {
       "default_config_options": {
-        "reasoning_effort": "xhigh",
+        "fast-mode": true,
+        "reasoning_effort": "max",
         "model": "gpt-5.3-codex-spark",
       },
       "type": "registry",
