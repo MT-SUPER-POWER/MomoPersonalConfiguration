@@ -178,6 +178,19 @@
       "space space w": "vim::HelixJumpToWord"
     }
   },
+  // mini.ai 文本对象：仅在 i/a/cs 等待目标对象时接管按键，正常模式中的 a、b、f、q 保持原意。
+  // 使用 Zed 的 Tree-sitter 原生实现，不依赖外部 Vim 插件。
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      // daa / cia：参数（aa 会包含相邻逗号）；daf / cif：整个函数 / 函数体。
+      "a": "vim::Argument",
+      "f": "vim::Method",
+      // ciq / daq 与 cib / dab：mini.ai 风格的泛化引号、括号对象。
+      "q": "vim::MiniQuotes",
+      "b": "vim::MiniBrackets"
+    }
+  },
   // 文件树快捷键；输入文件名时不接管字母键。
   {
     "context": "ProjectPanel && not_editing",
