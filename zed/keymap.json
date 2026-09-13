@@ -185,15 +185,14 @@
       "space space w": "vim::HelixJumpToWord"
     }
   },
-  // mini.ai 文本对象：仅在 i/a/cs 等待目标对象时接管按键，正常模式中的 a、b、f、q 保持原意。
-  // 使用 Zed 的 Tree-sitter 原生实现，不依赖外部 Vim 插件。
+  // mini.ai 常用扩充对象：参数、任意引号、任意括号，使用 Zed 原生动作。
+  // 仅在等待文本对象时生效；Normal 模式中的 a、b、q 保持原意。
   {
     "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
     "bindings": {
-      // daa / cia：参数（aa 会包含相邻逗号）；daf / cif：整个函数 / 函数体。
+      // dia / cia / daa：参数；范围由当前语言的语法解析决定。
       "a": "vim::Argument",
-      "f": "vim::Method",
-      // ciq / daq 与 cib / dab：mini.ai 风格的泛化引号、括号对象。
+      // diq / ciq / daq：引号；dib / cib / dab：括号。
       "q": "vim::MiniQuotes",
       "b": "vim::MiniBrackets"
     }
