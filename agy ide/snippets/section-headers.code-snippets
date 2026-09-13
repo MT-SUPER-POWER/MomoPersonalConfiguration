@@ -26,7 +26,7 @@
     "description": "插入反重力 (Antigravity) 井号标准分块分隔线"
   },
   "Antigravity SQL Section Header": {
-    "scope": "sql,editorconfig",
+    "scope": "sql,editorconfig,lua",
     "prefix": [
       "header",
       "section",
@@ -36,7 +36,7 @@
     "body": [
       "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     ],
-    "description": "插入反重力 (Antigravity) SQL 标准分块分隔线"
+    "description": "插入反重力 (Antigravity) SQL/Lua 标准分块分隔线"
   },
   "Antigravity HTML Section Header": {
     "scope": "html,xml,svg,markdown",
@@ -50,5 +50,73 @@
       "<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->"
     ],
     "description": "插入反重力 (Antigravity) HTML/XML/MD 标准分块分隔线"
+  },
+  "Antigravity C-Style Banner Header": {
+    "scope": "typescript,typescriptreact,javascript,javascriptreact,c,cpp,csharp,java,go,rust,swift,kotlin,scala,dart,php,vue,svelte,scss,less,jsonc,proto,groovy,cs",
+    "prefix": [
+      "banner",
+      "bheader",
+      "box",
+      "bsec",
+      "header",
+      "sec"
+    ],
+    "body": [
+      "// * ==========================================================",
+      "// *            ${1:SECTION_NAME}",
+      "// * =========================================================="
+    ],
+    "description": "插入反重力 (Antigravity) 双斜杠块状横幅标题"
+  },
+  "Antigravity Hash-Style Banner Header": {
+    "scope": "python,shellscript,bash,sh,yaml,dockerfile,toml,r,ruby,perl,powershell",
+    "prefix": [
+      "banner",
+      "bheader",
+      "box",
+      "bsec",
+      "header",
+      "sec"
+    ],
+    "body": [
+      "# * ==========================================================",
+      "# *            ${1:SECTION_NAME}",
+      "# * =========================================================="
+    ],
+    "description": "插入反重力 (Antigravity) 井号块状横幅标题"
+  },
+  "Antigravity Dash-Style Banner Header": {
+    "scope": "lua,sql,editorconfig",
+    "prefix": [
+      "banner",
+      "bheader",
+      "box",
+      "bsec",
+      "header",
+      "sec"
+    ],
+    "body": [
+      "-- * ==========================================================",
+      "-- *            ${1:SECTION_NAME}",
+      "-- * =========================================================="
+    ],
+    "description": "插入反重力 (Antigravity) 破折号/Lua/SQL 块状横幅标题"
+  },
+  "Antigravity HTML Banner Header": {
+    "scope": "html,xml,svg,markdown",
+    "prefix": [
+      "banner",
+      "bheader",
+      "box",
+      "bsec",
+      "header",
+      "sec"
+    ],
+    "body": [
+      "<!-- * ========================================================== -->",
+      "<!-- *            ${1:SECTION_NAME} -->",
+      "<!-- * ========================================================== -->"
+    ],
+    "description": "插入反重力 (Antigravity) HTML/XML/MD 块状横幅标题"
   }
 }

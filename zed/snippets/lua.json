@@ -1,31 +1,31 @@
 {
-  "Antigravity SQL Section Header (header)": {
+  "Antigravity SQL/Lua Section Header (header)": {
     "prefix": "header",
     "body": [
-      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     ],
-    "description": "插入SQL 标准分块分隔线"
+    "description": "插入SQL/Lua 标准分块分隔线"
   },
-  "Antigravity SQL Section Header (section)": {
+  "Antigravity SQL/Lua Section Header (section)": {
     "prefix": "section",
     "body": [
-      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     ],
-    "description": "插入SQL 标准分块分隔线"
+    "description": "插入SQL/Lua 标准分块分隔线"
   },
-  "Antigravity SQL Section Header (divider)": {
+  "Antigravity SQL/Lua Section Header (divider)": {
     "prefix": "divider",
     "body": [
-      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     ],
-    "description": "插入SQL 标准分块分隔线"
+    "description": "插入SQL/Lua 标准分块分隔线"
   },
-  "Antigravity SQL Section Header (sec)": {
+  "Antigravity SQL/Lua Section Header (sec)": {
     "prefix": "sec",
     "body": [
-      "# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      "-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ${1:SECTION_NAME} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     ],
-    "description": "插入SQL 标准分块分隔线"
+    "description": "插入SQL/Lua 标准分块分隔线"
   },
   "Antigravity Dash-Style Banner Header (banner)": {
     "prefix": "banner",

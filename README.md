@@ -49,6 +49,7 @@ Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说�
 | --- | --- |
 | agyIDE 存档 | `agy ide/snippets/`，对应 `%APPDATA%\Antigravity IDE\User\snippets\` |
 | Zed 配置 | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分 |
+| 块状横幅标题 | `banner` / `box` / `bheader` / `bsec`，按语言插入对应 3 行等号块状横幅，标题占位为 `SECTION_NAME` |
 | 分区标题 | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME` |
 | 简单分隔线 | `dline` / `dl`，保留原有 Go、JS、TS、C/C++、Rust、Java、C#、PHP、Kotlin 范围 |
 | 使用 | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题 |
