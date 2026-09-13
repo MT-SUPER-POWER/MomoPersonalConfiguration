@@ -241,9 +241,9 @@ end, { desc = 'Toggle Fold' })
 -- -----------------------------------------------------------
 -- Ctrl+Q 或 gh 唤起 / 聚焦悬停文档提示窗口
 vim.keymap.set('n', '<C-q>', function()
-    vscode.action('editor.action.showHover')
+    vscode.action('editor.action.showHover', { args = { focus = 'autoFocusImmediately' } })
 end, { desc = 'Show / Focus Hover Documentation' })
 
 vim.keymap.set('n', 'gh', function()
-    vscode.action('editor.action.showHover')
+    vscode.action('editor.action.showHover', { args = { focus = 'autoFocusImmediately' } })
 end, { desc = 'Show / Focus Hover Documentation' })

@@ -212,6 +212,7 @@
   {
     "key": "ctrl+q",
     "command": "editor.action.showHover",
+    "args": { "focus": "autoFocusImmediately" },
     "when": "editorTextFocus"
   },
   // 悬停窗口聚焦时，使用 j/k 上下平滑滚动浏览，d/u 翻页

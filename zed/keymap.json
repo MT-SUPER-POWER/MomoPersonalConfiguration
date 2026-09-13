@@ -111,6 +111,12 @@
       // ctrl-q 与 gh 直达悬停文档，方便随时查看类型与函数说明
       "ctrl-q": "editor::Hover",
       "g h": "editor::Hover",
+      // Vim 滚动动作优先滚动悬浮文档；未显示文档时正常滚动代码。
+      // Zed 无独立 hover 焦点上下文，保留 j/k/d/u 的普通编辑含义。
+      "ctrl-e": "vim::LineDown",
+      "ctrl-y": "vim::LineUp",
+      "ctrl-d": "vim::ScrollDown",
+      "ctrl-u": "vim::ScrollUp",
 
       // ------------ 分屏尺寸调整 (对齐 <leader>r 与 <leader>w) ------------
       // 【单步精细微调】
