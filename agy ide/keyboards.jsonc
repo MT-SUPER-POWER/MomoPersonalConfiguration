@@ -1,40 +1,49 @@
 [
-  // 文件树快捷键（与 Zed 对齐）；输入文件名时不触发。
+  // ==========================================================
+  //            文件树操作
+  // ==========================================================
+  // 新建文件
   {
     "key": "a",
     "command": "explorer.newFile",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
   },
+  // 新建文件夹
   {
     "key": "shift+a",
     "command": "explorer.newFolder",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
   },
+  // 重命名文件
   {
     "key": "r",
     "command": "renameFile",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
   },
+  // 移动文件到回收站
   {
     "key": "d",
     "command": "moveFileToTrash",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly && explorerResourceMoveableToTrash"
   },
+  // 删除文件
   {
     "key": "shift+d",
     "command": "deleteFile",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
   },
+  // 拷贝文件绝对路径
   {
     "key": "ctrl+shift+c",
     "command": "copyFilePath",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
   },
-  // 沿用原生作用域，只替换按键；同时解除旧组合键的两条默认绑定。
+  // 取消默认的拷贝文件相对路径的快捷键
   {
     "key": "ctrl+k ctrl+shift+c",
     "command": "-copyRelativeFilePath"
   },
+  // 拷贝文件相对路径
   {
     "key": "alt+shift+c",
     "command": "copyRelativeFilePath",
@@ -45,11 +54,15 @@
     "command": "copyRelativeFilePath",
     "when": "editorFocus"
   },
+  // 使用系统`文件管理器`打开文件/文件夹所在的位置
   {
     "key": "alt+shift+r",
     "command": "revealFileInOS",
     "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && resourceScheme == file"
   },
+  // ==========================================================
+  //            标签页关闭与退出保护
+  // ==========================================================
   // 关闭当前页面
   {
     "key": "ctrl+shift+w",
@@ -60,6 +73,9 @@
     "key": "ctrl+shift+w",
     "command": "-workbench.action.closeWindow"
   },
+  // ==========================================================
+  //            侧栏显示与方向导航
+  // ==========================================================
   // 左侧栏总开关
   {
     "key": "ctrl+b",
@@ -86,7 +102,10 @@
     "command": "workbench.action.navigateRight",
     "when": "!terminalFocus && !inputFocus"
   },
+  // ==========================================================
+  //            焦点区域尺寸调整
   // Ctrl+Alt+H/J/K/L 直接调整当前焦点区域的宽度或高度。
+  // ==========================================================
   {
     "key": "ctrl+alt+h",
     "command": "workbench.action.decreaseViewWidth",
@@ -107,6 +126,9 @@
     "command": "workbench.action.increaseViewWidth",
     "when": "!terminalFocus && !inputFocus"
   },
+  // ==========================================================
+  //            大纲、面板与最大化
+  // ==========================================================
   // Ctrl+Shift+B 打开并聚焦大纲，替换默认的构建任务快捷键。
   {
     "key": "ctrl+shift+b",
@@ -148,20 +170,27 @@
     "key": "ctrl+f12",
     "command": "workbench.action.toggleMaximizedAuxiliaryBar"
   },
+  // ==========================================================
+  //            快速打开与快捷键冲突处理
+  // ==========================================================
   // 关闭 ctrl+e 的默认快捷键，防止和 VIM 的下拉冲突
   {
     "key": "ctrl+e",
     "command": "-workbench.action.quickOpen"
   },
-  // Ctrl+Shift+N 改为快速打开文件，避免误触新建窗口
+  // Ctrl+Shift+N 避免误触新建窗口
   {
     "key": "ctrl+shift+n",
     "command": "-workbench.action.newWindow"
   },
+  // Ctrl+Shift+N 改为快速打开文件
   {
     "key": "ctrl+shift+n",
     "command": "workbench.action.quickOpen"
   },
+  // ==========================================================
+  //            代码编辑与符号重命名
+  // ==========================================================
   // 编辑器内合并当前行与下一行；不影响面板或终端
   {
     "key": "ctrl+shift+j",
@@ -174,6 +203,9 @@
     "command": "editor.action.rename",
     "when": "editorTextFocus && editorHasRenameProvider"
   },
+  // ==========================================================
+  //            危险操作与默认快捷键解绑
+  // ==========================================================
   // 防止误触发提交全部
   {
     "key": "ctrl+k",
@@ -186,6 +218,9 @@
     "command": "-workbench.action.terminal.openNativeConsole",
     "when": "!terminalFocus"
   },
+  // ==========================================================
+  //            AI 对话与会话保护
+  // ==========================================================
   // 聚焦 agy ide AI 对话
   {
     "key": "ctrl+shift+i",
@@ -207,12 +242,16 @@
     "key": "ctrl+shift+c",
     "command": "copyFilePath"
   },
-  // ================= 悬停提示与快速文档 (Hover / Quick Doc) =================
+  // ==========================================================
+  //            悬停文档与键盘滚动
+  // ==========================================================
   // Ctrl+Q 唤起 / 聚焦悬停文档提示窗口
   {
     "key": "ctrl+q",
     "command": "editor.action.showHover",
-    "args": { "focus": "autoFocusImmediately" },
+    "args": {
+      "focus": "autoFocusImmediately"
+    },
     "when": "editorTextFocus"
   },
   // 悬停窗口聚焦时，使用 j/k 上下平滑滚动浏览，d/u 翻页

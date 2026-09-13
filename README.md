@@ -51,7 +51,7 @@ Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说�
 | Zed 配置 | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分 |
 | 块状横幅标题 | `banner` / `box` / `bheader` / `bsec`，按语言插入对应 3 行等号块状横幅，标题占位为 `SECTION_NAME` |
 | 分区标题 | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME` |
-| 简单分隔线 | `dline` / `dl`，保留原有 Go、JS、TS、C/C++、Rust、Java、C#、PHP、Kotlin 范围 |
+| 简单分隔线   | agyIDE 已移除旧 `Comment.code-snippets`（`dline` / `dl`），改用 `header` / `box`；Zed 的已有分隔线片段暂时保留 |
 | 使用 | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题 |
 | 后续同步 | 将对应仓库目录内的片段复制到上述本机目录；不是自动双向同步，同名文件覆盖前先合并本机修改 |
 | Zed 适配 | 触发词别名拆成独立条目；Vue 使用 `vue.js.json`、TSX 使用 `tsx.json`、C# 使用 `csharp.json`；EditorConfig 使用 `#` 注释 |
@@ -211,7 +211,7 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 
 ---
 
-## 三、 Zed 编辑器专属适配与对齐 (`zed/settings.json` & `zed/keymap.json`)
+## 三、 Zed 编辑器专属适配与对齐 (`zed/settings.jsonc` & `zed/keymap.jsonc`)
 
 Zed 作为高性能 GPU 加速编辑器，同样具备强大的内置 Vim 模式。本仓库已将 Zed 的快捷键模型与 Antigravity IDE / Neovim 实现了 **100% 肌肉记忆对齐**。
 
@@ -269,7 +269,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 
 ### 3. mini.ai 文本对象对齐（Zed Vim 原生实现）
 
-Zed 的 Vim 模式已内置 Tree-sitter 文本对象；仓库在 `zed/keymap.json` 显式映射为与 `mini.ai` 相同的对象键。它们可和 `d`、`c`、`y`、`v` 等操作组合使用，无需安装 Neovim 插件。
+Zed 的 Vim 模式已内置 Tree-sitter 文本对象；仓库在 `zed/keymap.jsonc` 显式映射为与 `mini.ai` 相同的对象键。它们可和 `d`、`c`、`y`、`v` 等操作组合使用，无需安装 Neovim 插件。
 
 | mini.ai 能力 | Zed 按键 | Zed 原生对象 | 说明 |
 | :----------- | :------- | :------------ | :--- |
@@ -380,7 +380,7 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 
 ### 文件树快捷键（agyIDE / Zed）
 
-以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.json`。
+以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.jsonc`。
 
 | 操作 | 快捷键 |
 | --- | --- |
