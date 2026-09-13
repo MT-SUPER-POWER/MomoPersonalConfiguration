@@ -49,8 +49,7 @@ local function moveCursor(direction)
         if vim.v.count == 0 then
             local mode = vim.api.nvim_get_mode().mode
             local is_visual = (mode == 'v' or mode == 'V' or mode == '\22')
-            -- 连续 j/k 时必须等本次选区同步完成；异步 action 会让旧光标状态与后续渲染交错。
-            vscode.call('cursorMove', {
+            vscode.action('cursorMove', {
                 args = { {
                     to = direction,
                     by = 'wrappedLine',
@@ -75,7 +74,7 @@ for key, direction in pairs({ j = 'down', k = 'up' }) do
         elseif vim.v.count > 0 then
             vim.cmd.normal({ args = { vim.v.count .. key }, bang = true })
         else
-            vscode.call('cursorMove', { args = { to = direction, by = 'wrappedLine', value = 1, select = true } })
+            vscode.action('cursorMove', { args = { to = direction, by = 'wrappedLine', value = 1, select = true } })
         end
     end, { silent = true, desc = 'Extend selection respecting folds' })
 end
