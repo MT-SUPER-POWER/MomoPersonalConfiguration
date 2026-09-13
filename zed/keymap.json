@@ -128,9 +128,10 @@
       "space r m": "workspace::ToggleZoom",
       "space w =": "workspace::ResetPaneSizes",
       "space w m": "workspace::ToggleZoom",
-      // 【免前缀连续微调利器 (按住 Ctrl+Alt 连击 hjkl 即按即调)】
-      "ctrl-alt-h": "vim::ResizePaneLeft",
-      "ctrl-alt-l": "vim::ResizePaneRight",
+      // 【免前缀调整侧栏】编辑器获得焦点时调整当前打开的 Dock。
+      // 中央编辑器分屏仍使用 space r h/l 微调。
+      "ctrl-alt-h": ["workspace::IncreaseOpenDocksSize", { "px": 0 }],
+      "ctrl-alt-l": ["workspace::DecreaseOpenDocksSize", { "px": 0 }],
       "ctrl-alt-j": "vim::ResizePaneDown",
       "ctrl-alt-k": "vim::ResizePaneUp",
 
@@ -195,6 +196,10 @@
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
+      // 文件树是 Dock；显式回到中央编辑器，且允许不离开文件树调整自身宽度。
+      "ctrl-l": "workspace::FocusCenterPane",
+      "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
       "%": null,
       "shift-r": null,
       "x": null,

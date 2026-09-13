@@ -71,6 +71,8 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `closeActiveEditor`           | 关闭当前页面（已屏蔽退出整个软件）                                                                                      |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `workbench.action.quickOpen`  | 快速检索并打开文件（已屏蔽新建窗口）                                                                                    |
 | <kbd>Ctrl</kbd> + <kbd>B</kbd>                    | `toggleSidebarVisibility`     | 切换**左侧边栏**（文件树）显示/隐藏                                                                                     |
+| <kbd>Ctrl</kbd> + <kbd>H/J/K/L</kbd>              | `workbench.action.navigate...` | 在编辑器、文件树和底部面板等可见区域间，按左/下/上/右切换焦点                                                        |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.*View*`  | 按左/下/上/右微调当前焦点区域的宽度或高度；终端和文本输入框不接管                                                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor.action.joinLines`     | 编辑器内合并当前行与下一行                                                                                              |
 | <kbd>Shift</kbd> + <kbd>F6</kbd>                  | `editor.action.rename`        | 重命名光标处符号及其引用                                                                                                |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>   | `toggleAuxiliaryBar`          | 切换**右侧辅助栏**显示/隐藏                                                                                             |
@@ -82,7 +84,7 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                  | `focusActiveEditorGroup`      | 从终端焦点**一键切回代码编辑器**                                                                                        |
 | <kbd>Ctrl</kbd> + <kbd>Q</kbd>                    | `editor.action.showHover`     | **唤起 / 聚焦函数悬停文档窗口**（聚焦后按 <kbd>j</kbd>/<kbd>k</kbd> 上下平滑滚动，<kbd>q</kbd> 或 <kbd>Esc</kbd> 关闭） |
 
-> **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）、`Ctrl+K`（防误提交 Git）、`Ctrl+L` 与 `Ctrl+Shift+C`。
+> **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）和 `Ctrl+Shift+C`；`Ctrl+K/L` 已改作方向导航。
 
 ---
 
@@ -148,15 +150,19 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 
 ---
 
-### 6. 代码折叠（完美跳跃折叠，不触发展开）
+### 6. 代码折叠与行选区
 
 | 快捷键      | 功能说明                                                   |
 | :---------- | :--------------------------------------------------------- |
-| `j` / `k`   | 光标上下移动（**遇折叠块自动平滑越过，绝不意外展开代码**） |
+| `j` / `k`   | Normal/字符选区沿用视觉行移动；`V` 由 Neovim 保持整行选区和固定起点，按逻辑行增减，并跳过当前视口可见范围之间的折叠内容 |
 | `zc` / `zo` | 折叠 / 展开当前代码块                                      |
 | `za`        | 切换当前代码块折叠状态                                     |
 | `zC` / `zO` | 递归折叠 / 递归展开                                        |
 | `zM` / `zR` | 全部折叠 / 全部展开                                        |
+
+`V` 的 `j/k`（含数字前缀）不改写 VS Code Selection，避免扩展把行选区同步成字符选区。折叠识别限于当前视口，视口外的行按逻辑行移动；长距离移动经过视口外折叠仍可能展开它。
+
+映射回归检查：`nvim --headless --clean -u NONE -l nvim/tests/visual_line.lua`。测试使用真实 Neovim 选区和复制行为，模拟 VS Code 可见范围；不代替 agyIDE 实机验证。
 
 ---
 
@@ -249,10 +255,10 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | **标签页关闭**   | `<leader>cc`                                          | `pane::CloseActiveItem`                | 关闭当前 Tab                                            |
 | **标签页关闭**   | `<leader>ca`                                          | `pane::CloseAllItems`                  | 关闭全部 Tab                                            |
 | **LSP 悬停**     | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                | `editor::Hover`                        | 查看当前函数的**类型定义与悬停文档窗口**                |
-| **跨分屏聚焦**   | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>                  | `workspace::ActivatePane...`           | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`）   |
+| **跨分屏聚焦**   | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>                  | `workspace::ActivatePane...`           | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`）；文件树获得焦点后，<kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器 |
 | **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd>                      | `vim::ResizePane...`                   | **单步精细微调**分屏大小（左/右/下/上）                 |
 | **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd>                      | `action::Sequence`                     | **大步快速调宽/调窄**（连调 5 档）                      |
-| **免前缀连调**   | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/j/k/l</kbd> | `vim::ResizePane...`                   | **无需敲前缀，按住 Ctrl+Alt 连击 hjkl 即按即调**        |
+| **侧栏宽度调整** | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd>     | `workspace::Increase/DecreaseOpenDocksSize` | **不必切换焦点**：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h</kbd> 扩大、<kbd>l</kbd> 缩小当前打开的侧栏；编辑器分屏改用 `<leader>r h/l` |
 | **平分所有分屏** | `<leader>r=` 或 `<leader>w=`                          | `workspace::ResetPaneSizes`            | **一键平分所有窗口宽度** (50% / 50%)                    |
 | **分屏最大化**   | `<leader>wm` 或 `<leader>rm`                          | `workspace::ToggleZoom`                | **最大化当前分屏** / 再次按下恢复并列                   |
 | **单文件投掷**   | `<leader>w` + <kbd>h/j/k/l</kbd>                      | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏                 |
@@ -387,6 +393,8 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 | 复制相对路径 | `Alt+Shift+C`（agyIDE 沿用原生作用域，编辑器中也可用；旧 `Ctrl+K Ctrl+Shift+C` 已解绑） |
 | 在系统文件管理器中显示 | `Alt+Shift+R` |
 | 用默认应用打开（仅 Zed） | `Alt+Shift+S` |
+| 返回中央编辑器（仅 Zed） | `Ctrl+L` |
+| 调整文件树宽度（仅 Zed） | `Ctrl+Alt+H/L` |
 
 删除使用各编辑器原有的确认设置；Zed 显式保留确认提示。agyIDE 的 `d` 仅在所选项目支持回收站时启用，不回退为完全删除。agyIDE 暂未配置“用系统默认应用打开”的等价命令。
 

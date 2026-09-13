@@ -65,6 +65,48 @@
     "key": "ctrl+b",
     "command": "workbench.action.toggleSidebarVisibility"
   },
+  // Ctrl+H/J/K/L 在编辑区、文件树与面板之间按方向切换焦点；输入框和终端保留原有行为。
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  // Ctrl+Alt+H/J/K/L 直接调整当前焦点区域的宽度或高度。
+  {
+    "key": "ctrl+alt+h",
+    "command": "workbench.action.decreaseViewWidth",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+j",
+    "command": "workbench.action.increaseViewHeight",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+k",
+    "command": "workbench.action.decreaseViewHeight",
+    "when": "!terminalFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.increaseViewWidth",
+    "when": "!terminalFocus && !inputFocus"
+  },
   // Ctrl+Shift+B 打开并聚焦大纲，替换默认的构建任务快捷键。
   {
     "key": "ctrl+shift+b",

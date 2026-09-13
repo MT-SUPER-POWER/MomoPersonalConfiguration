@@ -63,22 +63,28 @@ vim.keymap.set({ 'n', 'v' }, 'K', function()
     vscode.action('workbench.action.nextEditor')
 end, { desc = 'Next Editor Tab' })
 
--- 在拆分窗口 Group 间通过 <C-h/j/k/l> 切换焦点
+-- 在编辑器、侧栏和底部面板等可见区域间通过 <C-h/j/k/l> 按方向切换焦点。
 vim.keymap.set('n', '<C-h>', function()
-    vscode.action('workbench.action.focusLeftGroup')
-end, { desc = 'Focus Left Group' })
+    vscode.action('workbench.action.navigateLeft')
+end, { desc = 'Navigate Left' })
 
 vim.keymap.set('n', '<C-l>', function()
-    vscode.action('workbench.action.focusRightGroup')
-end, { desc = 'Focus Right Group' })
+    vscode.action('workbench.action.navigateRight')
+end, { desc = 'Navigate Right' })
 
 vim.keymap.set('n', '<C-j>', function()
-    vscode.action('workbench.action.focusBelowGroup')
-end, { desc = 'Focus Below Group' })
+    vscode.action('workbench.action.navigateDown')
+end, { desc = 'Navigate Down' })
 
 vim.keymap.set('n', '<C-k>', function()
-    vscode.action('workbench.action.focusAboveGroup')
-end, { desc = 'Focus Above Group' })
+    vscode.action('workbench.action.navigateUp')
+end, { desc = 'Navigate Up' })
+
+-- 与 Zed 对齐：无需前缀，直接按方向微调当前焦点区域的尺寸。
+vim.keymap.set('n', '<C-A-h>', function() vscode.action('workbench.action.decreaseViewWidth') end, { desc = 'Decrease View Width' })
+vim.keymap.set('n', '<C-A-j>', function() vscode.action('workbench.action.increaseViewHeight') end, { desc = 'Increase View Height' })
+vim.keymap.set('n', '<C-A-k>', function() vscode.action('workbench.action.decreaseViewHeight') end, { desc = 'Decrease View Height' })
+vim.keymap.set('n', '<C-A-l>', function() vscode.action('workbench.action.increaseViewWidth') end, { desc = 'Increase View Width' })
 
 -- -----------------------------------------------------------
 -- 4. 分屏大小调整与屏幕交换 (<leader>w...)
