@@ -37,7 +37,7 @@
     "bindings": {
       // 从终端一键跳回代码编辑器焦点
       "ctrl-escape": "workspace::ActivateNextPane",
-      // 允许在终端内直接使用跨分屏方向键切回编辑区
+      // 终端内向左切换中央编辑器分组。
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-j": "workspace::ActivatePaneDown",
@@ -57,7 +57,21 @@
       // 编辑器内显式覆盖，确保 Vim 模式也能打开大纲。
       "ctrl-shift-b": "outline_panel::ToggleFocus",
       // 对齐 Shift+F6：重命名光标处的符号及其引用
-      "shift-f6": "editor::Rename"
+      "shift-f6": "editor::Rename",
+      // 编辑器组获得焦点时，只调整当前组的相邻分隔线。
+      "ctrl-alt-h": "vim::ResizePaneLeft",
+      "ctrl-alt-l": "vim::ResizePaneRight",
+      "ctrl-alt-j": "vim::ResizePaneDown",
+      "ctrl-alt-k": "vim::ResizePaneUp"
+    }
+  },
+
+  // Dock 获得焦点时，同一组键只调整当前 Dock（文件树、预览或终端）。
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }]
     }
   },
 
@@ -79,11 +93,13 @@
       "ctrl-shift-i": "agent::ToggleFocus",
       "ctrl-shift-w": "pane::CloseActiveItem",
       "ctrl-shift-n": "file_finder::Toggle",
+      // 正常模式也优先走系统复制，不让 Vim 将 Ctrl+C 当作取消操作。
+      "ctrl-c": "editor::Copy",
       // 合并当前行与下一行；!menu 由当前上下文保证，不抢补全菜单
       "ctrl-shift-j": "editor::JoinLines",
 
       // ==========================================================
-      //            跨分屏切换焦点 (压制 Vim 的 ctrl-j 下移光标等)
+      //            跨分屏切换焦点（保留 Ctrl+H 进入左侧编辑器组）
       // ==========================================================
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
@@ -148,13 +164,6 @@
       "space r m": "workspace::ToggleZoom",
       "space w =": "workspace::ResetPaneSizes",
       "space w m": "workspace::ToggleZoom",
-      // 【免前缀调整侧栏】编辑器获得焦点时调整当前打开的 Dock。
-      // 中央编辑器分屏仍使用 space r h/l 微调。
-      "ctrl-alt-h": ["workspace::IncreaseOpenDocksSize", { "px": 0 }],
-      "ctrl-alt-l": ["workspace::DecreaseOpenDocksSize", { "px": 0 }],
-      "ctrl-alt-j": "vim::ResizePaneDown",
-      "ctrl-alt-k": "vim::ResizePaneUp",
-
       // ==========================================================
       //            分屏与文件调度 (小写单文件，大写整组)
       // ==========================================================
@@ -226,10 +235,8 @@
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      // 文件树是 Dock；显式回到中央编辑器，且允许不离开文件树调整自身宽度。
+      // 文件树是 Dock；显式回到中央编辑器。
       "ctrl-l": "workspace::FocusCenterPane",
-      "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
-      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
       "%": null,
       "shift-r": null,
       "x": null,
