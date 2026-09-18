@@ -66,6 +66,8 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 
 ## 一、 VS Code / IDE 全局面板与界面快捷键 (`keyboards.jsonc`)
 
+Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与重构），在代码编辑区 Normal、Insert、Visual 模式均可使用；Zed 原 `g .` 已解绑。可用操作取决于语言服务与光标位置。
+
 | 快捷键                                                | 动作 / 命令                    | 功能说明                                                                                                                |
 | :---------------------------------------------------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>     | `closeActiveEditor`            | 关闭当前页面（已屏蔽退出整个软件）                                                                                      |
@@ -255,10 +257,10 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | **标签页关闭**   | `<leader>cc`                                      | `pane::CloseActiveItem`                     | 关闭当前 Tab                                                                                                                            |
 | **标签页关闭**   | `<leader>ca`                                      | `pane::CloseAllItems`                       | 关闭全部 Tab                                                                                                                            |
 | **LSP 悬停**     | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`            | `editor::Hover`                             | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
-| **跨分屏聚焦**   | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>              | `workspace::ActivatePane...`                | 在拆分窗口间**直接移动光标焦点**（压制 Vim `ctrl-j`）；文件树获得焦点后，<kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器                  |
+| **跨分屏聚焦**   | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>              | `workspace::ActivatePane...`                | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器                  |
 | **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd>                  | `vim::ResizePane...`                        | **单步精细微调**分屏大小（左/右/下/上）                                                                                                 |
 | **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd>                  | `action::Sequence`                          | **大步快速调宽/调窄**（连调 5 档）                                                                                                      |
-| **侧栏宽度调整** | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | `workspace::Increase/DecreaseOpenDocksSize` | **不必切换焦点**：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h</kbd> 扩大、<kbd>l</kbd> 缩小当前打开的侧栏；编辑器分屏改用 `<leader>r h/l` |
+| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock |
 | **平分所有分屏** | `<leader>r=` 或 `<leader>w=`                      | `workspace::ResetPaneSizes`                 | **一键平分所有窗口宽度** (50% / 50%)                                                                                                    |
 | **分屏最大化**   | `<leader>wm` 或 `<leader>rm`                      | `workspace::ToggleZoom`                     | **最大化当前分屏** / 再次按下恢复并列                                                                                                   |
 | **单文件投掷**   | `<leader>w` + <kbd>h/j/k/l</kbd>                  | `workspace::MoveItemToPaneInDirection`      | 将当前单个文件**投掷到左/下/上/右**分屏                                                                                                 |
@@ -364,7 +366,9 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 
 例如 `█foo(a) + bar(b)` 中执行 `cin(` 会清空 `foo` 的括号内部并进入 Insert 模式，得到 `foo(█) + bar(b)`。在 Zed 中可先移动到目标内，再执行 `ci(` 或 `cib`。
 
-### 多光标选择（agyIDE / Zed）
+
+
+## 多光标选择（agyIDE / Zed）
 
 按键依次输入；大写 `N` 表示 `Shift+N`。
 
@@ -382,7 +386,9 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 | 注意            | 最后跳到的候选尚未记录，用 `Space w s` 加入  | Visual 退出不等于仅取消当前项     |
 | 语义重命名      | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左                              |
 
-### 文件树快捷键（agyIDE / Zed）
+
+
+## 文件树快捷键（agyIDE / Zed）
 
 以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.json`。
 
@@ -404,7 +410,9 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 
 原 Vim 文件树按键 `%`（`Shift+5`）、`Shift+R`、`x`、`s` 和原复制相对路径组合键已解除；`d` 改为移到回收站。其他按键保持原样。
 
-### Hop 风格单词跳转（agyIDE / Zed）
+
+
+## Hop 风格单词跳转（agyIDE / Zed）
 
 | 编辑器       | 快捷键（依次按）           | 功能                               | 取消  |
 | ------------ | -------------------------- | ---------------------------------- | ----- |

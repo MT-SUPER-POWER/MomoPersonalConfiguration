@@ -10,11 +10,15 @@
   // ==========================================================
   //            启动与基础行为
   // ==========================================================
-  "cli_default_open_behavior": "existing_window",
+  "markdown_preview": {
+    "font_family": "JetBrains Mono",
+  },
+  "cli_default_open_behavior": "new_window",
   // ==========================================================
   //            Git 面板
   // ==========================================================
   "git_panel": {
+    "dock": "left",
     "group_by": "staging",
     "tree_view": true,
   },
@@ -22,8 +26,11 @@
   //            基础键位与缩进
   // ==========================================================
   "base_keymap": "VSCode",
-  "tab_size": 2,
   "cursor_blink": true,
+  // 光标平滑移动动画（Zed 1.20.1+ 新增）
+  "cursor_animation": {
+    "enabled": false,
+  },
   // ==========================================================
   //            图标与颜色主题
   // ==========================================================
@@ -49,7 +56,6 @@
   // ==========================================================
   //            Markdown 预览
   // ==========================================================
-  "markdown_preview_font_family": "JetBrains Mono",
   // ==========================================================
   //            粘贴与保存
   // ==========================================================
@@ -77,6 +83,7 @@
   "sticky_scroll": {
     "enabled": false,
   },
+
   // ==========================================================
   //            Vim 模式与系统剪贴板
   // ==========================================================
@@ -87,28 +94,27 @@
     // 保持 Ctrl+C 与 Vim 的 y/d 等操作共用 Windows 系统剪贴板
     "use_system_clipboard": "always",
   },
+
   // ==========================================================
   //            编辑器字体与换行
   // ==========================================================
   "buffer_font_size": 18.0,
   "buffer_font_weight": 450.0,
   "buffer_line_height": {
-    "custom": 1.7999999523162842,
+    "custom": 1.8,
   },
   "buffer_font_family": "JetBrains Mono",
-  "buffer_font_fallbacks": [
-    "JetBrainsMono Nerd Font"
-  ],
+  "buffer_font_fallbacks": ["JetBrainsMono Nerd Font"],
   "soft_wrap": "editor_width", // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
+
   // ==========================================================
   //            界面字体
   // ==========================================================
   "ui_font_size": 16.0,
   "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
-  "ui_font_fallbacks": [
-    "JetBrainsMono Nerd Font Mono"
-  ],
+  "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
+
   // ==========================================================
   //            集成终端
   // ==========================================================
@@ -116,19 +122,18 @@
     "font_weight": 350.0,
     "font_size": 15.0,
     "font_family": "JetBrainsMono Nerd Font",
-    "font_fallbacks": [
-      "JetBrains Mono",
-      "JetBrainsMono Nerd Font"
-    ],
+    "font_fallbacks": ["JetBrains Mono", "JetBrainsMono Nerd Font"],
     "line_height": {
       "custom": 1.5,
     },
     "shell": "system",
   },
+
   // ==========================================================
   //            AI 助手与模型
   // ==========================================================
   "agent": {
+    "dock": "right",
     "sandbox_permissions": {
       "allow_unsandboxed": true,
       "write_paths": [
@@ -139,12 +144,12 @@
         },
       ],
     },
-    "sidebar_side": "left",
+    "sidebar_side": "right",
     "default_model": {
       "provider": "openai-subscribed",
-      "model": "gpt-5.3-codex-spark",
+      "model": "gpt-5.6-terra",
       "enable_thinking": true,
-      "effort": "high",
+      "effort": "medium",
     },
     "favorite_models": [],
     "model_parameters": [],
@@ -177,22 +182,16 @@
     "copilot": {},
     "provider": "zed",
   },
+
   // ==========================================================
   //            语言服务器
   // ==========================================================
   "languages": {
     "Vue.js": {
-      "language_servers": [
-        "vtsls",
-        "vue-language-server",
-        "..."
-      ],
+      "language_servers": ["vtsls", "vue-language-server", "..."],
     },
     "Lua": {
-      "language_servers": [
-        "lua-language-server",
-        "..."
-      ],
+      "language_servers": ["lua-language-server", "..."],
     },
   },
   "lsp": {
@@ -204,9 +203,7 @@
               {
                 "name": "@vue/typescript-plugin",
                 "location": "C:/Users/shuhe/AppData/Local/Zed/extensions/work/vue",
-                "languages": [
-                  "vue.js"
-                ],
+                "languages": ["vue.js"],
                 "enableForWorkspaceTypeScriptVersions": true,
                 "configNamespace": "typescript",
               },

@@ -104,8 +104,8 @@
   },
   // ==========================================================
   //            焦点区域尺寸调整
-  // Ctrl+Alt+H/J/K/L 直接调整当前焦点区域的宽度或高度。
   // ==========================================================
+  // Ctrl+Alt+H/J/K/L 直接调整当前焦点区域的宽度或高度。
   {
     "key": "ctrl+alt+h",
     "command": "workbench.action.decreaseViewWidth",
@@ -197,6 +197,12 @@
     "command": "editor.action.joinLines",
     "when": "editorTextFocus && !inSnippetMode"
   },
+  // Alt+Enter 打开代码操作（快速修复与重构）。
+  {
+    "key": "alt+enter",
+    "command": "editor.action.quickFix",
+    "when": "editorTextFocus && editorHasCodeActionsProvider && !editorReadonly"
+  },
   // 对齐 Shift+F6：重命名光标处的符号及其引用
   {
     "key": "shift+f6",
@@ -249,9 +255,7 @@
   {
     "key": "ctrl+q",
     "command": "editor.action.showHover",
-    "args": {
-      "focus": "autoFocusImmediately"
-    },
+    "args": { "focus": "autoFocusImmediately" },
     "when": "editorTextFocus"
   },
   // 悬停窗口聚焦时，使用 j/k 上下平滑滚动浏览，d/u 翻页

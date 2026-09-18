@@ -58,6 +58,8 @@
       "ctrl-shift-b": "outline_panel::ToggleFocus",
       // 对齐 Shift+F6：重命名光标处的符号及其引用
       "shift-f6": "editor::Rename",
+      // Alt+Enter 打开代码操作（快速修复与重构）。
+      "alt-enter": "editor::ToggleCodeActions",
       // 编辑器组获得焦点时，只调整当前组的相邻分隔线。
       "ctrl-alt-h": "vim::ResizePaneLeft",
       "ctrl-alt-l": "vim::ResizePaneRight",
@@ -85,6 +87,8 @@
       // ==========================================================
       //            核心界面快捷键覆盖 (强行压制 Vim 的 PageUp / 光标下移等冲突)
       // ==========================================================
+      // 压制 Vim 的 ctrl-a（数字递增），强制全选当前编辑器内容
+      "ctrl-a": "editor::SelectAll",
       // 压制 Vim 的 ctrl-b (PageUp)，强制走切换左侧边栏
       "ctrl-b": "workspace::ToggleLeftDock",
       "ctrl-alt-b": "workspace::ToggleRightDock",
@@ -259,6 +263,7 @@
   // 取消绑定关闭 zed 窗口防止误操作
   {
     "unbind": {
+      "g .": "editor::ToggleCodeActions",
       "ctrl-shift-w": "workspace::CloseWindow",
       "ctrl-shift-n": "workspace::NewWindow"
     }
