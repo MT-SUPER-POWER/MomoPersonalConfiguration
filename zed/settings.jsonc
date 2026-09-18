@@ -104,6 +104,11 @@
     "custom": 1.8,
   },
   "buffer_font_family": "JetBrains Mono",
+  "buffer_font_features": {
+    "calt": false,
+    "liga": false,
+    "dlig": false,
+  },
   "buffer_font_fallbacks": ["JetBrainsMono Nerd Font"],
   "soft_wrap": "editor_width", // 编辑器与 diff 中的长行按当前可视宽度换行，避免横向滚动。
 
@@ -113,6 +118,11 @@
   "ui_font_size": 16.0,
   "ui_font_weight": 400.0,
   "ui_font_family": "JetBrains Mono",
+  "ui_font_features": {
+    "calt": false,
+    "liga": false,
+    "dlig": false,
+  },
   "ui_font_fallbacks": ["JetBrainsMono Nerd Font Mono"],
 
   // ==========================================================
@@ -122,6 +132,8 @@
     "font_weight": 350.0,
     "font_size": 15.0,
     "font_family": "JetBrainsMono Nerd Font",
+    // 保持终端字体默认特性，不继承编辑区的连字禁用设置。
+    "font_features": {},
     "font_fallbacks": ["JetBrains Mono", "JetBrainsMono Nerd Font"],
     "line_height": {
       "custom": 1.5,
@@ -187,6 +199,11 @@
   //            语言服务器
   // ==========================================================
   "languages": {
+    "Markdown": {
+      // 默认不自动格式化；本仓库 .zed/settings.json 启用带紧凑表格插件的 Prettier。
+      "format_on_save": "off",
+      "formatter": "auto",
+    },
     "Vue.js": {
       "language_servers": ["vtsls", "vue-language-server", "..."],
     },

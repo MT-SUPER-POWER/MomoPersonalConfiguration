@@ -12,19 +12,19 @@
 
 ## 去哪里修改
 
-| 要做的事                                            | 文件或目录                                    |
-| --------------------------------------------------- | --------------------------------------------- |
-| 调整 Antigravity IDE 设置、字体、终端或 Neovim 入口 | `agy ide/settings.jsonc`                      |
-| 调整 IDE 全局快捷键                                 | `agy ide/keyboards.jsonc`（沿用现有文件名）   |
-| 调整 Neovim 加载顺序                                | `nvim/init.lua`                               |
-| 调整两种 Neovim 使用方式共用的配置、按键            | `nvim/lua/public/`                            |
-| 调整 IDE 中的 Neovim 行为、按键                     | `nvim/lua/vsc/`                               |
-| 调整独立运行的 Neovim                               | `nvim/lua/nvim/`                              |
-| 添加或调整插件声明                                  | `nvim/lua/plugins/init.lua`                   |
-| 调整具体插件的配置                                  | `nvim/lua/plugins/config/`                    |
-| 调整 Zed 设置或快捷键                               | `zed/settings.json`、`zed/keymap.json`        |
-| 调整 Starship 主题或 PowerShell 加载方式            | `starship/starship.toml`、`starship/init.ps1` |
-| 调整 snippet(快速生成模板)                          | `agy ide/snippets/*`、`zed/snippets/*`        |
+| 要做的事 | 文件或目录 |
+| --- | --- |
+| 调整 Antigravity IDE 设置、字体、终端或 Neovim 入口 | `agy ide/settings.jsonc` |
+| 调整 IDE 全局快捷键 | `agy ide/keyboards.jsonc`（沿用现有文件名） |
+| 调整 Neovim 加载顺序 | `nvim/init.lua` |
+| 调整两种 Neovim 使用方式共用的配置、按键 | `nvim/lua/public/` |
+| 调整 IDE 中的 Neovim 行为、按键 | `nvim/lua/vsc/` |
+| 调整独立运行的 Neovim | `nvim/lua/nvim/` |
+| 添加或调整插件声明 | `nvim/lua/plugins/init.lua` |
+| 调整具体插件的配置 | `nvim/lua/plugins/config/` |
+| 调整 Zed 设置或快捷键 | `zed/settings.json`、`zed/keymap.json` |
+| 调整 Starship 主题或 PowerShell 加载方式 | `starship/starship.toml`、`starship/init.ps1` |
+| 调整 snippet(快速生成模板) | `agy ide/snippets/*`、`zed/snippets/*` |
 
 `nvim/lazy-lock.json` 保存插件版本。不要为了无关任务更新它。`vscode/` 当前为空，不是配置入口。
 

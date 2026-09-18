@@ -45,18 +45,50 @@ Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说�
 
 macOS 的本机配置路径、适配项与恢复方式见 [Mac 同步说明](macos/README.md)。
 
+## 字体显示
+
+Zed 的编辑区与界面，以及 agyIDE 的编辑区关闭字体连字，`>=`、`!=`、`=>` 等运算符按原始字符显示。Zed 通过 `buffer_font_features`、`ui_font_features` 关闭 `calt`、`liga`、`dlig`；agyIDE 通过 `editor.fontLigatures: false` 控制，并共享到各配置档案。终端保持原有连字行为；Zed 使用空的 `terminal.font_features` 保留字体默认特性，避免继承编辑区的禁用设置。
+
+## 格式化（Prettier / Zed / lint-staged / CI）
+
+本仓库通过 npm 管理 Prettier 与 `prettier-plugin-markdown-compact-tables`，版本固定在 `package.json` 和 `package-lock.json`。表格单元格两侧各留一个空格，不按最长内容补齐列宽；保留对齐标记、段落原有换行和 Markdown 中的代码块内容。规则统一放在 `.prettierrc.json`，无需给每张表添加忽略注释。
+
+首次使用安装 Node.js 22.22.1 或更新版本（CI 使用 Node.js 24），在仓库根目录运行：
+
+```sh
+npm ci
+```
+
+| 命令 | 用途 |
+| --- | --- |
+| `npm run format` | 格式化 Prettier 支持的仓库文件，包括 Markdown、JSON/JSONC、YAML、CSS 和代码片段 |
+| `npm run format:markdown` | 只格式化 Markdown / MDX 文档 |
+| `npm run format:check` | 只检查格式，不修改文件；与 CI 使用相同规则 |
+| `npx lint-staged` | 只格式化已暂存文件，使用与全仓检查相同的 Prettier 规则 |
+| `npm run prepare` | 安装或恢复本仓库的 Husky Git 钩子 |
+
+`npm ci` 会通过 `prepare` 自动安装 Husky。执行 `git commit` 时，`.husky/pre-commit` 调用 lint-staged，自动读取独立的 `lint-staged.config.mjs`，仅处理暂存文件；格式化结果自动重新暂存，失败则阻止提交。部分暂存文件的未暂存改动由 lint-staged 默认机制临时隐藏并恢复，不使用 `git add .`。忽略文件沿用 `.prettierignore`，不支持的文件类型直接跳过。这里检查的是格式，不包含 ESLint 语义检查。
+
+Lua、TOML 和 PowerShell 暂不由这套 Prettier 处理；`.prettierignore` 排除依赖目录、工具缓存和锁文件，避免改写 Neovim 的插件锁定版本。
+
+Zed 打开本仓库后，`.zed/settings.json` 为 Markdown 启用保存格式化与 `Space f f` 手动格式化，使用项目安装的 Prettier 和紧凑表格插件。保留按窗口宽度软换行；长内容仍会自然折行，但不会再插入用于对齐列宽的大段空格。先完成 `npm ci`，再执行格式化；若 Zed 未识别新安装的依赖，可重新打开项目后重试。
+
+`zed/settings.jsonc` 是个人设置存档，macOS 本机副本为 `~/.config/zed/settings.json`；它们默认关闭 Markdown 保存格式化，由本仓库的项目设置覆盖。其他仓库需要自行安装并配置此插件，才能获得同样的紧凑表格效果。
+
+GitHub Actions 的 `.github/workflows/format.yml` 在 push 和 Pull Request 时执行 `npm ci --ignore-scripts` 与 `npm run format:check`。CI 使用 `--ignore-scripts`，无需安装 Git 钩子。检查失败时，本地运行 `npm run format` 后提交改动即可；CI 不自动修改或提交文件。
+
 ## 代码片段（agyIDE / Zed）
 
-| 项目         | 说明                                                                                                                   |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| agyIDE 存档  | `agy ide/snippets/`，对应 `%APPDATA%\Antigravity IDE\User\snippets\`                                                   |
-| Zed 配置     | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分                                                            |
-| 块状横幅标题 | `banner` / `box` / `bheader` / `bsec`，按语言插入对应 3 行等号块状横幅，标题占位为 `SECTION_NAME`                      |
-| 分区标题     | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME`                          |
-| 简单分隔线   | agyIDE 已移除旧 `Comment.code-snippets`（`dline` / `dl`），改用 `header` / `box`；Zed 的已有分隔线片段暂时保留         |
-| 使用         | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题                                                            |
-| 后续同步     | 将对应仓库目录内的片段复制到上述本机目录；不是自动双向同步，同名文件覆盖前先合并本机修改                               |
-| Zed 适配     | 触发词别名拆成独立条目；Vue 使用 `vue.js.json`、TSX 使用 `tsx.json`、C# 使用 `csharp.json`；EditorConfig 使用 `#` 注释 |
+| 项目 | 说明 |
+| --- | --- |
+| agyIDE 存档 | `agy ide/snippets/`，对应 `%APPDATA%\Antigravity IDE\User\snippets\` |
+| Zed 配置 | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分 |
+| 块状横幅标题 | `banner` / `box` / `bheader` / `bsec`，按语言插入对应 3 行等号块状横幅，标题占位为 `SECTION_NAME` |
+| 分区标题 | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME` |
+| 简单分隔线 | agyIDE 已移除旧 `Comment.code-snippets`（`dline` / `dl`），改用 `header` / `box`；Zed 的已有分隔线片段暂时保留 |
+| 使用 | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题 |
+| 后续同步 | 将对应仓库目录内的片段复制到上述本机目录；不是自动双向同步，同名文件覆盖前先合并本机修改 |
+| Zed 适配 | 触发词别名拆成独立条目；Vue 使用 `vue.js.json`、TSX 使用 `tsx.json`、C# 使用 `csharp.json`；EditorConfig 使用 `#` 注释 |
 
 Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.dev/docs/snippets)。未安装的语言扩展需先启用；此处不安装扩展。
 
@@ -72,23 +104,23 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 
 **Antigravity IDE 的 Mac AI 入口**：`Cmd+Shift+I` 调用 `antigravity.toggleChatFocus`，有编辑器选区时自动加入 AI 输入框作为上下文，无选区时打开/聚焦面板，不自动发送。`Cmd+L`（非终端）和 `Cmd+Shift+L` 的旧 AI 入口被空命令屏蔽，避免误开或新建会话。三项规则均带 `isMac`，Windows 的 `Ctrl+Shift+I` 和原有保护保持不变。Zed 的同名组合只聚焦 AI 面板，不宣称自动附加选区。
 
-| 快捷键                                                | 动作 / 命令                    | 功能说明                                                                                                        |
-| :---------------------------------------------------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>     | `closeActiveEditor`            | 关闭当前页面（已屏蔽退出整个软件）                                                                              |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>     | `workbench.action.quickOpen`   | 快速检索并打开文件（已屏蔽新建窗口）                                                                            |
-| <kbd>Ctrl</kbd> + <kbd>B</kbd>                        | `toggleSidebarVisibility`      | 切换**左侧边栏**（文件树）显示/隐藏                                                                             |
-| <kbd>Ctrl</kbd> + <kbd>H/J/K/L</kbd>                  | `workbench.action.navigate...` | 在编辑器、文件树和底部面板等可见区域间，按左/下/上/右切换焦点                                                   |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.*View*`      | 调整当前区域宽度或高度；代码编辑区各模式和文件树均可用，终端及搜索/重命名输入框不接管                           |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>     | `editor.action.joinLines`      | 编辑器内合并当前行与下一行                                                                                      |
-| <kbd>Shift</kbd> + <kbd>F6</kbd>                      | `editor.action.rename`         | 重命名光标处符号及其引用                                                                                        |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>       | `toggleAuxiliaryBar`           | 切换**右侧辅助栏**显示/隐藏                                                                                     |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>      | `togglePanel`                  | 切换**底部面板**（终端/输出）显示/隐藏                                                                          |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>      | `view.problems`                | 快速聚焦**错误与问题面板**                                                                                      |
-| <kbd>Ctrl</kbd> + <kbd>F11</kbd>                      | `toggleMaximizedPanel`         | **最大化 / 恢复**底部面板                                                                                       |
-| <kbd>Ctrl</kbd> + <kbd>F12</kbd>                      | `toggleMaximizedAuxiliaryBar`  | **最大化 / 恢复**右侧辅助栏                                                                                     |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>     | `antigravity.toggleChatFocus`  | 聚焦 **AI 编程对话**面板；有代码选区时加入 AI 输入框作为上下文（不发送）                                        |
-| <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                      | `focusActiveEditorGroup`       | 从终端焦点**一键切回代码编辑器**                                                                                |
-| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                | `editor.action.showHover`      | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
+| 快捷键 | 动作 / 命令 | 功能说明 |
+| :-- | :-- | :-- |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `closeActiveEditor` | 关闭当前页面（已屏蔽退出整个软件） |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `workbench.action.quickOpen` | 快速检索并打开文件（已屏蔽新建窗口） |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `toggleSidebarVisibility` | 切换**左侧边栏**（文件树）显示/隐藏 |
+| <kbd>Ctrl</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.navigate...` | 在编辑器、文件树和底部面板等可见区域间，按左/下/上/右切换焦点 |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.*View*` | 调整当前区域宽度或高度；代码编辑区各模式和文件树均可用，终端及搜索/重命名输入框不接管 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor.action.joinLines` | 编辑器内合并当前行与下一行 |
+| <kbd>Shift</kbd> + <kbd>F6</kbd> | `editor.action.rename` | 重命名光标处符号及其引用 |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `toggleAuxiliaryBar` | 切换**右侧辅助栏**显示/隐藏 |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `togglePanel` | 切换**底部面板**（终端/输出）显示/隐藏 |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `view.problems` | 快速聚焦**错误与问题面板** |
+| <kbd>Ctrl</kbd> + <kbd>F11</kbd> | `toggleMaximizedPanel` | **最大化 / 恢复**底部面板 |
+| <kbd>Ctrl</kbd> + <kbd>F12</kbd> | `toggleMaximizedAuxiliaryBar` | **最大化 / 恢复**右侧辅助栏 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `antigravity.toggleChatFocus` | 聚焦 **AI 编程对话**面板；有代码选区时加入 AI 输入框作为上下文（不发送） |
+| <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `focusActiveEditorGroup` | 从终端焦点**一键切回代码编辑器** |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor.action.showHover` | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
 
 > **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）和 `Ctrl+Shift+C`；`Ctrl+K/L` 已改作方向导航。
 
@@ -98,73 +130,73 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 
 ### 1. 查找与检索
 
-|   模式    | 快捷键         | 功能说明                                                  |
-| :-------: | :------------- | :-------------------------------------------------------- |
-| `n` / `x` | <kbd>/</kbd>   | **直接触发 VS Code 原生搜索栏**（选中文本时自动填入选区） |
-|    `n`    | `<leader>fw`   | 当前文件内查找（与 `/` 效果一致）                         |
-|    `n`    | `<leader>fa`   | 快速检索并打开文件 (Quick Open)                           |
-|    `n`    | `<leader>fg`   | 全局文字搜索 (Live Grep / Find in Files)                  |
-|    `n`    | `<leader>fb`   | 查看已打开的文件与标签页列表 (Buffers)                    |
-|    `n`    | <kbd>Esc</kbd> | 清除高亮标记 (`:nohlsearch`)                              |
+| 模式 | 快捷键 | 功能说明 |
+| :-: | :-- | :-- |
+| `n` / `x` | <kbd>/</kbd> | **直接触发 VS Code 原生搜索栏**（选中文本时自动填入选区） |
+| `n` | `<leader>fw` | 当前文件内查找（与 `/` 效果一致） |
+| `n` | `<leader>fa` | 快速检索并打开文件 (Quick Open) |
+| `n` | `<leader>fg` | 全局文字搜索 (Live Grep / Find in Files) |
+| `n` | `<leader>fb` | 查看已打开的文件与标签页列表 (Buffers) |
+| `n` | <kbd>Esc</kbd> | 清除高亮标记 (`:nohlsearch`) |
 
 ---
 
 ### 2. 文件与格式化
 
-| 模式 | 快捷键       | 功能说明                                               |
-| :--: | :----------- | :----------------------------------------------------- |
-| `n`  | `<leader>ff` | **整个文件全局格式化** (`formatDocument`)              |
-| `x`  | `<leader>ff` | **仅对当前选中选区进行局部格式化** (`formatSelection`) |
-| `n`  | `<leader>fs` | 保存当前文件                                           |
+| 模式 | 快捷键 | 功能说明 |
+| :-: | :-- | :-- |
+| `n` | `<leader>ff` | **整个文件全局格式化** (`formatDocument`) |
+| `x` | `<leader>ff` | **仅对当前选中选区进行局部格式化** (`formatSelection`) |
+| `n` | `<leader>fs` | 保存当前文件 |
 
 ---
 
 ### 3. 分屏大小调整（微调模式与预设）
 
-| 快捷键                          | 功能说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 快捷键 | 功能说明 |
+| :-- | :-- |
 | **`<leader>r`** 或 **`<C-w>r`** | **进入分屏微调模式（0ms 瞬发）**，进入后：<br>• <kbd>h</kbd> / <kbd>l</kbd>：左右宽度精细微调（1个单位）<br>• <kbd>j</kbd> / <kbd>k</kbd>：上下高度精细微调（1个单位）<br>• <kbd>H</kbd> / <kbd>L</kbd>：左右宽度大步快调（5个单位）<br>• <kbd>J</kbd> / <kbd>K</kbd>：上下高度大步快调（5个单位）<br>• <kbd>x</kbd>：直接左右对调分屏<br>• <kbd>=</kbd>：平分分屏；<kbd>m</kbd>：最大化分屏<br>• <kbd>Esc</kbd> / <kbd>Enter</kbd> / <kbd>Space</kbd> / <kbd>q</kbd>：**退出微调模式** |
-| **`<leader>wm`** 或 `<C-w>_`    | **一键最大化当前分屏** / 再次按下恢复并列                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| **`<leader>w=`** 或 `<C-w>=`    | **一键平分所有窗口宽度** (50% / 50%)                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **`<leader>wm`** 或 `<C-w>_` | **一键最大化当前分屏** / 再次按下恢复并列 |
+| **`<leader>w=`** 或 `<C-w>=` | **一键平分所有窗口宽度** (50% / 50%) |
 
 ---
 
 ### 4. 屏幕与文件交换调度（记忆法则：小写文件，大写分屏组）
 
-| 快捷键                       |   功能分类   | 说明                                |
-| :--------------------------- | :----------: | :---------------------------------- |
-| **`<leader>wx`** 或 `<C-w>x` | **左右对调** | 左右分屏整组位置极速互换            |
-| **`<leader>wh`**             |    单文件    | 把当前文件（Tab）甩到 **左侧** 分屏 |
-| **`<leader>wl`**             |    单文件    | 把当前文件（Tab）甩到 **右侧** 分屏 |
-| **`<leader>wj`**             |    单文件    | 把当前文件（Tab）甩到 **下方** 分屏 |
-| **`<leader>wk`**             |    单文件    | 把当前文件（Tab）甩到 **上方** 分屏 |
-| **`<leader>wH`**             |   整组分屏   | 整个分屏组 **向左移**               |
-| **`<leader>wL`**             |   整组分屏   | 整个分屏组 **向右移**               |
-| **`<leader>wJ`**             |   整组分屏   | 整个分屏组 **向下移**               |
-| **`<leader>wK`**             |   整组分屏   | 整个分屏组 **向上移**               |
+| 快捷键 | 功能分类 | 说明 |
+| :-- | :-: | :-- |
+| **`<leader>wx`** 或 `<C-w>x` | **左右对调** | 左右分屏整组位置极速互换 |
+| **`<leader>wh`** | 单文件 | 把当前文件（Tab）甩到 **左侧** 分屏 |
+| **`<leader>wl`** | 单文件 | 把当前文件（Tab）甩到 **右侧** 分屏 |
+| **`<leader>wj`** | 单文件 | 把当前文件（Tab）甩到 **下方** 分屏 |
+| **`<leader>wk`** | 单文件 | 把当前文件（Tab）甩到 **上方** 分屏 |
+| **`<leader>wH`** | 整组分屏 | 整个分屏组 **向左移** |
+| **`<leader>wL`** | 整组分屏 | 整个分屏组 **向右移** |
+| **`<leader>wJ`** | 整组分屏 | 整个分屏组 **向下移** |
+| **`<leader>wK`** | 整组分屏 | 整个分屏组 **向上移** |
 
 ---
 
 ### 5. 标签页与窗口光标导航
 
-| 快捷键                               | 功能说明                                         |
-| :----------------------------------- | :----------------------------------------------- |
-| <kbd>J</kbd> / <kbd>K</kbd>          | 在顶部 Tab 标签页之间**向左 / 向右**快速轮转切换 |
-| <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | 在拆分窗口（Group）之间**直接切换光标焦点**      |
-| `<leader>cc`                         | 关闭当前编辑器 Tab                               |
-| `<leader>ca`                         | 关闭全部编辑器 Tab                               |
+| 快捷键 | 功能说明 |
+| :-- | :-- |
+| <kbd>J</kbd> / <kbd>K</kbd> | 在顶部 Tab 标签页之间**向左 / 向右**快速轮转切换 |
+| <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | 在拆分窗口（Group）之间**直接切换光标焦点** |
+| `<leader>cc` | 关闭当前编辑器 Tab |
+| `<leader>ca` | 关闭全部编辑器 Tab |
 
 ---
 
 ### 6. 代码折叠与行选区
 
-| 快捷键      | 功能说明                                                                                                                |
-| :---------- | :---------------------------------------------------------------------------------------------------------------------- |
-| `j` / `k`   | Normal/字符选区沿用视觉行移动；`V` 由 Neovim 保持整行选区和固定起点，按逻辑行增减，并跳过当前视口可见范围之间的折叠内容 |
-| `zc` / `zo` | 折叠 / 展开当前代码块                                                                                                   |
-| `za`        | 切换当前代码块折叠状态                                                                                                  |
-| `zC` / `zO` | 递归折叠 / 递归展开                                                                                                     |
-| `zM` / `zR` | 全部折叠 / 全部展开                                                                                                     |
+| 快捷键 | 功能说明 |
+| :-- | :-- |
+| `j` / `k` | Normal/字符选区沿用视觉行移动；`V` 由 Neovim 保持整行选区和固定起点，按逻辑行增减，并跳过当前视口可见范围之间的折叠内容 |
+| `zc` / `zo` | 折叠 / 展开当前代码块 |
+| `za` | 切换当前代码块折叠状态 |
+| `zC` / `zO` | 递归折叠 / 递归展开 |
+| `zM` / `zR` | 全部折叠 / 全部展开 |
 
 `V` 的 `j/k`（含数字前缀）不改写 VS Code Selection，避免扩展把行选区同步成字符选区。折叠识别限于当前视口，视口外的行按逻辑行移动；长距离移动经过视口外折叠仍可能展开它。
 
@@ -176,13 +208,13 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 
 #### ① Hop 快速精准跳转 (`smoka7/hop.nvim`)
 
-| 快捷键               |  跳转维度  | 行为说明                                 |
-| :------------------- | :--------: | :--------------------------------------- |
-| `<leader><leader>w`  | 单词首字母 | 屏幕所有单词首字母打出字母标记，一键飞跳 |
-| `<leader><leader>l`  |   目标行   | 屏幕所有代码行首打出字母标记，精准跳行   |
-| `<leader><leader>co` |   单字符   | 敲一个字符，全屏匹配该字符位置直达       |
-| `<leader><leader>cd` |   双字符   | 敲两个连续字符，全屏高精度快速定位       |
-| `<leader><leader>f`  | 正则/模式  | 输入任意字符串或正则，高亮匹配并快速跳转 |
+| 快捷键 | 跳转维度 | 行为说明 |
+| :-- | :-: | :-- |
+| `<leader><leader>w` | 单词首字母 | 屏幕所有单词首字母打出字母标记，一键飞跳 |
+| `<leader><leader>l` | 目标行 | 屏幕所有代码行首打出字母标记，精准跳行 |
+| `<leader><leader>co` | 单字符 | 敲一个字符，全屏匹配该字符位置直达 |
+| `<leader><leader>cd` | 双字符 | 敲两个连续字符，全屏高精度快速定位 |
+| `<leader><leader>f` | 正则/模式 | 输入任意字符串或正则，高亮匹配并快速跳转 |
 
 ---
 
@@ -190,15 +222,15 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 
 支持与各类文本对象搭配使用：
 
-| 动作类型              | 快捷键组合                               | 代码示例（`word` 为光标词）    | 结果说明                     |
-| :-------------------- | :--------------------------------------- | :----------------------------- | :--------------------------- |
-| **添加包裹** (`ys`)   | `ysiw)` 或 `ysiw(`                       | `word` ➡️ `(word)`             | 为当前单词添加圆括号         |
-| **添加引号** (`ys`)   | `ysiw"` 或 `ysiw'`                       | `word` ➡️ `"word"`             | 为当前单词添加双引号         |
-| **修改包裹** (`cs`)   | `cs"'`                                   | `"word"` ➡️ `'word'`           | 将双引号替换为单引号         |
-| **修改为标签** (`cs`) | `cs'<q>`                                 | `'word'` ➡️ `<q>word</q>`      | 将单引号替换为 HTML/XML 标签 |
-| **删除包裹** (`ds`)   | `ds"`                                    | `"word"` ➡️ `word`             | 剔除外层双引号               |
-| **删除括号** (`ds`)   | `ds(` 或 `ds)`                           | `(word)` ➡️ `word`             | 剔除外层圆括号               |
-| **Visual 选区包裹**   | 选中文本后按 <kbd>S</kbd> + <kbd>"</kbd> | `[选中文本]` ➡️ `"[选中文本]"` | 将整段选区用目标符号包裹     |
+| 动作类型 | 快捷键组合 | 代码示例（`word` 为光标词） | 结果说明 |
+| :-- | :-- | :-- | :-- |
+| **添加包裹** (`ys`) | `ysiw)` 或 `ysiw(` | `word` ➡️ `(word)` | 为当前单词添加圆括号 |
+| **添加引号** (`ys`) | `ysiw"` 或 `ysiw'` | `word` ➡️ `"word"` | 为当前单词添加双引号 |
+| **修改包裹** (`cs`) | `cs"'` | `"word"` ➡️ `'word'` | 将双引号替换为单引号 |
+| **修改为标签** (`cs`) | `cs'<q>` | `'word'` ➡️ `<q>word</q>` | 将单引号替换为 HTML/XML 标签 |
+| **删除包裹** (`ds`) | `ds"` | `"word"` ➡️ `word` | 剔除外层双引号 |
+| **删除括号** (`ds`) | `ds(` 或 `ds)` | `(word)` ➡️ `word` | 剔除外层圆括号 |
+| **Visual 选区包裹** | 选中文本后按 <kbd>S</kbd> + <kbd>"</kbd> | `[选中文本]` ➡️ `"[选中文本]"` | 将整段选区用目标符号包裹 |
 
 ---
 
@@ -206,14 +238,14 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 
 以动词（`d` 删、`c` 改、`y` 复制、`v` 选中）+ 文本对象组合使用：
 
-| 目标对象           | 关键按键  | 真实场景示例                                | 效果与收益                                                      |
-| :----------------- | :-------: | :------------------------------------------ | :-------------------------------------------------------------- |
-| **函数参数** (`a`) | **`daa`** | `fn(user, id█, msg)` ➡️ `fn(user, msg)`     | **删除一个参数**，包含相邻逗号；复杂表达式应先用 `vaa` 检查选区 |
-| **函数参数** (`a`) | **`cia`** | `fn(user, id█, msg)` ➡️ `fn(user, █, msg)`  | **清空并修改当前参数**，保留逗号，立刻打字输入新参数            |
-| **调用内部** (`f`) | **`cif`** | `fn(a, b█)` ➡️ `fn(█)`                      | 清空函数调用的参数部分，保留函数名与括号（Neovim mini.ai）      |
-| **整个调用** (`f`) | **`daf`** | `fn(a, b█)` ➡️ 整个调用被删除               | 删除函数调用；不是删除函数定义（Neovim mini.ai）                |
-| **智能引号** (`q`) | **`ciq`** | `'str'`, `"str"`, `` `str` `` ➡️ 引号内清空 | **通杀所有引号**，无需肉眼区分单双引号或反引号，直接改引号内    |
-| **智能括号** (`b`) | **`cib`** | `(...)`, `[...]`, `{...}` ➡️ 括号内清空     | **通杀所有括号**，自动匹配最近的一对圆/方/花括号                |
+| 目标对象 | 关键按键 | 真实场景示例 | 效果与收益 |
+| :-- | :-: | :-- | :-- |
+| **函数参数** (`a`) | **`daa`** | `fn(user, id█, msg)` ➡️ `fn(user, msg)` | **删除一个参数**，包含相邻逗号；复杂表达式应先用 `vaa` 检查选区 |
+| **函数参数** (`a`) | **`cia`** | `fn(user, id█, msg)` ➡️ `fn(user, █, msg)` | **清空并修改当前参数**，保留逗号，立刻打字输入新参数 |
+| **调用内部** (`f`) | **`cif`** | `fn(a, b█)` ➡️ `fn(█)` | 清空函数调用的参数部分，保留函数名与括号（Neovim mini.ai） |
+| **整个调用** (`f`) | **`daf`** | `fn(a, b█)` ➡️ 整个调用被删除 | 删除函数调用；不是删除函数定义（Neovim mini.ai） |
+| **智能引号** (`q`) | **`ciq`** | `'str'`, `"str"`, `` `str` `` ➡️ 引号内清空 | **通杀所有引号**，无需肉眼区分单双引号或反引号，直接改引号内 |
+| **智能括号** (`b`) | **`cib`** | `(...)`, `[...]`, `{...}` ➡️ 括号内清空 | **通杀所有括号**，自动匹配最近的一对圆/方/花括号 |
 
 ---
 
@@ -228,30 +260,30 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 
 ### 1. 全局面板与界面控制 (`Window` & `Workspace` 作用域)
 
-| 快捷键                                                       | 所在作用域                 | Zed Action 命令                  | 对应功能说明与避坑点                                                          |
-| :----------------------------------------------------------- | :------------------------- | :------------------------------- | :---------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>            | `Window` / `Workspace`     | `pane::CloseActiveItem`          | **关闭当前页面**（根级拦截，**彻底杜绝触发全局 `CloseWindow` 退出整个 Zed**） |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>            | `Workspace` / `Editor`     | `file_finder::Toggle`            | 快速检索并打开文件（已解除 `workspace::NewWindow`）                           |
-| <kbd>Ctrl</kbd> + <kbd>B</kbd>                               | `Workspace` / Vim `Editor` | `workspace::ToggleLeftDock`      | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`）                   |
-| <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> | `Editor`（非补全菜单）     | `editor::Copy` / `Paste` / `Cut` | 恢复系统复制、粘贴、剪切，不受 Vim 模式拦截                                   |
-| <kbd>Shift</kbd> + <kbd>F6</kbd>                             | `Editor`（非补全菜单）     | `editor::Rename`                 | 重命名光标处符号及其引用                                                      |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>              | `Workspace`                | `workspace::ToggleRightDock`     | 切换**右侧辅助栏**                                                            |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>             | `Workspace`                | `workspace::ToggleBottomDock`    | 切换**底部终端面板**                                                          |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>             | `Workspace`                | `diagnostics::Deploy`            | 呼出**错误与诊断面板**                                                        |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>            | `Workspace`                | `agent::ToggleFocus`             | 聚焦 / 唤起 **Zed AI Assistant**                                              |
-| <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                             | `Terminal` / `Workspace`   | `workspace::ActivateNextPane`    | 从终端或面板**一键切回代码编辑器**                                            |
+| 快捷键 | 所在作用域 | Zed Action 命令 | 对应功能说明与避坑点 |
+| :-- | :-- | :-- | :-- |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> | `Window` / `Workspace` | `pane::CloseActiveItem` | **关闭当前页面**（根级拦截，**彻底杜绝触发全局 `CloseWindow` 退出整个 Zed**） |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | `Workspace` / `Editor` | `file_finder::Toggle` | 快速检索并打开文件（已解除 `workspace::NewWindow`） |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / Vim `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
+| <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> | `Editor`（非补全菜单） | `editor::Copy` / `Paste` / `Cut` | 恢复系统复制、粘贴、剪切，不受 Vim 模式拦截 |
+| <kbd>Shift</kbd> + <kbd>F6</kbd> | `Editor`（非补全菜单） | `editor::Rename` | 重命名光标处符号及其引用 |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `Workspace` | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
+| <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `Terminal` / `Workspace` | `workspace::ActivateNextPane` | 从终端或面板**一键切回代码编辑器** |
 
 **macOS 防误触映射（Zed）**：保留以上 Ctrl 按键，同时补充 Command 版本：
 
-| Mac 快捷键                   | 行为                                                                      |
-| ---------------------------- | ------------------------------------------------------------------------- |
-| `Cmd+Shift+N`                | 快速查找文件；解绑默认的新建窗口                                          |
-| `Cmd+Shift+W`                | 仅关闭当前标签页；解绑默认的关闭窗口                                      |
-| 文件树中 `Cmd+K Cmd+Shift+C` | 禁用旧的复制相对路径组合键，沿用 `Alt+Shift+C`                            |
-| `Cmd+Shift+G`                | 打开 Git 面板；主代码编辑区覆盖默认上一个搜索匹配，搜索输入框保留搜索行为 |
-| `Cmd+Shift+I`                | 打开 Zed AI 面板；格式化继续使用 `Space f f`                              |
-| `Cmd+Shift+J`                | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为                  |
-| 文件树中 `Cmd+Shift+C`       | 复制绝对路径                                                              |
+| Mac 快捷键 | 行为 |
+| --- | --- |
+| `Cmd+Shift+N` | 快速查找文件；解绑默认的新建窗口 |
+| `Cmd+Shift+W` | 仅关闭当前标签页；解绑默认的关闭窗口 |
+| 文件树中 `Cmd+K Cmd+Shift+C` | 禁用旧的复制相对路径组合键，沿用 `Alt+Shift+C` |
+| `Cmd+Shift+G` | 打开 Git 面板；主代码编辑区覆盖默认上一个搜索匹配，搜索输入框保留搜索行为 |
+| `Cmd+Shift+I` | 打开 Zed AI 面板；格式化继续使用 `Space f f` |
+| `Cmd+Shift+J` | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为 |
+| 文件树中 `Cmd+Shift+C` | 复制绝对路径 |
 
 所有新增 Command 绑定及解绑均限定 `os == macos`，Windows 原有规则不变；原 Ctrl 按键仍可作为 Mac 兼容入口。窗口保护覆盖 Workspace 与编辑器各模式；`Ctrl+D/U` 等 Vim 按键保持不变。字母键解绑（如 `g .`）不涉及平台修饰键，继续沿用原配置。
 
@@ -261,29 +293,29 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 
 > **冲突防护机制**：核心按键均受 `!menu` 约束保护，弹出代码补全下拉建议时绝不抢按键；同时在编辑器内压制 Vim 默认的 `ctrl-j` (光标下移) 与 `ctrl-b` (向上翻页)。
 
-| 场景分类           | 快捷键                                                                                                                 | Zed Action 命令                                                | 功能说明与机制                                                                                                                     |
-| :----------------- | :--------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| **检索查找**       | <kbd>/</kbd>                                                                                                           | `vim::Search`                                                  | **保持 Vim 原生搜索**（支持 `n` / `N` 上下快速跳词）                                                                               |
-| **检索查找**       | `<leader>fw`                                                                                                           | `buffer_search::Deploy`                                        | 调出 Zed 原生底部 GUI 搜索输入条                                                                                                   |
-| **检索查找**       | `<leader>fa`                                                                                                           | `file_finder::Toggle`                                          | 快速检索打开文件 (Quick Open)                                                                                                      |
-| **检索查找**       | `<leader>fg`                                                                                                           | `pane::DeploySearch`                                           | 全局文字搜索 (Live Grep)                                                                                                           |
-| **检索查找**       | `<leader>fb`                                                                                                           | `tab_switcher::Toggle`                                         | 查看已打开的标签列表 (Buffers)                                                                                                     |
-| **文件与格式**     | `<leader>fs`                                                                                                           | `workspace::Save`                                              | 保存当前文件                                                                                                                       |
-| **文件与格式**     | `<leader>ff`                                                                                                           | `editor::Format`                                               | **文档格式化** (Visual 模式下局部格式化)                                                                                           |
-| **文件与格式**     | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>                                                                      | `editor::JoinLines`                                            | 合并当前行与下一行（仅 Vim 编辑器且不在补全菜单时生效）                                                                            |
-| **标签页轮转**     | <kbd>J</kbd> / <kbd>K</kbd>                                                                                            | `pane::ActivatePrevItem` / `NextItem`                          | 快速在顶部 Tab 标签间**向左 / 向右**轮转                                                                                           |
-| **标签页关闭**     | `<leader>cc`                                                                                                           | `pane::CloseActiveItem`                                        | 关闭当前 Tab                                                                                                                       |
-| **标签页关闭**     | `<leader>ca`                                                                                                           | `pane::CloseAllItems`                                          | 关闭全部 Tab                                                                                                                       |
-| **LSP 悬停**       | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                                                                                 | `editor::Hover`                                                | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
-| **跨分屏聚焦**     | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>                                                                                   | `workspace::ActivatePane...`                                   | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器               |
-| **分屏精细微调**   | `<leader>r` + <kbd>h/j/k/l</kbd>                                                                                       | `vim::ResizePane...`                                           | **单步精细微调**分屏大小（左/右/下/上）                                                                                            |
-| **分屏大步快调**   | `<leader>r` + <kbd>H/J/K/L</kbd>                                                                                       | `action::Sequence`                                             | **大步快速调宽/调窄**（连调 5 档）                                                                                                 |
-| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock                                              |
-| **平分所有分屏**   | `<leader>r=` 或 `<leader>w=`                                                                                           | `workspace::ResetPaneSizes`                                    | **一键平分所有窗口宽度** (50% / 50%)                                                                                               |
-| **分屏最大化**     | `<leader>wm` 或 `<leader>rm`                                                                                           | `workspace::ToggleZoom`                                        | **最大化当前分屏** / 再次按下恢复并列                                                                                              |
-| **单文件投掷**     | `<leader>w` + <kbd>h/j/k/l</kbd>                                                                                       | `workspace::MoveItemToPaneInDirection`                         | 将当前单个文件**投掷到左/下/上/右**分屏                                                                                            |
-| **分屏组互换**     | `<leader>wx`                                                                                                           | `workspace::SwapPaneAdjacent`                                  | **左右分屏整组极速对调**                                                                                                           |
-| **分屏组移动**     | `<leader>w` + <kbd>H/J/K/L</kbd>                                                                                       | `workspace::SwapPane...`                                       | 整个分屏组**向左/下/上/右**对调交换                                                                                                |
+| 场景分类 | 快捷键 | Zed Action 命令 | 功能说明与机制 |
+| :-- | :-- | :-- | :-- |
+| **检索查找** | <kbd>/</kbd> | `vim::Search` | **保持 Vim 原生搜索**（支持 `n` / `N` 上下快速跳词） |
+| **检索查找** | `<leader>fw` | `buffer_search::Deploy` | 调出 Zed 原生底部 GUI 搜索输入条 |
+| **检索查找** | `<leader>fa` | `file_finder::Toggle` | 快速检索打开文件 (Quick Open) |
+| **检索查找** | `<leader>fg` | `pane::DeploySearch` | 全局文字搜索 (Live Grep) |
+| **检索查找** | `<leader>fb` | `tab_switcher::Toggle` | 查看已打开的标签列表 (Buffers) |
+| **文件与格式** | `<leader>fs` | `workspace::Save` | 保存当前文件 |
+| **文件与格式** | `<leader>ff` | `editor::Format` | **文档格式化** (Visual 模式下局部格式化) |
+| **文件与格式** | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor::JoinLines` | 合并当前行与下一行（仅 Vim 编辑器且不在补全菜单时生效） |
+| **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
+| **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
+| **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
+| **LSP 悬停** | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor::Hover` | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
+| **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器 |
+| **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **单步精细微调**分屏大小（左/右/下/上） |
+| **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd> | `action::Sequence` | **大步快速调宽/调窄**（连调 5 档） |
+| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock |
+| **平分所有分屏** | `<leader>r=` 或 `<leader>w=` | `workspace::ResetPaneSizes` | **一键平分所有窗口宽度** (50% / 50%) |
+| **分屏最大化** | `<leader>wm` 或 `<leader>rm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
+| **单文件投掷** | `<leader>w` + <kbd>h/j/k/l</kbd> | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏 |
+| **分屏组互换** | `<leader>wx` | `workspace::SwapPaneAdjacent` | **左右分屏整组极速对调** |
+| **分屏组移动** | `<leader>w` + <kbd>H/J/K/L</kbd> | `workspace::SwapPane...` | 整个分屏组**向左/下/上/右**对调交换 |
 
 ---
 
@@ -291,11 +323,11 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 
 在 `zed/keymap.json` 中将 mini.ai 常用的 `a`、`q`、`b` 对象键绑定到 Zed 原生动作。Normal 模式先按 `d/c/y` 再输入 `i/a` 与对象键；Visual 模式直接输入 `i/a` 与对象键。无需安装 Neovim 插件。
 
-| 对象         | 只操作内部                         | 包含外层                 | Zed 原生动作        |
-| :----------- | :--------------------------------- | :----------------------- | :------------------ |
-| 参数 `a`     | `dia` 删除、`cia` 修改、`via` 选中 | `daa` 删除参数及相邻逗号 | `vim::Argument`     |
-| 任意引号 `q` | `diq` 删除、`ciq` 修改、`viq` 选中 | `daq` 连引号一起删除     | `vim::MiniQuotes`   |
-| 任意括号 `b` | `dib` 删除、`cib` 修改、`vib` 选中 | `dab` 连括号一起删除     | `vim::MiniBrackets` |
+| 对象 | 只操作内部 | 包含外层 | Zed 原生动作 |
+| :-- | :-- | :-- | :-- |
+| 参数 `a` | `dia` 删除、`cia` 修改、`via` 选中 | `daa` 删除参数及相邻逗号 | `vim::Argument` |
+| 任意引号 `q` | `diq` 删除、`ciq` 修改、`viq` 选中 | `daq` 连引号一起删除 | `vim::MiniQuotes` |
+| 任意括号 `b` | `dib` 删除、`cib` 修改、`vib` 选中 | `dab` 连括号一起删除 | `vim::MiniBrackets` |
 
 例如在 `vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go to left window' })` 中，把光标放到 `Go` 的 `G` 上，`diq` 的目标是将该字符串变成 `''`；`ciq` 则在删除内容后进入 Insert 模式。可先用 `viq` 查看选区，再按 `d`。
 
@@ -343,42 +375,42 @@ $$\text{操作指令} = \textbf{【动词 Verb】} + \textbf{【介词 Modifier�
 
 以字符串 `"hello world"` 和函数调用 `fn(a, b, c)` 为例：
 
-| 初始代码（光标在单词上）    | 操作指令  | 处理后结果         | 核心区别                                 |
-| :-------------------------- | :-------: | :----------------- | :--------------------------------------- |
-| `"hel█lo world"`            | **`di"`** | `""`               | **只删内容**，保留外层的双引号           |
-| `"hel█lo world"`            | **`da"`** | _(完全消失)_       | **连皮带肉**，连同两边的双引号一起删除   |
-| `fn(user, ag█e, msg)`       | **`cia`** | `fn(user, █, msg)` | **保留逗号**，只把参数清空等待打入新内容 |
-| `fn(user, ag█e, msg)`       | **`daa`** | `fn(user, msg)`    | **连同逗号空格抹平**，直接把整个参数剔除 |
-| `{ let x = 1█; return x; }` | **`ci{`** | `{ █ }`            | **保留大括号**，清空内部代码立刻重写     |
-| `{ let x = 1█; return x; }` | **`da{`** | _(完全消失)_       | **整块删除**，包含大括号，不包含函数头   |
+| 初始代码（光标在单词上） | 操作指令 | 处理后结果 | 核心区别 |
+| :-- | :-: | :-- | :-- |
+| `"hel█lo world"` | **`di"`** | `""` | **只删内容**，保留外层的双引号 |
+| `"hel█lo world"` | **`da"`** | _(完全消失)_ | **连皮带肉**，连同两边的双引号一起删除 |
+| `fn(user, ag█e, msg)` | **`cia`** | `fn(user, █, msg)` | **保留逗号**，只把参数清空等待打入新内容 |
+| `fn(user, ag█e, msg)` | **`daa`** | `fn(user, msg)` | **连同逗号空格抹平**，直接把整个参数剔除 |
+| `{ let x = 1█; return x; }` | **`ci{`** | `{ █ }` | **保留大括号**，清空内部代码立刻重写 |
+| `{ let x = 1█; return x; }` | **`da{`** | _(完全消失)_ | **整块删除**，包含大括号，不包含函数头 |
 
 ---
 
 ### 3. 日常写代码最高频“组合拳” TOP 10
 
-| 场景需求                         |       快捷键组合       | 读法助记                                        |
-| :------------------------------- | :--------------------: | :---------------------------------------------- |
-| **修改当前单词**                 |       **`ciw`**        | Change Inside Word（清空当前词并打字）          |
-| **删除当前单词（清理空格）**     |       **`daw`**        | Delete Around Word（连同词后的空格一起删）      |
-| **快速修改任何引号里的文字**     |       **`ciq`**        | Change Inside Quote（无需看是单引号还是双引号） |
-| **快速修改任何括号里的内容**     |       **`cib`**        | Change Inside Bracket（不管是圆括号还是大括号） |
-| **删除函数入参（自动收拾逗号）** |       **`daa`**        | Delete Around Argument（重构删入参神器）        |
-| **修改函数入参（保留逗号）**     |       **`cia`**        | Change Inside Argument（重写入参神器）          |
-| **清空当前花括号内部代码**       |       **`ci{`**        | Change Inside Curly Brackets（保留花括号）      |
-| **删除当前花括号代码块**         |       **`da{`**        | Delete Around Curly Brackets（包含花括号）      |
-| **复制整个引号里的内容**         | **`yiq`** 或 **`yi"`** | Yank Inside Quote（纯文本直接进剪贴板）         |
-| **快速选中 HTML/JSX 标签内部**   |       **`cit`**        | Change Inside Tag（清空 `<div>...</div>` 内部） |
+| 场景需求 | 快捷键组合 | 读法助记 |
+| :-- | :-: | :-- |
+| **修改当前单词** | **`ciw`** | Change Inside Word（清空当前词并打字） |
+| **删除当前单词（清理空格）** | **`daw`** | Delete Around Word（连同词后的空格一起删） |
+| **快速修改任何引号里的文字** | **`ciq`** | Change Inside Quote（无需看是单引号还是双引号） |
+| **快速修改任何括号里的内容** | **`cib`** | Change Inside Bracket（不管是圆括号还是大括号） |
+| **删除函数入参（自动收拾逗号）** | **`daa`** | Delete Around Argument（重构删入参神器） |
+| **修改函数入参（保留逗号）** | **`cia`** | Change Inside Argument（重写入参神器） |
+| **清空当前花括号内部代码** | **`ci{`** | Change Inside Curly Brackets（保留花括号） |
+| **删除当前花括号代码块** | **`da{`** | Delete Around Curly Brackets（包含花括号） |
+| **复制整个引号里的内容** | **`yiq`** 或 **`yi"`** | Yank Inside Quote（纯文本直接进剪贴板） |
+| **快速选中 HTML/JSX 标签内部** | **`cit`** | Change Inside Tag（清空 `<div>...</div>` 内部） |
 
 ### 4. 扩展：下一组 / 上一组文本对象
 
 mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` 表示 **last（上一组）**。本仓库 Neovim 配置保留了 `in/an/il/al` 默认映射。以下按键用于 Neovim/agyIDE，未映射到 Zed。普通 `i/a` 也不一定要求光标在目标内：mini.ai 默认先找覆盖目标，找不到时查找下一组；加入 `n/l` 则明确指定搜索方向。
 
-| 操作   | 拆开读                       | 场景                                   |
-| :----- | :--------------------------- | :------------------------------------- |
+| 操作 | 拆开读 | 场景 |
+| :-- | :-- | :-- |
 | `cin(` | Change + Inside + Next + `(` | 光标在行首，清空后方下一组圆括号内部。 |
-| `dan(` | Delete + Around + Next + `(` | 删除后方下一组圆括号及其内容。         |
-| `cil{` | Change + Inside + Last + `{` | 清空光标前一组花括号内部。             |
-| `dal"` | Delete + Around + Last + `"` | 删除光标前一组双引号及其内容。         |
+| `dan(` | Delete + Around + Next + `(` | 删除后方下一组圆括号及其内容。 |
+| `cil{` | Change + Inside + Last + `{` | 清空光标前一组花括号内部。 |
+| `dal"` | Delete + Around + Last + `"` | 删除光标前一组双引号及其内容。 |
 
 这里的 `n` / `l` 不是可独立执行的命令：它们必须位于 `i` 或 `a` 之后、具体对象键之前。以 `cin(` 为例，顺序就是 `c` → `i` → `n` → `(`。这种操作的价值是“不先移动光标，直接对邻近结构编辑”。
 
@@ -388,37 +420,37 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 
 按键依次输入；大写 `N` 表示 `Shift+N`。
 
-| 按键            | agyIDE（Normal）                             | Zed（Normal / Visual）            |
-| --------------- | -------------------------------------------- | --------------------------------- |
-| `Space w n`     | 记录当前词，移动到下一个候选                 | 添加下一个同名选区                |
-| `Space w N`     | 记录当前词，移动到上一个候选                 | 添加上一个同名选区                |
-| `Space w s`     | 原地选中 / 取消当前单词，保留其他记录        | 未绑定：暂无已确认的等价原生命令  |
-| `Space w > / <` | 跳过当前候选，向后 / 向前查找                | 替换最近选区为下一个 / 上一个匹配 |
-| `Space w a`     | 全选同名词并进入原生多光标编辑               | 全选同名词，按 `c` 替换           |
-| `Space w c`     | Visual：记录选区；Normal：接 `iw` 记录当前词 | 未绑定                            |
-| 开始替换        | `Space w e` → 输入新文字                     | 选好后 `c` → 输入新文字           |
-| 清空记录        | 编辑前按 `Space w q`                         | —                                 |
-| 结束编辑        | `Esc`                                        | `Esc`                             |
-| 注意            | 最后跳到的候选尚未记录，用 `Space w s` 加入  | Visual 退出不等于仅取消当前项     |
-| 语义重命名      | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左                              |
+| 按键 | agyIDE（Normal） | Zed（Normal / Visual） |
+| --- | --- | --- |
+| `Space w n` | 记录当前词，移动到下一个候选 | 添加下一个同名选区 |
+| `Space w N` | 记录当前词，移动到上一个候选 | 添加上一个同名选区 |
+| `Space w s` | 原地选中 / 取消当前单词，保留其他记录 | 未绑定：暂无已确认的等价原生命令 |
+| `Space w > / <` | 跳过当前候选，向后 / 向前查找 | 替换最近选区为下一个 / 上一个匹配 |
+| `Space w a` | 全选同名词并进入原生多光标编辑 | 全选同名词，按 `c` 替换 |
+| `Space w c` | Visual：记录选区；Normal：接 `iw` 记录当前词 | 未绑定 |
+| 开始替换 | `Space w e` → 输入新文字 | 选好后 `c` → 输入新文字 |
+| 清空记录 | 编辑前按 `Space w q` | — |
+| 结束编辑 | `Esc` | `Esc` |
+| 注意 | 最后跳到的候选尚未记录，用 `Space w s` 加入 | Visual 退出不等于仅取消当前项 |
+| 语义重命名 | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左 |
 
 ## 文件树快捷键（agyIDE / Zed）
 
 以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.json`。
 
-| 操作                     | 快捷键                                                                                  |
-| ------------------------ | --------------------------------------------------------------------------------------- |
-| 新建文件                 | `a`                                                                                     |
-| 新建文件夹               | `A`                                                                                     |
-| 移到回收站               | `d`                                                                                     |
-| 完全删除                 | `D`（`Shift+D`）                                                                        |
-| 重命名文件或文件夹       | `r`                                                                                     |
-| 复制绝对路径             | `Ctrl+Shift+C`                                                                          |
-| 复制相对路径             | `Alt+Shift+C`（agyIDE 沿用原生作用域，编辑器中也可用；旧 `Ctrl+K Ctrl+Shift+C` 已解绑） |
-| 在系统文件管理器中显示   | `Alt+Shift+R`                                                                           |
-| 用默认应用打开（仅 Zed） | `Alt+Shift+S`                                                                           |
-| 返回中央编辑器（仅 Zed） | `Ctrl+L`                                                                                |
-| 调整文件树宽度（仅 Zed） | `Ctrl+Alt+H/L`                                                                          |
+| 操作 | 快捷键 |
+| --- | --- |
+| 新建文件 | `a` |
+| 新建文件夹 | `A` |
+| 移到回收站 | `d` |
+| 完全删除 | `D`（`Shift+D`） |
+| 重命名文件或文件夹 | `r` |
+| 复制绝对路径 | `Ctrl+Shift+C` |
+| 复制相对路径 | `Alt+Shift+C`（agyIDE 沿用原生作用域，编辑器中也可用；旧 `Ctrl+K Ctrl+Shift+C` 已解绑） |
+| 在系统文件管理器中显示 | `Alt+Shift+R` |
+| 用默认应用打开（仅 Zed） | `Alt+Shift+S` |
+| 返回中央编辑器（仅 Zed） | `Ctrl+L` |
+| 调整文件树宽度（仅 Zed） | `Ctrl+Alt+H/L` |
 
 删除使用各编辑器原有的确认设置；Zed 显式保留确认提示。agyIDE 的 `d` 仅在所选项目支持回收站时启用，不回退为完全删除。agyIDE 暂未配置“用系统默认应用打开”的等价命令。
 
@@ -426,6 +458,6 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 
 ## Hop 风格单词跳转（agyIDE / Zed）
 
-| 编辑器       | 快捷键（依次按）           | 功能                               | 取消  |
-| ------------ | -------------------------- | ---------------------------------- | ----- |
+| 编辑器 | 快捷键（依次按） | 功能 | 取消 |
+| --- | --- | --- | --- |
 | agyIDE / Zed | `Space Space w` → 目标标签 | Normal 跳转到单词；Visual 扩展选区 | `Esc` |

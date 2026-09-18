@@ -6,54 +6,54 @@
   {
     "key": "a",
     "command": "explorer.newFile",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus",
   },
   // 新建文件夹
   {
     "key": "shift+a",
     "command": "explorer.newFolder",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus",
   },
   // 重命名文件
   {
     "key": "r",
     "command": "renameFile",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly",
   },
   // 移动文件到回收站
   {
     "key": "d",
     "command": "moveFileToTrash",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly && explorerResourceMoveableToTrash"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly && explorerResourceMoveableToTrash",
   },
   // 删除文件
   {
     "key": "shift+d",
     "command": "deleteFile",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && !explorerResourceIsRoot && !explorerResourceReadonly",
   },
   // 拷贝文件绝对路径
   {
     "key": "ctrl+shift+c",
     "command": "copyFilePath",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus",
   },
   // 取消默认的拷贝文件相对路径的快捷键
   {
     "key": "ctrl+k ctrl+shift+c",
-    "command": "-copyRelativeFilePath"
+    "command": "-copyRelativeFilePath",
   },
   // 拷贝文件相对路径
   {
     "key": "alt+shift+c",
     "command": "copyRelativeFilePath",
-    "when": "!editorFocus"
+    "when": "!editorFocus",
   },
   // 使用系统`文件管理器`打开文件/文件夹所在的位置
   {
     "key": "alt+shift+r",
     "command": "revealFileInOS",
-    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && resourceScheme == file"
+    "when": "explorerViewletFocus && filesExplorerFocus && !inputFocus && resourceScheme == file",
   },
   // ==========================================================
   //            标签页关闭与退出保护
@@ -61,17 +61,17 @@
   // 不使用 ctrl + w 关闭当前文件
   {
     "key": "ctrl+w",
-    "command": "-workbench.action.closeActiveEditor"
+    "command": "-workbench.action.closeActiveEditor",
   },
   // 关闭当前页面
   {
     "key": "ctrl+shift+w",
-    "command": "workbench.action.closeActiveEditor"
+    "command": "workbench.action.closeActiveEditor",
   },
   // 不允许命令关闭整个软件
   {
     "key": "ctrl+shift+w",
-    "command": "-workbench.action.closeWindow"
+    "command": "-workbench.action.closeWindow",
   },
   // ==========================================================
   //            侧栏显示与方向导航
@@ -79,28 +79,28 @@
   // 左侧栏总开关
   {
     "key": "ctrl+b",
-    "command": "workbench.action.toggleSidebarVisibility"
+    "command": "workbench.action.toggleSidebarVisibility",
   },
   // Ctrl+H/J/K/L 在编辑区、文件树与面板之间按方向切换焦点；输入框和终端保留原有行为。
   {
     "key": "ctrl+h",
     "command": "workbench.action.navigateLeft",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && !inputFocus",
   },
   {
     "key": "ctrl+j",
     "command": "workbench.action.navigateDown",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && !inputFocus",
   },
   {
     "key": "ctrl+k",
     "command": "workbench.action.navigateUp",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && !inputFocus",
   },
   {
     "key": "ctrl+l",
     "command": "workbench.action.navigateRight",
-    "when": "!terminalFocus && !inputFocus"
+    "when": "!terminalFocus && !inputFocus",
   },
   // ==========================================================
   //            焦点区域尺寸调整
@@ -109,22 +109,22 @@
   {
     "key": "ctrl+alt+h",
     "command": "workbench.action.decreaseViewWidth",
-    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)",
   },
   {
     "key": "ctrl+alt+j",
     "command": "workbench.action.increaseViewHeight",
-    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)",
   },
   {
     "key": "ctrl+alt+k",
     "command": "workbench.action.decreaseViewHeight",
-    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)",
   },
   {
     "key": "ctrl+alt+l",
     "command": "workbench.action.increaseViewWidth",
-    "when": "!terminalFocus && (editorTextFocus || !inputFocus)"
+    "when": "!terminalFocus && (editorTextFocus || !inputFocus)",
   },
   // ==========================================================
   //            大纲、面板与最大化
@@ -132,43 +132,43 @@
   // Ctrl+Shift+B 打开并聚焦大纲，替换默认的构建任务快捷键。
   {
     "key": "ctrl+shift+b",
-    "command": "-workbench.action.tasks.build"
+    "command": "-workbench.action.tasks.build",
   },
   {
     "key": "ctrl+shift+b",
-    "command": "outline.focus"
+    "command": "outline.focus",
   },
   // Right Panel 总开关，减少了限制条件
   {
     "key": "ctrl+alt+b",
-    "command": "workbench.action.toggleAuxiliaryBar"
+    "command": "workbench.action.toggleAuxiliaryBar",
   },
   // Bottom Panel 的总开关
   {
     "key": "shift+alt+j",
-    "command": "workbench.action.togglePanel"
+    "command": "workbench.action.togglePanel",
   },
   // Bottom Panel 的错误部分
   {
     "key": "shift+alt+m",
     "command": "workbench.actions.view.problems",
-    "when": "workbench.panel.markers.view.active"
+    "when": "workbench.panel.markers.view.active",
   },
   // Bottom Panel 的错误部分关闭原生的快捷键
   {
     "key": "ctrl+shift+m",
     "command": "-workbench.actions.view.problems",
-    "when": "workbench.panel.markers.view.active"
+    "when": "workbench.panel.markers.view.active",
   },
   // 最大化底部面板
   {
     "key": "ctrl+f11",
-    "command": "workbench.action.toggleMaximizedPanel"
+    "command": "workbench.action.toggleMaximizedPanel",
   },
   // 最大化侧边面板
   {
     "key": "ctrl+f12",
-    "command": "workbench.action.toggleMaximizedAuxiliaryBar"
+    "command": "workbench.action.toggleMaximizedAuxiliaryBar",
   },
   // ==========================================================
   //            快速打开与快捷键冲突处理
@@ -176,17 +176,17 @@
   // 关闭 ctrl+e 的默认快捷键，防止和 VIM 的下拉冲突
   {
     "key": "ctrl+e",
-    "command": "-workbench.action.quickOpen"
+    "command": "-workbench.action.quickOpen",
   },
   // Ctrl+Shift+N 避免误触新建窗口
   {
     "key": "ctrl+shift+n",
-    "command": "-workbench.action.newWindow"
+    "command": "-workbench.action.newWindow",
   },
   // Ctrl+Shift+N 改为快速打开文件
   {
     "key": "ctrl+shift+n",
-    "command": "workbench.action.quickOpen"
+    "command": "workbench.action.quickOpen",
   },
   // ==========================================================
   //            代码编辑与符号重命名
@@ -195,19 +195,19 @@
   {
     "key": "ctrl+shift+j",
     "command": "editor.action.joinLines",
-    "when": "editorTextFocus && !inSnippetMode"
+    "when": "editorTextFocus && !inSnippetMode",
   },
   // Alt+Enter 打开代码操作（快速修复与重构）。
   {
     "key": "alt+enter",
     "command": "editor.action.quickFix",
-    "when": "editorTextFocus && editorHasCodeActionsProvider && !editorReadonly"
+    "when": "editorTextFocus && editorHasCodeActionsProvider && !editorReadonly",
   },
   // 对齐 Shift+F6：重命名光标处的符号及其引用
   {
     "key": "shift+f6",
     "command": "editor.action.rename",
-    "when": "editorTextFocus && editorHasRenameProvider"
+    "when": "editorTextFocus && editorHasRenameProvider",
   },
   // ==========================================================
   //            危险操作与默认快捷键解绑
@@ -216,13 +216,13 @@
   {
     "key": "ctrl+k",
     "command": "-git.commitAll",
-    "when": "!inDebugMode && !operationInProgress && !terminalFocus"
+    "when": "!inDebugMode && !operationInProgress && !terminalFocus",
   },
   // 防止打开默认的终端
   {
     "key": "ctrl+shift+c",
     "command": "-workbench.action.terminal.openNativeConsole",
-    "when": "!terminalFocus"
+    "when": "!terminalFocus",
   },
   // ==========================================================
   //            AI 对话与会话保护
@@ -230,41 +230,41 @@
   // 聚焦 AI 对话；有编辑器选区时自动将其作为上下文加入输入框（不发送）。
   {
     "key": "ctrl+shift+i",
-    "command": "antigravity.toggleChatFocus"
+    "command": "antigravity.toggleChatFocus",
   },
   // 取消绑定原生的 agy ide AI 对话原生快捷键
   {
     "key": "ctrl+l",
     "command": "-antigravity.toggleChatFocus",
-    "when": "!terminalFocus"
+    "when": "!terminalFocus",
   },
   // 禁用新建 AI 对话，避免 Ctrl+Shift+L 误触后替换当前会话。
   {
     "key": "ctrl+shift+l",
-    "command": "-antigravity.startNewConversation"
+    "command": "-antigravity.startNewConversation",
   },
   // macOS 专用：Command 版本不影响 Windows 的 Ctrl 规则。
   {
     "key": "cmd+shift+i",
     "command": "antigravity.toggleChatFocus",
-    "when": "isMac && !terminalFocus"
+    "when": "isMac && !terminalFocus",
   },
   // 使用统一的 Cmd+Shift+I 入口，禁用 Mac 默认 Cmd+L 的 AI 入口。
   {
     "key": "cmd+l",
     "command": "",
-    "when": "isMac && !terminalFocus"
+    "when": "isMac && !terminalFocus",
   },
   // 防止 Cmd+Shift+L 误触新建 AI 会话。
   {
     "key": "cmd+shift+l",
     "command": "",
-    "when": "isMac"
+    "when": "isMac",
   },
   // 拷贝文件绝对路径
   {
     "key": "ctrl+shift+c",
-    "command": "copyFilePath"
+    "command": "copyFilePath",
   },
   // ==========================================================
   //            悬停文档与键盘滚动
@@ -274,48 +274,48 @@
     "key": "ctrl+q",
     "command": "editor.action.showHover",
     "args": { "focus": "autoFocusImmediately" },
-    "when": "editorTextFocus"
+    "when": "editorTextFocus",
   },
   // 悬停窗口聚焦时，使用 j/k 上下平滑滚动浏览，d/u 翻页
   {
     "key": "j",
     "command": "editor.action.scrollDownHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "k",
     "command": "editor.action.scrollUpHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "ctrl+d",
     "command": "editor.action.pageDownHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "ctrl+u",
     "command": "editor.action.pageUpHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "d",
     "command": "editor.action.pageDownHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "u",
     "command": "editor.action.pageUpHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   // 在悬停窗口聚焦时，按 q 或 Esc 关闭该悬停窗口
   {
     "key": "q",
     "command": "editor.action.hideHover",
-    "when": "editorHoverFocused"
+    "when": "editorHoverFocused",
   },
   {
     "key": "escape",
     "command": "editor.action.hideHover",
-    "when": "editorHoverFocused"
-  }
+    "when": "editorHoverFocused",
+  },
 ]

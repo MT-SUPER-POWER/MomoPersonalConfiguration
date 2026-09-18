@@ -57,6 +57,8 @@
   "editor.lineHeight": 2,
   // 编辑器行号
   "editor.lineNumbers": "relative",
+  // 关闭字体连字，按原始字符显示 >=、!=、=> 等运算符
+  "editor.fontLigatures": false,
   // 编辑器字体
   "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', 'JetBrains Mono', monospace",
   // 色块之类的颜色提示
@@ -117,6 +119,7 @@
     "extensions.ignoreRecommendations",
     "editor.fontSize",
     "editor.fontFamily",
+    "editor.fontLigatures",
     "editor.lineHeight",
     "editor.lineNumbers",
     "editor.cursorSmoothCaretAnimation",
@@ -358,9 +361,7 @@
   // ==========================================================
   // colorize 插件配置
   "colorize.decoration_type": "dot",
-  "colorize.languages": [
-    "dart",
-  ],
+  "colorize.languages": ["dart"],
   // ==========================================================
   //            Mermaid 图表预览
   // ==========================================================
@@ -376,7 +377,7 @@
   //            语言工具与格式化
   // ==========================================================
   "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "vscode.json-language-features",
   },
   "[mdx]": {
     "editor.defaultFormatter": "unifiedjs.vscode-mdx",
@@ -388,44 +389,44 @@
   "editor.semanticTokenColorCustomizations": {
     "rules": {
       "interface": {
-        "foreground": "#b8ce82"
+        "foreground": "#b8ce82",
       },
       "namespace": "#cccccc",
       "enum": "#b8ce82",
       "struct": {
-        "foreground": "#86C691"
+        "foreground": "#86C691",
       },
       "inactive": {
-        "foreground": "#6A6A6A"
-      }
-    }
+        "foreground": "#6A6A6A",
+      },
+    },
   },
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
         "scope": "entity.name.type.interface.cs",
         "settings": {
-          "foreground": "#b8ce82"
-        }
+          "foreground": "#b8ce82",
+        },
       },
       {
         "scope": "entity.name.type.enum.cs",
         "settings": {
-          "foreground": "#b8ce82"
-        }
+          "foreground": "#b8ce82",
+        },
       },
       {
         "scope": "entity.name.type.struct.cs",
         "settings": {
-          "foreground": "#86C691"
-        }
+          "foreground": "#86C691",
+        },
       },
       {
         "scope": "variable.other.enummember.cs",
         "settings": {
-          "foreground": "#4FC1FF"
-        }
-      }
-    ]
+          "foreground": "#4FC1FF",
+        },
+      },
+    ],
   },
 }

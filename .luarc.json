@@ -7,9 +7,7 @@
     "nvim/lua/?.lua",
     "nvim/lua/?/init.lua"
   ],
-  "diagnostics.globals": [
-    "vim"
-  ],
+  "diagnostics.globals": ["vim"],
   "workspace.checkThirdParty": false,
   "workspace.library": [
     "D:/Apps/Dev/nvim/share/nvim/runtime/lua",

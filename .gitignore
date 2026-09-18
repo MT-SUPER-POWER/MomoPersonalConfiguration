@@ -1,3 +1,4 @@
 .agents/
 nvim.log
 .codegraph/
+node_modules/

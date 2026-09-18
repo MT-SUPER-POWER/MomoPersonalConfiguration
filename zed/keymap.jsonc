@@ -25,8 +25,8 @@
       // 唤起悬停提示与快速文档 (与 VS Code Ctrl+Q 一致)
       "ctrl-q": "editor::Hover",
       // 快速打开文件，避免误触新建窗口
-      "ctrl-shift-n": "file_finder::Toggle"
-    }
+      "ctrl-shift-n": "file_finder::Toggle",
+    },
   },
 
   // ==========================================================
@@ -41,8 +41,8 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-k": "workspace::ActivatePaneUp"
-    }
+      "ctrl-k": "workspace::ActivatePaneUp",
+    },
   },
 
   // ==========================================================
@@ -64,8 +64,8 @@
       "ctrl-alt-h": "vim::ResizePaneLeft",
       "ctrl-alt-l": "vim::ResizePaneRight",
       "ctrl-alt-j": "vim::ResizePaneDown",
-      "ctrl-alt-k": "vim::ResizePaneUp"
-    }
+      "ctrl-alt-k": "vim::ResizePaneUp",
+    },
   },
 
   // Dock 获得焦点时，同一组键只调整当前 Dock（文件树、预览或终端）。
@@ -73,8 +73,8 @@
     "context": "Dock",
     "bindings": {
       "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
-      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }]
-    }
+      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+    },
   },
 
   // ==========================================================
@@ -159,10 +159,46 @@
       "space r j": "vim::ResizePaneDown",
       "space r k": "vim::ResizePaneUp",
       // 【大步快速微调 (连续执行 5 档微调)】
-      "space r shift-h": ["action::Sequence", ["vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft", "vim::ResizePaneLeft"]],
-      "space r shift-l": ["action::Sequence", ["vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight", "vim::ResizePaneRight"]],
-      "space r shift-j": ["action::Sequence", ["vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown", "vim::ResizePaneDown"]],
-      "space r shift-k": ["action::Sequence", ["vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp", "vim::ResizePaneUp"]],
+      "space r shift-h": [
+        "action::Sequence",
+        [
+          "vim::ResizePaneLeft",
+          "vim::ResizePaneLeft",
+          "vim::ResizePaneLeft",
+          "vim::ResizePaneLeft",
+          "vim::ResizePaneLeft",
+        ],
+      ],
+      "space r shift-l": [
+        "action::Sequence",
+        [
+          "vim::ResizePaneRight",
+          "vim::ResizePaneRight",
+          "vim::ResizePaneRight",
+          "vim::ResizePaneRight",
+          "vim::ResizePaneRight",
+        ],
+      ],
+      "space r shift-j": [
+        "action::Sequence",
+        [
+          "vim::ResizePaneDown",
+          "vim::ResizePaneDown",
+          "vim::ResizePaneDown",
+          "vim::ResizePaneDown",
+          "vim::ResizePaneDown",
+        ],
+      ],
+      "space r shift-k": [
+        "action::Sequence",
+        [
+          "vim::ResizePaneUp",
+          "vim::ResizePaneUp",
+          "vim::ResizePaneUp",
+          "vim::ResizePaneUp",
+          "vim::ResizePaneUp",
+        ],
+      ],
       // 【一键平分 / 最大化】
       "space r =": "workspace::ResetPaneSizes",
       "space r m": "workspace::ToggleZoom",
@@ -172,18 +208,30 @@
       //            分屏与文件调度 (小写单文件，大写整组)
       // ==========================================================
       // 【单文件】跨分屏投掷
-      "space w h": ["workspace::MoveItemToPaneInDirection", { "direction": "left" }],
-      "space w l": ["workspace::MoveItemToPaneInDirection", { "direction": "right" }],
-      "space w j": ["workspace::MoveItemToPaneInDirection", { "direction": "down" }],
-      "space w k": ["workspace::MoveItemToPaneInDirection", { "direction": "up" }],
+      "space w h": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "left" },
+      ],
+      "space w l": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "right" },
+      ],
+      "space w j": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "down" },
+      ],
+      "space w k": [
+        "workspace::MoveItemToPaneInDirection",
+        { "direction": "up" },
+      ],
 
       // 【整组分屏】极速对调与移动
       "space w x": "workspace::SwapPaneAdjacent",
       "space w shift-h": "workspace::SwapPaneLeft",
       "space w shift-l": "workspace::SwapPaneRight",
       "space w shift-j": "workspace::SwapPaneDown",
-      "space w shift-k": "workspace::SwapPaneUp"
-    }
+      "space w shift-k": "workspace::SwapPaneUp",
+    },
   },
 
   // ==========================================================
@@ -198,8 +246,8 @@
       "ctrl-b": "workspace::ToggleLeftDock",
       "space f f": "editor::Format",
       "shift-j": "pane::ActivatePreviousItem",
-      "shift-k": "pane::ActivateNextItem"
-    }
+      "shift-k": "pane::ActivateNextItem",
+    },
   },
   // ==========================================================
   //            多光标选择与单词跳转
@@ -214,8 +262,8 @@
       "space w <": ["editor::SelectPrevious", { "replace_newest": true }],
       "space w a": "editor::SelectAllMatches",
       // 对齐 agyIDE 的 Hop 单词跳转：空格、空格、w，再输入目标标签。
-      "space space w": "vim::HelixJumpToWord"
-    }
+      "space space w": "vim::HelixJumpToWord",
+    },
   },
   // ==========================================================
   //            扩充文本对象
@@ -229,8 +277,8 @@
       "a": "vim::Argument",
       // diq / ciq / daq：引号；dib / cib / dab：括号。
       "q": "vim::MiniQuotes",
-      "b": "vim::MiniBrackets"
-    }
+      "b": "vim::MiniBrackets",
+    },
   },
   // ==========================================================
   //            文件树操作与 Dock 尺寸
@@ -254,8 +302,8 @@
       "alt-shift-c": "workspace::CopyRelativePath",
       "ctrl-k ctrl-shift-c": null,
       "alt-shift-r": "project_panel::RevealInFileManager",
-      "alt-shift-s": "project_panel::OpenWithSystem"
-    }
+      "alt-shift-s": "project_panel::OpenWithSystem",
+    },
   },
   // ==========================================================
   //            窗口关闭与新建保护
@@ -267,8 +315,8 @@
       "cmd-shift-w": "pane::CloseActiveItem",
       "cmd-shift-n": "file_finder::Toggle",
       "cmd-shift-g": "git_panel::ToggleFocus",
-      "cmd-shift-i": "agent::ToggleFocus"
-    }
+      "cmd-shift-i": "agent::ToggleFocus",
+    },
   },
   // 编辑器各模式均覆盖，避免更深层的 Editor 默认键位抢占。
   {
@@ -276,45 +324,45 @@
     "bindings": {
       "cmd-shift-w": "pane::CloseActiveItem",
       "cmd-shift-n": "file_finder::Toggle",
-      "cmd-shift-i": "agent::ToggleFocus"
-    }
+      "cmd-shift-i": "agent::ToggleFocus",
+    },
   },
   // 主编辑器覆盖 Pane 的查找上一个匹配；搜索输入框仍使用原搜索快捷键。
   {
     "context": "os == macos > Editor && mode == full && !menu",
     "bindings": {
-      "cmd-shift-g": "git_panel::ToggleFocus"
-    }
+      "cmd-shift-g": "git_panel::ToggleFocus",
+    },
   },
   // 合并行沿用原 Ctrl 版本的 Normal / Visual 作用域。
   {
     "context": "os == macos > Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
-      "cmd-shift-j": "editor::JoinLines"
-    }
+      "cmd-shift-j": "editor::JoinLines",
+    },
   },
   // 文件树旧的复制相对路径组合键，也禁用对应的 Command 版本。
   {
     "context": "os == macos > ProjectPanel && not_editing",
     "bindings": {
       "cmd-k cmd-shift-c": null,
-      "cmd-shift-c": "project_panel::CopyPath"
-    }
+      "cmd-shift-c": "project_panel::CopyPath",
+    },
   },
   // 取消绑定关闭 zed 窗口防止误操作
   {
     "unbind": {
       "g .": "editor::ToggleCodeActions",
       "ctrl-shift-w": "workspace::CloseWindow",
-      "ctrl-shift-n": "workspace::NewWindow"
-    }
+      "ctrl-shift-n": "workspace::NewWindow",
+    },
   },
   // Command 解绑也必须限制到 macOS，避免影响 Windows 的 Super 键。
   {
     "context": "os == macos",
     "unbind": {
       "cmd-shift-w": "workspace::CloseWindow",
-      "cmd-shift-n": "workspace::NewWindow"
-    }
-  }
+      "cmd-shift-n": "workspace::NewWindow",
+    },
+  },
 ]
