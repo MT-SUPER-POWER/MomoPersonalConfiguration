@@ -43,6 +43,8 @@ Starship 的配置来源与使用方式见 [Starship 配置说明](starship/READ
 
 Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说明](typora/README.md)。
 
+macOS 的本机配置路径、适配项与恢复方式见 [Mac 同步说明](macos/README.md)。
+
 ## 代码片段（agyIDE / Zed）
 
 | 项目         | 说明                                                                                                                   |
@@ -51,7 +53,7 @@ Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说�
 | Zed 配置     | `zed/snippets/`，对应 `%APPDATA%\Zed\snippets\`；按语言拆分                                                            |
 | 块状横幅标题 | `banner` / `box` / `bheader` / `bsec`，按语言插入对应 3 行等号块状横幅，标题占位为 `SECTION_NAME`                      |
 | 分区标题     | `header` / `section` / `divider` / `sec`，按语言插入对应注释分隔线，标题占位为 `SECTION_NAME`                          |
-| 简单分隔线   | agyIDE 已移除旧 `Comment.code-snippets`（`dline` / `dl`），改用 `header` / `box`；Zed 的已有分隔线片段暂时保留 |
+| 简单分隔线   | agyIDE 已移除旧 `Comment.code-snippets`（`dline` / `dl`），改用 `header` / `box`；Zed 的已有分隔线片段暂时保留         |
 | 使用         | Vim Insert 模式输入触发词，在补全列表中接受片段，再填写标题                                                            |
 | 后续同步     | 将对应仓库目录内的片段复制到上述本机目录；不是自动双向同步，同名文件覆盖前先合并本机修改                               |
 | Zed 适配     | 触发词别名拆成独立条目；Vue 使用 `vue.js.json`、TSX 使用 `tsx.json`、C# 使用 `csharp.json`；EditorConfig 使用 `#` 注释 |
@@ -68,23 +70,25 @@ Zed 的语言文件命名及多前缀限制见 [官方片段说明](https://zed.
 
 Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与重构），在代码编辑区 Normal、Insert、Visual 模式均可使用；Zed 原 `g .` 已解绑。可用操作取决于语言服务与光标位置。
 
-| 快捷键                                                | 动作 / 命令                    | 功能说明                                                                                                                |
-| :---------------------------------------------------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>     | `closeActiveEditor`            | 关闭当前页面（已屏蔽退出整个软件）                                                                                      |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>     | `workbench.action.quickOpen`   | 快速检索并打开文件（已屏蔽新建窗口）                                                                                    |
-| <kbd>Ctrl</kbd> + <kbd>B</kbd>                        | `toggleSidebarVisibility`      | 切换**左侧边栏**（文件树）显示/隐藏                                                                                     |
-| <kbd>Ctrl</kbd> + <kbd>H/J/K/L</kbd>                  | `workbench.action.navigate...` | 在编辑器、文件树和底部面板等可见区域间，按左/下/上/右切换焦点                                                           |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.*View*`      | 调整当前区域宽度或高度；代码编辑区各模式和文件树均可用，终端及搜索/重命名输入框不接管 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>     | `editor.action.joinLines`      | 编辑器内合并当前行与下一行                                                                                              |
-| <kbd>Shift</kbd> + <kbd>F6</kbd>                      | `editor.action.rename`         | 重命名光标处符号及其引用                                                                                                |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>       | `toggleAuxiliaryBar`           | 切换**右侧辅助栏**显示/隐藏                                                                                             |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>      | `togglePanel`                  | 切换**底部面板**（终端/输出）显示/隐藏                                                                                  |
-| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>      | `view.problems`                | 快速聚焦**错误与问题面板**                                                                                              |
-| <kbd>Ctrl</kbd> + <kbd>F11</kbd>                      | `toggleMaximizedPanel`         | **最大化 / 恢复**底部面板                                                                                               |
-| <kbd>Ctrl</kbd> + <kbd>F12</kbd>                      | `toggleMaximizedAuxiliaryBar`  | **最大化 / 恢复**右侧辅助栏                                                                                             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>     | `antigravity.toggleChatFocus`  | 聚焦唤起 **AI 编程对话**面板                                                                                            |
-| <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                      | `focusActiveEditorGroup`       | 从终端焦点**一键切回代码编辑器**                                                                                        |
-| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                 | `editor.action.showHover`      | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
+**Antigravity IDE 的 Mac AI 入口**：`Cmd+Shift+I` 调用 `antigravity.toggleChatFocus`，有编辑器选区时自动加入 AI 输入框作为上下文，无选区时打开/聚焦面板，不自动发送。`Cmd+L`（非终端）和 `Cmd+Shift+L` 的旧 AI 入口被空命令屏蔽，避免误开或新建会话。三项规则均带 `isMac`，Windows 的 `Ctrl+Shift+I` 和原有保护保持不变。Zed 的同名组合只聚焦 AI 面板，不宣称自动附加选区。
+
+| 快捷键                                                | 动作 / 命令                    | 功能说明                                                                                                        |
+| :---------------------------------------------------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>     | `closeActiveEditor`            | 关闭当前页面（已屏蔽退出整个软件）                                                                              |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>     | `workbench.action.quickOpen`   | 快速检索并打开文件（已屏蔽新建窗口）                                                                            |
+| <kbd>Ctrl</kbd> + <kbd>B</kbd>                        | `toggleSidebarVisibility`      | 切换**左侧边栏**（文件树）显示/隐藏                                                                             |
+| <kbd>Ctrl</kbd> + <kbd>H/J/K/L</kbd>                  | `workbench.action.navigate...` | 在编辑器、文件树和底部面板等可见区域间，按左/下/上/右切换焦点                                                   |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>H/J/K/L</kbd> | `workbench.action.*View*`      | 调整当前区域宽度或高度；代码编辑区各模式和文件树均可用，终端及搜索/重命名输入框不接管                           |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>     | `editor.action.joinLines`      | 编辑器内合并当前行与下一行                                                                                      |
+| <kbd>Shift</kbd> + <kbd>F6</kbd>                      | `editor.action.rename`         | 重命名光标处符号及其引用                                                                                        |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd>       | `toggleAuxiliaryBar`           | 切换**右侧辅助栏**显示/隐藏                                                                                     |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd>      | `togglePanel`                  | 切换**底部面板**（终端/输出）显示/隐藏                                                                          |
+| <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd>      | `view.problems`                | 快速聚焦**错误与问题面板**                                                                                      |
+| <kbd>Ctrl</kbd> + <kbd>F11</kbd>                      | `toggleMaximizedPanel`         | **最大化 / 恢复**底部面板                                                                                       |
+| <kbd>Ctrl</kbd> + <kbd>F12</kbd>                      | `toggleMaximizedAuxiliaryBar`  | **最大化 / 恢复**右侧辅助栏                                                                                     |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>     | `antigravity.toggleChatFocus`  | 聚焦 **AI 编程对话**面板；有代码选区时加入 AI 输入框作为上下文（不发送）                                        |
+| <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                      | `focusActiveEditorGroup`       | 从终端焦点**一键切回代码编辑器**                                                                                |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                | `editor.action.showHover`      | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
 
 > **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）和 `Ctrl+Shift+C`；`Ctrl+K/L` 已改作方向导航。
 
@@ -237,35 +241,49 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>            | `Workspace`                | `agent::ToggleFocus`             | 聚焦 / 唤起 **Zed AI Assistant**                                              |
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd>                             | `Terminal` / `Workspace`   | `workspace::ActivateNextPane`    | 从终端或面板**一键切回代码编辑器**                                            |
 
+**macOS 防误触映射（Zed）**：保留以上 Ctrl 按键，同时补充 Command 版本：
+
+| Mac 快捷键                   | 行为                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `Cmd+Shift+N`                | 快速查找文件；解绑默认的新建窗口                                          |
+| `Cmd+Shift+W`                | 仅关闭当前标签页；解绑默认的关闭窗口                                      |
+| 文件树中 `Cmd+K Cmd+Shift+C` | 禁用旧的复制相对路径组合键，沿用 `Alt+Shift+C`                            |
+| `Cmd+Shift+G`                | 打开 Git 面板；主代码编辑区覆盖默认上一个搜索匹配，搜索输入框保留搜索行为 |
+| `Cmd+Shift+I`                | 打开 Zed AI 面板；格式化继续使用 `Space f f`                              |
+| `Cmd+Shift+J`                | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为                  |
+| 文件树中 `Cmd+Shift+C`       | 复制绝对路径                                                              |
+
+所有新增 Command 绑定及解绑均限定 `os == macos`，Windows 原有规则不变；原 Ctrl 按键仍可作为 Mac 兼容入口。窗口保护覆盖 Workspace 与编辑器各模式；`Ctrl+D/U` 等 Vim 按键保持不变。字母键解绑（如 `g .`）不涉及平台修饰键，继续沿用原配置。
+
 ---
 
 ### 2. Zed Vim 模式对齐按键表 (Normal 模式)
 
 > **冲突防护机制**：核心按键均受 `!menu` 约束保护，弹出代码补全下拉建议时绝不抢按键；同时在编辑器内压制 Vim 默认的 `ctrl-j` (光标下移) 与 `ctrl-b` (向上翻页)。
 
-| 场景分类         | 快捷键                                            | Zed Action 命令                             | 功能说明与机制                                                                                                                          |
-| :--------------- | :------------------------------------------------ | :------------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| **检索查找**     | <kbd>/</kbd>                                      | `vim::Search`                               | **保持 Vim 原生搜索**（支持 `n` / `N` 上下快速跳词）                                                                                    |
-| **检索查找**     | `<leader>fw`                                      | `buffer_search::Deploy`                     | 调出 Zed 原生底部 GUI 搜索输入条                                                                                                        |
-| **检索查找**     | `<leader>fa`                                      | `file_finder::Toggle`                       | 快速检索打开文件 (Quick Open)                                                                                                           |
-| **检索查找**     | `<leader>fg`                                      | `pane::DeploySearch`                        | 全局文字搜索 (Live Grep)                                                                                                                |
-| **检索查找**     | `<leader>fb`                                      | `tab_switcher::Toggle`                      | 查看已打开的标签列表 (Buffers)                                                                                                          |
-| **文件与格式**   | `<leader>fs`                                      | `workspace::Save`                           | 保存当前文件                                                                                                                            |
-| **文件与格式**   | `<leader>ff`                                      | `editor::Format`                            | **文档格式化** (Visual 模式下局部格式化)                                                                                                |
-| **文件与格式**   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | `editor::JoinLines`                         | 合并当前行与下一行（仅 Vim 编辑器且不在补全菜单时生效）                                                                                 |
-| **标签页轮转**   | <kbd>J</kbd> / <kbd>K</kbd>                       | `pane::ActivatePrevItem` / `NextItem`       | 快速在顶部 Tab 标签间**向左 / 向右**轮转                                                                                                |
-| **标签页关闭**   | `<leader>cc`                                      | `pane::CloseActiveItem`                     | 关闭当前 Tab                                                                                                                            |
-| **标签页关闭**   | `<leader>ca`                                      | `pane::CloseAllItems`                       | 关闭全部 Tab                                                                                                                            |
-| **LSP 悬停**     | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`            | `editor::Hover`                             | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
-| **跨分屏聚焦**   | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>              | `workspace::ActivatePane...`                | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器                  |
-| **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd>                  | `vim::ResizePane...`                        | **单步精细微调**分屏大小（左/右/下/上）                                                                                                 |
-| **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd>                  | `action::Sequence`                          | **大步快速调宽/调窄**（连调 5 档）                                                                                                      |
-| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock |
-| **平分所有分屏** | `<leader>r=` 或 `<leader>w=`                      | `workspace::ResetPaneSizes`                 | **一键平分所有窗口宽度** (50% / 50%)                                                                                                    |
-| **分屏最大化**   | `<leader>wm` 或 `<leader>rm`                      | `workspace::ToggleZoom`                     | **最大化当前分屏** / 再次按下恢复并列                                                                                                   |
-| **单文件投掷**   | `<leader>w` + <kbd>h/j/k/l</kbd>                  | `workspace::MoveItemToPaneInDirection`      | 将当前单个文件**投掷到左/下/上/右**分屏                                                                                                 |
-| **分屏组互换**   | `<leader>wx`                                      | `workspace::SwapPaneAdjacent`               | **左右分屏整组极速对调**                                                                                                                |
-| **分屏组移动**   | `<leader>w` + <kbd>H/J/K/L</kbd>                  | `workspace::SwapPane...`                    | 整个分屏组**向左/下/上/右**对调交换                                                                                                     |
+| 场景分类           | 快捷键                                                                                                                 | Zed Action 命令                                                | 功能说明与机制                                                                                                                     |
+| :----------------- | :--------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| **检索查找**       | <kbd>/</kbd>                                                                                                           | `vim::Search`                                                  | **保持 Vim 原生搜索**（支持 `n` / `N` 上下快速跳词）                                                                               |
+| **检索查找**       | `<leader>fw`                                                                                                           | `buffer_search::Deploy`                                        | 调出 Zed 原生底部 GUI 搜索输入条                                                                                                   |
+| **检索查找**       | `<leader>fa`                                                                                                           | `file_finder::Toggle`                                          | 快速检索打开文件 (Quick Open)                                                                                                      |
+| **检索查找**       | `<leader>fg`                                                                                                           | `pane::DeploySearch`                                           | 全局文字搜索 (Live Grep)                                                                                                           |
+| **检索查找**       | `<leader>fb`                                                                                                           | `tab_switcher::Toggle`                                         | 查看已打开的标签列表 (Buffers)                                                                                                     |
+| **文件与格式**     | `<leader>fs`                                                                                                           | `workspace::Save`                                              | 保存当前文件                                                                                                                       |
+| **文件与格式**     | `<leader>ff`                                                                                                           | `editor::Format`                                               | **文档格式化** (Visual 模式下局部格式化)                                                                                           |
+| **文件与格式**     | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>                                                                      | `editor::JoinLines`                                            | 合并当前行与下一行（仅 Vim 编辑器且不在补全菜单时生效）                                                                            |
+| **标签页轮转**     | <kbd>J</kbd> / <kbd>K</kbd>                                                                                            | `pane::ActivatePrevItem` / `NextItem`                          | 快速在顶部 Tab 标签间**向左 / 向右**轮转                                                                                           |
+| **标签页关闭**     | `<leader>cc`                                                                                                           | `pane::CloseActiveItem`                                        | 关闭当前 Tab                                                                                                                       |
+| **标签页关闭**     | `<leader>ca`                                                                                                           | `pane::CloseAllItems`                                          | 关闭全部 Tab                                                                                                                       |
+| **LSP 悬停**       | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh`                                                                                 | `editor::Hover`                                                | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
+| **跨分屏聚焦**     | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd>                                                                                   | `workspace::ActivatePane...`                                   | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器               |
+| **分屏精细微调**   | `<leader>r` + <kbd>h/j/k/l</kbd>                                                                                       | `vim::ResizePane...`                                           | **单步精细微调**分屏大小（左/右/下/上）                                                                                            |
+| **分屏大步快调**   | `<leader>r` + <kbd>H/J/K/L</kbd>                                                                                       | `action::Sequence`                                             | **大步快速调宽/调窄**（连调 5 档）                                                                                                 |
+| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock                                              |
+| **平分所有分屏**   | `<leader>r=` 或 `<leader>w=`                                                                                           | `workspace::ResetPaneSizes`                                    | **一键平分所有窗口宽度** (50% / 50%)                                                                                               |
+| **分屏最大化**     | `<leader>wm` 或 `<leader>rm`                                                                                           | `workspace::ToggleZoom`                                        | **最大化当前分屏** / 再次按下恢复并列                                                                                              |
+| **单文件投掷**     | `<leader>w` + <kbd>h/j/k/l</kbd>                                                                                       | `workspace::MoveItemToPaneInDirection`                         | 将当前单个文件**投掷到左/下/上/右**分屏                                                                                            |
+| **分屏组互换**     | `<leader>wx`                                                                                                           | `workspace::SwapPaneAdjacent`                                  | **左右分屏整组极速对调**                                                                                                           |
+| **分屏组移动**     | `<leader>w` + <kbd>H/J/K/L</kbd>                                                                                       | `workspace::SwapPane...`                                       | 整个分屏组**向左/下/上/右**对调交换                                                                                                |
 
 ---
 
@@ -366,8 +384,6 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 
 例如 `█foo(a) + bar(b)` 中执行 `cin(` 会清空 `foo` 的括号内部并进入 Insert 模式，得到 `foo(█) + bar(b)`。在 Zed 中可先移动到目标内，再执行 `ci(` 或 `cib`。
 
-
-
 ## 多光标选择（agyIDE / Zed）
 
 按键依次输入；大写 `N` 表示 `Shift+N`。
@@ -385,8 +401,6 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 | 结束编辑        | `Esc`                                        | `Esc`                             |
 | 注意            | 最后跳到的候选尚未记录，用 `Space w s` 加入  | Visual 退出不等于仅取消当前项     |
 | 语义重命名      | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左                              |
-
-
 
 ## 文件树快捷键（agyIDE / Zed）
 
@@ -409,8 +423,6 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 删除使用各编辑器原有的确认设置；Zed 显式保留确认提示。agyIDE 的 `d` 仅在所选项目支持回收站时启用，不回退为完全删除。agyIDE 暂未配置“用系统默认应用打开”的等价命令。
 
 原 Vim 文件树按键 `%`（`Shift+5`）、`Shift+R`、`x`、`s` 和原复制相对路径组合键已解除；`d` 改为移到回收站。其他按键保持原样。
-
-
 
 ## Hop 风格单词跳转（agyIDE / Zed）
 

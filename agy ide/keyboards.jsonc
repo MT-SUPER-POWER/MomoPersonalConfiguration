@@ -227,7 +227,7 @@
   // ==========================================================
   //            AI 对话与会话保护
   // ==========================================================
-  // 聚焦 agy ide AI 对话
+  // 聚焦 AI 对话；有编辑器选区时自动将其作为上下文加入输入框（不发送）。
   {
     "key": "ctrl+shift+i",
     "command": "antigravity.toggleChatFocus"
@@ -242,6 +242,24 @@
   {
     "key": "ctrl+shift+l",
     "command": "-antigravity.startNewConversation"
+  },
+  // macOS 专用：Command 版本不影响 Windows 的 Ctrl 规则。
+  {
+    "key": "cmd+shift+i",
+    "command": "antigravity.toggleChatFocus",
+    "when": "isMac && !terminalFocus"
+  },
+  // 使用统一的 Cmd+Shift+I 入口，禁用 Mac 默认 Cmd+L 的 AI 入口。
+  {
+    "key": "cmd+l",
+    "command": "",
+    "when": "isMac && !terminalFocus"
+  },
+  // 防止 Cmd+Shift+L 误触新建 AI 会话。
+  {
+    "key": "cmd+shift+l",
+    "command": "",
+    "when": "isMac"
   },
   // 拷贝文件绝对路径
   {
