@@ -6,7 +6,6 @@
 #   󰄛 (小猫咪)   󱄄 (魔法星)    (小幽灵)    (像素爱心)
 #    (经典终端)  (代码括号) 󰚌 (赛博机器) 󰈸 (动力火焰)
 #    (用户剪影)  (璀璨钻石) 󰖄 (闪电风暴) ▲ (经典三角)
-#
 
 add_newline = false
 
@@ -19,30 +18,24 @@ format = """
 $hostname\
 [](fg:#363A4F bg:#f38ba8)\
 $directory\
-[](fg:#f38ba8 bg:#f5a97f)\
-$git_branch\
-$git_status\
-[](fg:#f5a97f bg:#a6e3a1)\
-$nodejs\
-$python\
-$rust\
-$golang\
-[](fg:#a6e3a1 bg:#cba6f7)\
-$cmd_duration\
-[](fg:#cba6f7 bg:#89dceb)\
+([](fg:prev_bg bg:#f5a97f)$git_branch$git_status)\
+([](fg:prev_bg bg:#a6e3a1)$nodejs$python$rust$golang)\
+([](fg:prev_bg bg:#cba6f7)$cmd_duration)\
+[](fg:prev_bg bg:#89dceb)\
 $time\
 [](fg:#89dceb bg:#a6e3a1)\
 [ ~ ](bg:#a6e3a1 fg:#1e1e2e bold)\
 [ ](fg:#a6e3a1)\
 $line_break\
-$character"""
+$character
+"""
 
 # ------------------------------------------------------------------------------
 # 1. 第二行：用户 LOGO 与输入提示符
 # ------------------------------------------------------------------------------
 [character]
 success_symbol = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #cba6f7) "
-error_symbol   = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #f38ba8) "
+error_symbol = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #f38ba8) "
 
 # ------------------------------------------------------------------------------
 # 2. 第一行：系统标识与主机名 (深蓝灰底: #363A4F)
@@ -77,21 +70,29 @@ format = "[ $symbol$branch ]($style)"
 style = "bg:#f5a97f fg:#ed254e bold"
 format = "[$all_status$ahead_behind ]($style)"
 conflicted = "󰞇 "
-ahead      = "⇡${count}"
-behind     = "⇣${count}"
-diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
-untracked  = ""
-modified   = "!"
-staged     = "+"
-renamed    = "»"
-deleted    = "✘"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = ""
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
 
 # Node.js 环境 (独立薄荷绿底)
 [nodejs]
 symbol = " "
 style = "bg:#a6e3a1 fg:#1e1e2e bold"
 format = "[ $symbol$version ]($style)"
-detect_files = ["package.json", ".nvmrc", "node_modules", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lockb"]
+detect_files = [
+  "package.json",
+  ".nvmrc",
+  "node_modules",
+  "package-lock.json",
+  "pnpm-lock.yaml",
+  "yarn.lock",
+  "bun.lockb",
+]
 detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts", "jsx", "tsx"]
 
 # Python 环境 (独立薄荷绿底)
@@ -99,7 +100,15 @@ detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "cts", "jsx", "tsx"]
 symbol = " "
 style = "bg:#a6e3a1 fg:#1e1e2e bold"
 format = "[ $symbol$version ]($style)"
-detect_files = [".python-version", "Pipfile", "__init__.py", "pyproject.toml", "requirements.txt", "setup.py", "main.py"]
+detect_files = [
+  ".python-version",
+  "Pipfile",
+  "__init__.py",
+  "pyproject.toml",
+  "requirements.txt",
+  "setup.py",
+  "main.py",
+]
 detect_extensions = ["py"]
 
 # Rust 环境 (独立薄荷绿底)
