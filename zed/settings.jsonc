@@ -40,6 +40,17 @@
     "light": "One Light",
     "dark": "SynthWave 84 Dark",
   },
+  // 自定义主题样式：显著增强搜索高亮对比度，使当前选中的匹配项一目了然
+  "theme_overrides": {
+    "SynthWave 84 Dark": {
+      "search.match_background": "#38bdf840", // 普通搜索匹配项（半透明天蓝色）
+      "search.active_match_background": "#f59e0bcc", // 当前确认/选中匹配项（高对比亮琥珀橙）
+    },
+    "One Light": {
+      "search.match_background": "#38bdf838", // 普通搜索匹配项（半透明天蓝色）
+      "search.active_match_background": "#ea580cd0", // 当前确认/选中匹配项（高对比深橙色）
+    },
+  },
   // ==========================================================
   //            文件树与大纲
   // ==========================================================
