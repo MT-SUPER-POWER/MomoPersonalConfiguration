@@ -35,6 +35,9 @@ MomoPersonalConfiguration/
 ├── zed/                   # Zed 编辑器统一配置
 │   ├── keymap.json        # Zed 快捷键映射（对齐 VS Code/Neovim 肌肉记忆）
 │   └── settings.json      # Zed 编辑器与 Vim 模式配置
+├── clash/                 # Clash Verge Rev 订阅扩展脚本
+│   ├── README.md          # AI 分流与区域优选说明
+│   └── script.js          # 自动过滤受限节点并优选美/日/英的核心脚本
 ```
 
 ---
@@ -42,6 +45,8 @@ MomoPersonalConfiguration/
 Starship 的配置来源与使用方式见 [Starship 配置说明](starship/README.md)。
 
 Typora 两套 Claude 风格主题的来源与同步方式见 [Typora 主题说明](typora/README.md)。
+
+Clash Verge Rev 的 AI 自动分流与区域优选脚本见 [Clash 配置说明](clash/README.md)。
 
 macOS 的本机配置路径、适配项与恢复方式见 [Mac 同步说明](macos/README.md)。
 

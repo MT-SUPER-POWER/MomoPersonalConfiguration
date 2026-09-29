@@ -12,6 +12,7 @@
 | `zed/snippets/` | `~/.config/zed/snippets/` |
 | `starship/starship.toml` | `~/.config/starship.toml` |
 | `typora/themes/` | `~/Library/Application Support/abnerworks.Typora/themes/` |
+| `clash/script.js` | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev/profiles/Script.js` |
 
 ## 本机适配
 
