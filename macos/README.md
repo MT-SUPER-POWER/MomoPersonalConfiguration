@@ -34,7 +34,7 @@ export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 eval "$(/opt/homebrew/bin/starship init zsh)"
 ```
 
-打开新的终端会话生效。Powerlevel10k 文件可保留用于恢复，不再加载。主题保留仓库原有 `shuhe` 提示文字。
+打开新的终端会话生效。Powerlevel10k 文件可保留用于恢复，不再加载。输入提示符使用 `MT`。
 
 ## 生效与恢复
 

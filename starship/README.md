@@ -1,6 +1,6 @@
 # Starship 提示符配置
 
-`starship.toml` 原样归档自 `C:\Users\shuhe\.config\starship.toml`。保留现有马卡龙配色、两行布局、`shuhe` 输入提示符，以及主机名、目录、Git 状态、语言版本、命令耗时和时间模块。
+`starship.toml` 原样归档自 `C:\Users\shuhe\.config\starship.toml`。保留现有马卡龙配色、两行布局、`MT` 输入提示符，以及系统标识、目录、Git 状态、语言版本、命令耗时和时间模块。
 
 `init.ps1` 提取自本机 PowerShell 7 Profile 的 Starship 加载逻辑，并通过 `$PSScriptRoot` 定位同目录的配置。它不包含原 Profile 的 zoxide、别名或 PSReadLine 设置。
 
