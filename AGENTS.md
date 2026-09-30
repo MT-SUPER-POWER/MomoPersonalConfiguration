@@ -2,7 +2,7 @@
 
 ## 项目是什么
 
-这是 Windows 个人开发环境的配置仓库，集中保存 Antigravity IDE、Neovim、Zed 和 Starship 的配置。主要工作是调整编辑器行为、快捷键和终端外观。
+这是 Windows 个人开发环境的配置仓库，集中保存 Antigravity IDE、Neovim、Zed 和 Starship 等我个人使用的一些配置。主要工作是调整编辑器行为、快捷键和终端外观。
 
 ## 开始前
 
@@ -25,6 +25,7 @@
 | 调整 Zed 设置或快捷键 | `zed/settings.json`、`zed/keymap.json` |
 | 调整 Starship 主题或 PowerShell 加载方式 | `starship/starship.toml`、`starship/init.ps1` |
 | 调整 snippet(快速生成模板) | `agy ide/snippets/*`、`zed/snippets/*` |
+| clash 分流规则的配置文件 | `clash/*` |
 
 `nvim/lazy-lock.json` 保存插件版本。不要为了无关任务更新它。`vscode/` 当前为空，不是配置入口。
 
