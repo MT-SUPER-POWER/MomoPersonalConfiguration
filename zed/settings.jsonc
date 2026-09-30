@@ -151,94 +151,12 @@
     },
     "shell": "system",
   },
-
-  // ==========================================================
-  //            AI 助手与模型
-  // ==========================================================
-  "agent": {
-    "dock": "right",
-    "sandbox_permissions": {
-      "allow_unsandboxed": true,
-      "write_paths": [
-        {
-          "requested": "D:\\Github\\Scopify",
-          "resolved": "D:\\Github\\Scopify",
-          "on_windows_fs": true,
-        },
-      ],
-    },
-    "sidebar_side": "right",
-    "default_model": {
-      "provider": "openai-subscribed",
-      "model": "gpt-5.6-terra",
-      "enable_thinking": true,
-      "effort": "medium",
-    },
-    "favorite_models": [],
-    "model_parameters": [],
-  },
   "agent_ui_font_size": 15.0,
-  // ==========================================================
-  //            外部 Agent 服务
-  // ==========================================================
-  "agent_servers": {
-    "claude-acp": {
-      "default_config_options": {
-        "effort": "max",
-        "model": "glm-5.3[1M]",
-      },
-      "type": "registry",
-    },
-    "codex-acp": {
-      "default_config_options": {
-        "fast-mode": true,
-        "reasoning_effort": "max",
-        "model": "gpt-5.3-codex-spark",
-      },
-      "type": "registry",
-    },
-  },
   // ==========================================================
   //            代码编辑预测
   // ==========================================================
   "edit_predictions": {
     "copilot": {},
     "provider": "zed",
-  },
-
-  // ==========================================================
-  //            语言服务器
-  // ==========================================================
-  "languages": {
-    "Markdown": {
-      // 默认不自动格式化；本仓库 .zed/settings.json 启用带紧凑表格插件的 Prettier。
-      "format_on_save": "off",
-      "formatter": "auto",
-    },
-    "Vue.js": {
-      "language_servers": ["vtsls", "vue-language-server", "..."],
-    },
-    "Lua": {
-      "language_servers": ["lua-language-server", "..."],
-    },
-  },
-  "lsp": {
-    "vtsls": {
-      "settings": {
-        "vtsls": {
-          "tsserver": {
-            "globalPlugins": [
-              {
-                "name": "@vue/typescript-plugin",
-                "location": "C:/Users/shuhe/AppData/Local/Zed/extensions/work/vue",
-                "languages": ["vue.js"],
-                "enableForWorkspaceTypeScriptVersions": true,
-                "configNamespace": "typescript",
-              },
-            ],
-          },
-        },
-      },
-    },
   },
 }
