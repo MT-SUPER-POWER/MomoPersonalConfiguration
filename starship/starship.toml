@@ -44,7 +44,7 @@ error_symbol = "[ ](bold #cba6f7) [MT](bold #89dceb) [>](bold #f38ba8) "
 [os]
 disabled = false
 style = "bg:#363A4F fg:#A6E3A1 bold"
-format = "[ $symbol ]($style)"
+format = "[  $symbol  ]($style)"
 
 [os.symbols]
 Macos = ""
