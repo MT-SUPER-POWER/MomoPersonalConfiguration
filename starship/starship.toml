@@ -15,7 +15,7 @@ add_newline = false
 # ==============================================================================
 
 format = """
-$hostname\
+$os\
 [](fg:#363A4F bg:#f38ba8)\
 $directory\
 ([](fg:prev_bg bg:#f5a97f)$git_branch$git_status)\
@@ -34,17 +34,32 @@ $character
 # 1. 第二行：用户 LOGO 与输入提示符
 # ------------------------------------------------------------------------------
 [character]
-success_symbol = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #cba6f7) "
-error_symbol = "[ ](bold #cba6f7) [shuhe](bold #89dceb) [>](bold #f38ba8) "
+success_symbol = "[ ](bold #cba6f7) [MT](bold #89dceb) [>](bold #cba6f7) "
+error_symbol = "[ ](bold #cba6f7) [MT](bold #89dceb) [>](bold #f38ba8) "
 
 # ------------------------------------------------------------------------------
-# 2. 第一行：系统标识与主机名 (深蓝灰底: #363A4F)
+# 2. 第一行：系统标识 (深蓝灰底: #363A4F)
+# 仅显示纯系统 LOGO 图标，不显示主机名与文本，极致简洁
 # ------------------------------------------------------------------------------
-[hostname]
-ssh_only = false
-trim_at = ""
+[os]
+disabled = false
 style = "bg:#363A4F fg:#A6E3A1 bold"
-format = "[  $hostname ]($style)"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Macos = ""
+Windows = ""
+Linux = ""
+Ubuntu = ""
+Debian = ""
+Arch = ""
+Fedora = ""
+
+[hostname]
+ssh_only = true
+trim_at = "."
+style = "bg:#363A4F fg:#A6E3A1 bold"
+format = "[ $hostname ]($style)"
 
 # ------------------------------------------------------------------------------
 # 3. 第一行：工作目录 (马卡龙粉底: #f38ba8)
