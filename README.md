@@ -14,9 +14,12 @@
 ```text
 MomoPersonalConfiguration/
 ├── README.md              # 个人配置速查手册（本文件）
-├── agy ide/               # Antigravity IDE / VS Code 配置
+├── agy ide/               # Antigravity IDE 配置
 │   ├── keyboards.jsonc    # IDE 全局自定义按键绑定
 │   └── settings.jsonc     # IDE 核心配置文件（按功能分区并附注释）
+├── vscode/                # VS Code 独立配置
+│   ├── keyboards.jsonc    # VS Code 全局按键绑定（对齐 Antigravity 肌肉记忆）
+│   └── settings.jsonc     # VS Code 核心配置文件（个人主题与差异设置）
 ├── nvim/                  # Neovim 专属配置
 │   ├── init.lua           # Neovim 主入口
 │   └── lua/

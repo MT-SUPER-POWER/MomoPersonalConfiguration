@@ -23,11 +23,12 @@
 | 添加或调整插件声明 | `nvim/lua/plugins/init.lua` |
 | 调整具体插件的配置 | `nvim/lua/plugins/config/` |
 | 调整 Zed 设置或快捷键 | `zed/settings.json`、`zed/keymap.json` |
+| 调整 VS Code 设置或快捷键 | `vscode/settings.jsonc`、`vscode/keyboards.jsonc` |
 | 调整 Starship 主题或 PowerShell 加载方式 | `starship/starship.toml`、`starship/init.ps1` |
 | 调整 snippet(快速生成模板) | `agy ide/snippets/*`、`zed/snippets/*` |
 | clash 分流规则的配置文件 | `clash/*` |
 
-`nvim/lazy-lock.json` 保存插件版本。不要为了无关任务更新它。`vscode/` 当前为空，不是配置入口。
+`nvim/lazy-lock.json` 保存插件版本。不要为了无关任务更新它。`vscode/` 为 VS Code 独立配置目录。
 
 ## 配置如何加载
 
