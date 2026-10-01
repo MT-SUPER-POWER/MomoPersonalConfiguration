@@ -37,7 +37,8 @@ MomoPersonalConfiguration/
 │   └── themes/            # claude-like.css、claude-like-dark.css
 ├── zed/                   # Zed 编辑器统一配置
 │   ├── keymap.json        # Zed 快捷键映射（对齐 VS Code/Neovim 肌肉记忆）
-│   └── settings.json      # Zed 编辑器与 Vim 模式配置
+│   ├── settings.json      # Zed 编辑器与 Vim 模式配置
+│   └── tasks.jsonc        # Zed Git Graph 右键菜单（对应 VS Code Git Graph 的提交操作）
 ├── clash/                 # Clash Verge Rev 订阅扩展脚本
 │   ├── README.md          # AI 分流与区域优选说明
 │   └── script.js          # 自动过滤受限节点并优选美/日/英的核心脚本
@@ -342,6 +343,28 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 参数对象依赖语言解析；引号、括号的匹配和搜索范围以 Zed 为准，不保证与 mini.ai 完全一致。Normal 模式单独的 `a/b/q` 不受影响。`b` 文本对象从原生的圆括号扩展为任意括号；仅要圆括号时用 `i(`/`a(`。
 
 本次不扩展 `f`：Zed 原生 `if/af` 是函数定义/函数体对象，mini.ai 默认 `if/af` 是函数调用对象，两者不同。`in/an/il/al` 也未在 Zed 中映射。参考 [Zed Vim 文档](https://zed.dev/docs/vim) 与 [mini.ai 文档](https://github.com/nvim-mini/mini.ai/blob/main/doc/mini-ai.txt)。
+
+### 4. Git Graph 右键菜单 (`zed/tasks.jsonc`)
+
+Zed 自带 Git Graph 视图；全局 `tasks.json` 中带 `"git-command"` 标签的任务会出现在提交或分支标签的右键菜单中，用来复刻 VS Code Git Graph 插件的常用操作。参考 [Zed Tasks 文档](https://zed.dev/docs/tasks#custom-git-commands)。
+
+- **本地生效路径**：`%APPDATA%\Zed\tasks.json`。仓库里使用 `.jsonc` 便于编辑时不报注释错误，同步到本机时需复制并改名为 `tasks.json`；只支持全局文件，不支持项目级 `.zed/tasks.json`。
+- **可用变量**：`$ZED_GIT_SHA`、`$ZED_GIT_SHA_SHORT`、`$ZED_GIT_REPOSITORY_PATH`，以及从分支或标签右键时才有的 `$ZED_GIT_REF`。
+
+| VS Code Git Graph 菜单项 | Zed 菜单项 | 实际命令 |
+| :-- | :-- | :-- |
+| Add Tag… | Add Tag (auto name) | `git tag tag-<短SHA> <SHA>` |
+| Create Branch… | Create Branch (auto name) | `git branch branch-<短SHA> <SHA>` |
+| Checkout… | Checkout Commit / Checkout Ref | `git checkout <SHA>` / `git checkout <ref>` |
+| Cherry Pick… | Cherry Pick | `git cherry-pick <SHA>` |
+| Revert… | Revert | `git revert --no-edit <SHA>` |
+| Drop… | ⚠ Drop Commit | `git rebase --onto <SHA>~1 <SHA>` |
+| Merge into current branch… | Merge into Current Branch | `git merge <SHA>` |
+| Rebase current branch on this Commit… | Rebase Current Branch on Commit | `git rebase <SHA>` |
+| Reset current branch to this Commit… | Reset Current Branch (soft / mixed / ⚠ hard) | `git reset --soft/--mixed/--hard <SHA>` |
+| Copy Commit Hash / Subject to Clipboard | Copy Commit Hash / Subject to Clipboard | PowerShell `Set-Clipboard` |
+
+与 VS Code 插件的差异：任务不支持交互输入，Add Tag 与 Create Branch 只能按短 SHA 自动命名，之后需在终端改名；没有确认弹窗，点击即执行，Drop 和 Reset hard 会改写历史或丢弃改动，菜单项以 ⚠ 标注；菜单顺序与分组由任务列表决定，无法分隔。
 
 本机生效文件是 `%APPDATA%\Zed\keymap.json`，与仓库存档独立；后续修改需合并同步。
 

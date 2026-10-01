@@ -1,0 +1,123 @@
+// Zed tasks
+// Git Graph 右键菜单：带 "git-command" 标签的任务会出现在提交 / 分支标签的右键菜单中。
+// 对应 VS Code Git Graph 插件的右键操作；仅支持全局 tasks.json，本机路径 %APPDATA%\Zed\tasks.json。
+// 任务默认在仓库根目录运行；不支持交互输入，也没有确认弹窗，带 ⚠ 的项会改写历史或丢弃改动。
+// 为避免 cmd 把 ^ 当转义符，"上一个提交" 统一写成 SHA~1。
+[
+  // ==========================================================
+  //            创建（Add Tag / Create Branch）
+  // ==========================================================
+  // 不能交互输入名称，使用 tag-/branch- 加短 SHA 自动命名，之后可在终端用 git tag / git branch -m 改名。
+  {
+    "label": "Add Tag (auto name): tag-$ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["tag", "tag-$ZED_GIT_SHA_SHORT", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Create Branch (auto name): branch-$ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["branch", "branch-$ZED_GIT_SHA_SHORT", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+
+  // ==========================================================
+  //            检出与摘取
+  // ==========================================================
+  // 从分支标签右键时 $ZED_GIT_REF 是分支名，应切换分支；从提交行右键则进入游离 HEAD。
+  {
+    "label": "Checkout Commit (detached HEAD): $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["checkout", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Checkout Ref (branch / tag): $ZED_GIT_REF",
+    "command": "git",
+    "args": ["checkout", "$ZED_GIT_REF"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Cherry Pick: $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["cherry-pick", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Revert: $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["revert", "--no-edit", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+
+  // ==========================================================
+  //            改写历史（谨慎）
+  // ==========================================================
+  // 该提交必须是当前分支的祖先，工作区需保持干净。
+  {
+    "label": "⚠ Drop Commit: $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["rebase", "--onto", "$ZED_GIT_SHA~1", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+
+  // ==========================================================
+  //            合并与变基
+  // ==========================================================
+  {
+    "label": "Merge into Current Branch: $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["merge", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Rebase Current Branch on Commit: $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["rebase", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+
+  // ==========================================================
+  //            重置当前分支（拆成三档，对应 Git Graph 的 Soft / Mixed / Hard）
+  // ==========================================================
+  {
+    "label": "Reset Current Branch (soft): $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["reset", "--soft", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Reset Current Branch (mixed): $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["reset", "--mixed", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+  {
+    "label": "⚠ Reset Current Branch (hard, discards changes): $ZED_GIT_SHA_SHORT",
+    "command": "git",
+    "args": ["reset", "--hard", "$ZED_GIT_SHA"],
+    "tags": ["git-command"],
+  },
+
+  // ==========================================================
+  //            复制到剪贴板（Windows PowerShell）
+  // ==========================================================
+  {
+    "label": "Copy Commit Hash to Clipboard",
+    "command": "powershell",
+    "args": ["-NoProfile", "-Command", "Set-Clipboard -Value '$ZED_GIT_SHA'"],
+    "hide": "on_success",
+    "tags": ["git-command"],
+  },
+  {
+    "label": "Copy Commit Subject to Clipboard",
+    "command": "powershell",
+    "args": [
+      "-NoProfile",
+      "-Command",
+      "git log -1 --format=%s $ZED_GIT_SHA | Set-Clipboard",
+    ],
+    "hide": "on_success",
+    "tags": ["git-command"],
+  },
+]
