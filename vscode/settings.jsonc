@@ -47,6 +47,8 @@
   // ==========================================================
   // 隐藏 minimap
   "editor.minimap.enabled": false,
+  // 内联提示（类型推导等）默认关闭，按住 Ctrl + Alt 时才显示
+  "editor.inlayHints.enabled": "offUnlessPressed",
   // 编辑器光标平滑移动
   "editor.cursorSmoothCaretAnimation": "explicit",
   // 编辑器平滑滚动
@@ -122,6 +124,7 @@
     "editor.cursorBlinking",
     "editor.smoothScrolling",
     "editor.minimap.enabled",
+    "editor.inlayHints.enabled",
     "editor.stickyScroll.enabled",
     "editor.formatOnPaste",
     "editor.scrollbar.vertical",
