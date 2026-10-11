@@ -108,23 +108,47 @@ function main(config, profileName) {
 
   // 5. 注入 AI 分流规则（置顶优先命中）
   const aiRules = [
+    // --- AI 核心依赖与安全验证（极重要：防止被识别为香港等非支持地区） ---
+    // Cloudflare Turnstile 人机验证（ChatGPT / Claude / Perplexity 等每次访问均强制调用）
+    "DOMAIN-SUFFIX,challenges.cloudflare.com,🤖 AI 平台",
+    // Arkose Labs 行为验证（OpenAI 登录风控）
+    "DOMAIN-SUFFIX,arkoselabs.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,client-api.arkoselabs.com,🤖 AI 平台",
+    // Statsig 特性灰度与合规检查（OpenAI / Claude 使用）
+    "DOMAIN-SUFFIX,statsigapi.net,🤖 AI 平台",
+    "DOMAIN-SUFFIX,featuregates.org,🤖 AI 平台",
+
     // --- Google Gemini & Antigravity (反重力) & AI Studio & DeepMind ---
     "DOMAIN-SUFFIX,gemini.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,bard.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,aistudio.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,makersuite.google.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,alkalimakersuite-pa.googleapis.com,🤖 AI 平台",
-    "DOMAIN-SUFFIX,aistudio.google.com,🤖 AI 平台",
-    "DOMAIN-SUFFIX,makersuite.google.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,deepmind.google,🤖 AI 平台",
     "DOMAIN-SUFFIX,deepmind.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,notebooklm.google,🤖 AI 平台",
+    "DOMAIN-SUFFIX,notebooklm.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,ai.google.dev,🤖 AI 平台",
     "DOMAIN-KEYWORD,generativelanguage,🤖 AI 平台",
     "DOMAIN-KEYWORD,makersuite,🤖 AI 平台",
+    "DOMAIN-KEYWORD,alkalimakersuite,🤖 AI 平台",
+    "DOMAIN-KEYWORD,geminiweb-pa,🤖 AI 平台",
+    // Google 账号会话与核心接口（解决 Gemini 及 Google 快捷登录被识别为香港的问题）
+    "DOMAIN-SUFFIX,accounts.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,clients6.google.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,ogs.google.com,🤖 AI 平台",
 
     // --- OpenAI / ChatGPT ---
     "DOMAIN-SUFFIX,openai.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,chatgpt.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,oaistatic.com,🤖 AI 平台",
     "DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,sora.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,ai.com,🤖 AI 平台",
+    "DOMAIN-SUFFIX,livekit.cloud,🤖 AI 平台",
+    "DOMAIN-SUFFIX,host.livekit.cloud,🤖 AI 平台",
     "DOMAIN-KEYWORD,openai,🤖 AI 平台",
     "DOMAIN-KEYWORD,chatgpt,🤖 AI 平台",
 

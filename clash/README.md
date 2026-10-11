@@ -36,12 +36,13 @@
 
 ---
 
-## macOS 生效路径与同步方式
+## 本机生效路径与同步方式
 
-| 仓库文件 | macOS 本机生效位置 | 说明 |
-| --- | --- | --- |
-| `clash/script.js` | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev/profiles/Script.js` | 全局扩展脚本 |
-| `clash/script.js` | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev/profiles/<profile-script-id>.js` | 单个订阅绑定的扩展脚本 |
+| 仓库文件 | 系统 | 本机生效位置 | 说明 |
+| --- | --- | --- | --- |
+| `clash/script.js` | Windows | `%APPDATA%\io.github.clash-verge-rev.clash-verge-rev\profiles\Script.js` | 全局扩展脚本 |
+| `clash/script.js` | macOS | `~/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev/profiles/Script.js` | 全局扩展脚本 |
+| `clash/script.js` | 全平台 | 订阅配置中的 Script | 单个订阅绑定的扩展脚本 |
 
 ### 如何在 Clash Verge Rev 中手动应用/更新？
 
