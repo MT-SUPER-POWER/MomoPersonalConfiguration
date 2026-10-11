@@ -25,6 +25,8 @@
   "explorer.autoReveal": true,
   // 文件管理器折叠文件夹
   "explorer.compactFolders": false,
+  // 关闭树状列表按键自动触发拼写搜索过滤，保证 Vim 导航键（j/k）正常移动
+  "workbench.list.automaticKeyboardNavigation": false,
   // 不会出现只有一个文件夹还强制折叠为一条的情况
   "markdown.preview.fontSize": 16,
   // ==========================================================
@@ -242,7 +244,8 @@
     ".sidebar .title-label": "padding: 0 !important",
     ".sidebar": "border: none !important",
     ".monaco-workbench .monaco-list:not(.element-focused):focus:before": "outline: none !important",
-    ".monaco-list-row.focused": "outline: none !important",
+    ".monaco-list-row.focused": "background-color: #04395e !important; outline: none !important",
+    ".monaco-list-row.selected:not(.focused)": "background-color: transparent !important",
     ".monaco-editor .scroll-decoration": "display: none",
     ".title.show-file-icons .label-container .monaco-icon-label.file-icon": "justify-content: center; padding: 0 !important",
     ".title .monaco-icon-label:after": "margin-right: 0",
@@ -250,6 +253,10 @@
     ".title .monaco-icon-label.file-icon": "margin: 0 60px",
     ".monaco-editor .cursors-layer .cursor": "background-image: linear-gradient(135deg, #ffaffc 10%, #DA70D6 100%)",
     ".monaco-workbench .pane-composite-part>.title>.composite-bar-container, .monaco-workbench .pane-composite-part>.header-or-footer>.composite-bar-container": "display: flex; justify-content: center;",
+  },
+  "workbench.colorCustomizations": {
+    "list.focusBackground": "#04395e",
+    "list.focusHighlightForeground": "#ffffff",
   },
   // ==========================================================
   //            TODO 标记与高亮

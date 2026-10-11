@@ -465,12 +465,15 @@ mini.ai 默认提供位置修饰符：`n` 表示 **next（下一组）**，`l` �
 | 注意 | 最后跳到的候选尚未记录，用 `Space w s` 加入 | Visual 退出不等于仅取消当前项 |
 | 语义重命名 | `Shift+F6`：更新符号及引用；多光标仅匹配文本 | 同左 |
 
-## 文件树快捷键（agyIDE / Zed）
+## 文件树快捷键（agyIDE / VS Code / Zed）
 
-以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，Zed 配置位于 `zed/keymap.json`。
+以下按键在文件树获得焦点、且未输入文件名时生效。大写 `A` 表示 `Shift+A`。agyIDE 配置位于 `agy ide/keyboards.jsonc`，VS Code 配置位于 `vscode/keyboards.jsonc`，Zed 配置位于 `zed/keymap.jsonc`。
 
 | 操作 | 快捷键 |
 | --- | --- |
+| 上下移动光标 | `j` / `k` |
+| 折叠目录 / 跳到父级 | `h` |
+| 展开目录 / 打开文件 | `l` |
 | 新建文件 | `a` |
 | 新建文件夹 | `A` |
 | 移到回收站 | `d` |
