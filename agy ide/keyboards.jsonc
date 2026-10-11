@@ -276,7 +276,7 @@
     "args": { "focus": "autoFocusImmediately" },
     "when": "editorTextFocus",
   },
-  // 悬停窗口聚焦时，使用 j/k 上下平滑滚动浏览，d/u 翻页
+  // 悬停窗口聚焦时，使用 j/k、Ctrl+E/Ctrl+Y 或 e/y 上下平滑滚动浏览，d/u 翻页
   {
     "key": "j",
     "command": "editor.action.scrollDownHover",
@@ -284,6 +284,26 @@
   },
   {
     "key": "k",
+    "command": "editor.action.scrollUpHover",
+    "when": "editorHoverFocused",
+  },
+  {
+    "key": "ctrl+e",
+    "command": "editor.action.scrollDownHover",
+    "when": "editorHoverFocused",
+  },
+  {
+    "key": "ctrl+y",
+    "command": "editor.action.scrollUpHover",
+    "when": "editorHoverFocused",
+  },
+  {
+    "key": "e",
+    "command": "editor.action.scrollDownHover",
+    "when": "editorHoverFocused",
+  },
+  {
+    "key": "y",
     "command": "editor.action.scrollUpHover",
     "when": "editorHoverFocused",
   },

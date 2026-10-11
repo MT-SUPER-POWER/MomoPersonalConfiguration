@@ -129,7 +129,7 @@ Zed / agyIDE 统一使用 `Alt+Enter` 打开代码操作菜单（快速修复与
 | <kbd>Ctrl</kbd> + <kbd>F12</kbd> | `toggleMaximizedAuxiliaryBar` | **最大化 / 恢复**右侧辅助栏 |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `antigravity.toggleChatFocus` | 聚焦 **AI 编程对话**面板；有代码选区时加入 AI 输入框作为上下文（不发送） |
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `focusActiveEditorGroup` | 从终端焦点**一键切回代码编辑器** |
-| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor.action.showHover` | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
+| <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor.action.showHover` | **一次按键显示并聚焦文档**（`focus: autoFocusImmediately`）；`j/k`、`Ctrl+E/Y` 或 `e/y` 滚动，`d/u` 或 `Ctrl+D/U` 翻页，`q/Esc` 关闭 |
 
 > **安全解绑保护**：已主动解绑 `Ctrl+E`（防与 Vim 下拉冲突）和 `Ctrl+Shift+C`；`Ctrl+K/L` 已改作方向导航。
 
