@@ -159,4 +159,20 @@
     "copilot": {},
     "provider": "zed",
   },
+  // ==========================================================
+  //            内联提示 (Inlay Hints)
+  // ==========================================================
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    // 平时隐藏，长按修饰键时才显示：
+    // - Windows / Linux: Ctrl + Alt
+    // - macOS: Cmd + Option (platform 映射为 Command，alt 映射为 Option)
+    "toggle_on_modifiers_press": {
+      "platform": true,
+      "alt": true,
+    },
+  },
 }

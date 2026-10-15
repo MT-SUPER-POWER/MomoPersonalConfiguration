@@ -281,6 +281,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `Workspace` | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `Terminal` / `Workspace` | `workspace::ActivateNextPane` | 从终端或面板**一键切回代码编辑器** |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd>（按住） | `Editor` | `inlay_hints` / `offUnlessPressed` | **显示隐藏的内联提示 (Inlay Hints)**（松开自动恢复隐藏；macOS 上 Zed 为 `Cmd+Option`，IDE 为 `Control+Option`） |
 
 **macOS 防误触映射（Zed）**：保留以上 Ctrl 按键，同时补充 Command 版本：
 
@@ -293,6 +294,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | `Cmd+Shift+I` | 打开 Zed AI 面板；格式化继续使用 `Space f f` |
 | `Cmd+Shift+J` | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为 |
 | 文件树中 `Cmd+Shift+C` | 复制绝对路径 |
+| `Cmd+Option`（按住） | 临时显示内联提示 (Inlay Hints)，松开自动恢复隐藏 |
 
 所有新增 Command 绑定及解绑均限定 `os == macos`，Windows 原有规则不变；原 Ctrl 按键仍可作为 Mac 兼容入口。窗口保护覆盖 Workspace 与编辑器各模式；`Ctrl+D/U` 等 Vim 按键保持不变。字母键解绑（如 `g .`）不涉及平台修饰键，继续沿用原配置。
 

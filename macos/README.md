@@ -23,6 +23,7 @@
 - 保留原有 Ctrl、Alt 与空格 Leader 按键；Zed 的窗口防误触、Git/AI 面板、合并行和文件树路径操作补充限定 `os == macos` 的 Command 映射，具体按键见根目录 README。macOS 系统快捷键可能优先拦截部分组合，需要在实际使用中核对。
 - 本机已通过 `brew install --cask font-jetbrains-mono-nerd-font` 安装 JetBrainsMono Nerd Font（含 Mono 等变体）；保留原有 JetBrains Mono 与 MesloLGS NF 回退。IDE 和 Zed 配置已引用此 Nerd 字体。独立终端需在字体设置中选择 `JetBrainsMono Nerd Font Mono`。
 - IDE 默认配置适用于共享默认设置的档案；拥有独立设置的档案（例如 C#）仍保留其独立配置。
+- Inlay Hints（内联提示）：Antigravity IDE / VS Code 配置 `editor.inlayHints.enabled: "offUnlessPressed"`（macOS 上 VS Code 原生对应长按 `Control + Option`）；Zed 统一配置 `inlay_hints.toggle_on_modifiers_press` 为 `platform + alt`，在 Windows 上对应长按 `Ctrl + Alt`，在 macOS 上自动配对为长按 `Cmd + Option`。
 
 Antigravity IDE 另以 `isMac` 限定 `Cmd+Shift+I` 的选区添加/聚焦 AI 命令，以及旧 `Cmd+L`、`Cmd+Shift+L` 的屏蔽；Windows 配置不受新增规则影响。
 
