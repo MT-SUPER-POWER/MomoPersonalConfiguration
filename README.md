@@ -353,18 +353,18 @@ Zed 自带 Git Graph 视图；全局 `tasks.json` 中带 `"git-command"` 标签�
 
 | VS Code Git Graph 菜单项 | Zed 菜单项 | 实际命令 |
 | :-- | :-- | :-- |
-| Add Tag… | Add Tag (auto name) | `git tag tag-<短SHA> <SHA>` |
-| Create Branch… | Create Branch (auto name) | `git branch branch-<短SHA> <SHA>` |
+| Add Tag… | Create Tag… | Zed 1.24.2+ 原生支持（弹窗交互输入标签名） |
+| Create Branch… | - | 暂未配置自定义任务（等待 Zed 官方支持交互弹窗，目前建议在终端创建） |
 | Checkout… | Checkout Commit / Checkout Ref | `git checkout <SHA>` / `git checkout <ref>` |
 | Cherry Pick… | Cherry Pick | `git cherry-pick <SHA>` |
 | Revert… | Revert | `git revert --no-edit <SHA>` |
-| Drop… | ⚠ Drop Commit | `git rebase --onto <SHA>~1 <SHA>` |
+| Drop… | Drop Commit | `git rebase --onto <SHA>~1 <SHA>` |
 | Merge into current branch… | Merge into Current Branch | `git merge <SHA>` |
 | Rebase current branch on this Commit… | Rebase Current Branch on Commit | `git rebase <SHA>` |
-| Reset current branch to this Commit… | Reset Current Branch (soft / mixed / ⚠ hard) | `git reset --soft/--mixed/--hard <SHA>` |
+| Reset current branch to this Commit… | Reset Current Branch (soft / mixed / hard) | `git reset --soft/--mixed/--hard <SHA>` |
 | Copy Commit Hash / Subject to Clipboard | Copy Commit Hash / Subject to Clipboard | PowerShell `Set-Clipboard` |
 
-与 VS Code 插件的差异：任务不支持交互输入，Add Tag 与 Create Branch 只能按短 SHA 自动命名，之后需在终端改名；没有确认弹窗，点击即执行，Drop 和 Reset hard 会改写历史或丢弃改动，菜单项以 ⚠ 标注；菜单顺序与分组由任务列表决定，无法分隔。
+与 VS Code 插件的差异：Zed 1.24.2+ 原生提供了 `Create Tag…` 弹窗；任务系统因不支持交互输入，已移除自动命名的 Add Tag 与 Create Branch 任务，等待官方原生支持；其余任务没有确认弹窗，点击即执行，Drop 和 Reset hard 会改写历史或丢弃改动；菜单顺序与分组由任务列表决定，无法分隔。
 
 本机生效文件是 `%APPDATA%\Zed\keymap.json`，与仓库存档独立；后续修改需合并同步。
 

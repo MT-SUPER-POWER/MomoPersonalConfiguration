@@ -1,26 +1,9 @@
 // Zed tasks
 // Git Graph 右键菜单：带 "git-command" 标签的任务会出现在提交 / 分支标签的右键菜单中。
 // 对应 VS Code Git Graph 插件的右键操作；仅支持全局 tasks.json，本机路径 %APPDATA%\Zed\tasks.json。
-// 任务默认在仓库根目录运行；不支持交互输入，也没有确认弹窗，带 ⚠ 的项会改写历史或丢弃改动。
+// 任务默认在仓库根目录运行；不支持交互输入，也没有确认弹窗，Drop 与 Reset hard 会改写历史或丢弃改动。
 // 为避免 cmd 把 ^ 当转义符，"上一个提交" 统一写成 SHA~1。
 [
-  // ==========================================================
-  //            创建（Add Tag / Create Branch）
-  // ==========================================================
-  // 不能交互输入名称，使用 tag-/branch- 加短 SHA 自动命名，之后可在终端用 git tag / git branch -m 改名。
-  {
-    "label": "Add Tag (auto name): tag-$ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["tag", "tag-$ZED_GIT_SHA_SHORT", "$ZED_GIT_SHA"],
-    "tags": ["git-command"],
-  },
-  {
-    "label": "Create Branch (auto name): branch-$ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["branch", "branch-$ZED_GIT_SHA_SHORT", "$ZED_GIT_SHA"],
-    "tags": ["git-command"],
-  },
-
   // ==========================================================
   //            检出与摘取
   // ==========================================================
@@ -55,7 +38,7 @@
   // ==========================================================
   // 该提交必须是当前分支的祖先，工作区需保持干净。
   {
-    "label": "⚠ Drop Commit: $ZED_GIT_SHA_SHORT",
+    "label": "Drop Commit: $ZED_GIT_SHA_SHORT",
     "command": "git",
     "args": ["rebase", "--onto", "$ZED_GIT_SHA~1", "$ZED_GIT_SHA"],
     "tags": ["git-command"],
@@ -93,7 +76,7 @@
     "tags": ["git-command"],
   },
   {
-    "label": "⚠ Reset Current Branch (hard, discards changes): $ZED_GIT_SHA_SHORT",
+    "label": "Reset Current Branch (hard, discards changes): $ZED_GIT_SHA_SHORT",
     "command": "git",
     "args": ["reset", "--hard", "$ZED_GIT_SHA"],
     "tags": ["git-command"],
