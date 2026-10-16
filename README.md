@@ -295,6 +295,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | `Cmd+Shift+J` | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为 |
 | 文件树中 `Cmd+Shift+C` | 复制绝对路径 |
 | `Cmd+Option`（按住） | 临时显示内联提示 (Inlay Hints)，松开自动恢复隐藏 |
+| `Cmd+Option` + `h/l/j/k` | 调整当前聚焦的分屏或 Dock 尺寸（高度/宽度），与 `Ctrl+Option` 双向生效 |
 
 所有新增 Command 绑定及解绑均限定 `os == macos`，Windows 原有规则不变；原 Ctrl 按键仍可作为 Mac 兼容入口。窗口保护覆盖 Workspace 与编辑器各模式；`Ctrl+D/U` 等 Vim 按键保持不变。字母键解绑（如 `g .`）不涉及平台修饰键，继续沿用原配置。
 
@@ -321,7 +322,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器 |
 | **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **单步精细微调**分屏大小（左/右/下/上） |
 | **分屏大步快调** | `<leader>r` + <kbd>H/J/K/L</kbd> | `action::Sequence` | **大步快速调宽/调窄**（连调 5 档） |
-| **按焦点调整尺寸** | 编辑器：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>；Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l</kbd> | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端只调整当前 Dock |
+| **按焦点调整尺寸** | 编辑器/Dock：<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>h/l/j/k</kbd>（Mac 亦支持 `Cmd+Option`） | 编辑器：`vim::ResizePane…`；Dock：`workspace::…ActiveDockSize` | **焦点在哪里，就调整哪里**：编辑器组调整相邻分隔线；文件树、预览或终端调整当前 Dock 高度与宽度 |
 | **平分所有分屏** | `<leader>r=` 或 `<leader>w=` | `workspace::ResetPaneSizes` | **一键平分所有窗口宽度** (50% / 50%) |
 | **分屏最大化** | `<leader>wm` 或 `<leader>rm` | `workspace::ToggleZoom` | **最大化当前分屏** / 再次按下恢复并列 |
 | **单文件投掷** | `<leader>w` + <kbd>h/j/k/l</kbd> | `workspace::MoveItemToPaneInDirection` | 将当前单个文件**投掷到左/下/上/右**分屏 |

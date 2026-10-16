@@ -163,7 +163,7 @@
   //            内联提示 (Inlay Hints)
   // ==========================================================
   "inlay_hints": {
-    "enabled": true,
+    "enabled": false,
     "show_type_hints": true,
     "show_parameter_hints": true,
     "show_other_hints": true,

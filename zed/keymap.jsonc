@@ -42,6 +42,11 @@
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
+      // 终端内调整自身尺寸（上下高度、左右宽度）
+      "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-k": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-j": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
     },
   },
 
@@ -74,6 +79,8 @@
     "bindings": {
       "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
       "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-k": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-j": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
     },
   },
 
@@ -204,6 +211,15 @@
       "space r m": "workspace::ToggleZoom",
       "space w =": "workspace::ResetPaneSizes",
       "space w m": "workspace::ToggleZoom",
+      // 【免前缀快捷微调】对齐 IDE 的 Ctrl+Alt 与 macOS 的 Cmd+Option 直接按键微调
+      "ctrl-alt-h": "vim::ResizePaneLeft",
+      "ctrl-alt-l": "vim::ResizePaneRight",
+      "ctrl-alt-j": "vim::ResizePaneDown",
+      "ctrl-alt-k": "vim::ResizePaneUp",
+      "cmd-alt-h": "vim::ResizePaneLeft",
+      "cmd-alt-l": "vim::ResizePaneRight",
+      "cmd-alt-j": "vim::ResizePaneDown",
+      "cmd-alt-k": "vim::ResizePaneUp",
       // ==========================================================
       //            分屏与文件调度 (小写单文件，大写整组)
       // ==========================================================
@@ -325,6 +341,29 @@
       "cmd-shift-w": "pane::CloseActiveItem",
       "cmd-shift-n": "file_finder::Toggle",
       "cmd-shift-i": "agent::ToggleFocus",
+      // macOS Command+Option 与 Ctrl+Option 编辑器分屏尺寸微调
+      "ctrl-alt-h": "vim::ResizePaneLeft",
+      "ctrl-alt-l": "vim::ResizePaneRight",
+      "ctrl-alt-j": "vim::ResizePaneDown",
+      "ctrl-alt-k": "vim::ResizePaneUp",
+      "cmd-alt-h": "vim::ResizePaneLeft",
+      "cmd-alt-l": "vim::ResizePaneRight",
+      "cmd-alt-j": "vim::ResizePaneDown",
+      "cmd-alt-k": "vim::ResizePaneUp",
+    },
+  },
+  // macOS Command+Option 与 Ctrl+Option 的 Dock 与终端尺寸微调
+  {
+    "context": "os == macos && (Dock || Terminal)",
+    "bindings": {
+      "ctrl-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-k": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-j": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "cmd-alt-h": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "cmd-alt-l": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "cmd-alt-k": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "cmd-alt-j": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
     },
   },
   // 主编辑器覆盖 Pane 的查找上一个匹配；搜索输入框仍使用原搜索快捷键。
