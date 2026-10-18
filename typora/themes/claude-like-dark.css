@@ -584,6 +584,15 @@ div.code-tooltip-content,
   background-color: #70665c;
 }
 
+#typora-sidebar ::-webkit-scrollbar,
+#typora-sidebar ::-webkit-scrollbar-track {
+  background-color: var(--side-bar-bg-color);
+}
+
+#typora-sidebar ::-webkit-scrollbar-thumb {
+  border-color: var(--side-bar-bg-color);
+}
+
 #typora-sidebar,
 #sidebar-content,
 #file-library,

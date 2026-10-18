@@ -542,6 +542,37 @@ tt {
   background-color: var(--side-bar-bg-color);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(114, 105, 94, 0.38);
+  background-clip: padding-box;
+  border: 2px solid var(--bg-color);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(114, 105, 94, 0.6);
+  background-clip: padding-box;
+}
+
+#typora-sidebar ::-webkit-scrollbar,
+#typora-sidebar ::-webkit-scrollbar-track {
+  background-color: var(--side-bar-bg-color);
+}
+
+#typora-sidebar ::-webkit-scrollbar-thumb {
+  border-color: var(--side-bar-bg-color);
+}
+
 #typora-sidebar,
 #sidebar-content,
 #file-library,
