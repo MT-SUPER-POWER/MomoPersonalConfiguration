@@ -276,6 +276,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | <kbd>Ctrl</kbd> + <kbd>B</kbd> | `Workspace` / Vim `Editor` | `workspace::ToggleLeftDock` | 切换**左侧边栏**（Editor 内已强行压制 Vim 默认的 `PageUp`） |
 | <kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> | `Editor`（非补全菜单） | `editor::Copy` / `Paste` / `Cut` | 恢复系统复制、粘贴、剪切，不受 Vim 模式拦截 |
 | <kbd>Shift</kbd> + <kbd>F6</kbd> | `Editor`（非补全菜单） | `editor::Rename` | 重命名光标处符号及其引用 |
+| <kbd>Alt</kbd> + <kbd>j</kbd> / <kbd>k</kbd> | `Editor`（非补全菜单） | `editor::GoToHunk` / `editor::GoToPreviousHunk` | 跳转到**下一个 / 上一个 Git 差异块 (Hunk)**（代码编辑与 Git Diff 视图均生效） |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
@@ -318,6 +319,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | **标签页轮转** | <kbd>J</kbd> / <kbd>K</kbd> | `pane::ActivatePrevItem` / `NextItem` | 快速在顶部 Tab 标签间**向左 / 向右**轮转 |
 | **标签页关闭** | `<leader>cc` | `pane::CloseActiveItem` | 关闭当前 Tab |
 | **标签页关闭** | `<leader>ca` | `pane::CloseAllItems` | 关闭全部 Tab |
+| **差异块跳转** | <kbd>Alt</kbd> + <kbd>j</kbd> / <kbd>k</kbd> | `editor::GoToHunk` / `editor::GoToPreviousHunk` | 跳转到**下一个 / 上一个 Git 差异块 (Hunk)**（编辑与 Diff 视图均生效） |
 | **LSP 悬停** | <kbd>Ctrl</kbd> + <kbd>Q</kbd> 或 `gh` | `editor::Hover` | 显示文档后，Normal 模式用 `Ctrl+E/Y` 向下/上小步滚动，`Ctrl+D/U` 向下/上翻动，`Esc` 关闭；无需先聚焦。裸 `j/k/d/u/q` 保留 Vim 含义 |
 | **跨分屏聚焦** | <kbd>Ctrl</kbd> + <kbd>h/j/k/l</kbd> | `workspace::ActivatePane...` | 在中央编辑器分组间按左/下/上/右切换焦点（压制 Vim `ctrl-j`）；文件树中 <kbd>Ctrl</kbd> + <kbd>l</kbd> 回到中央编辑器 |
 | **分屏精细微调** | `<leader>r` + <kbd>h/j/k/l</kbd> | `vim::ResizePane...` | **单步精细微调**分屏大小（左/右/下/上） |

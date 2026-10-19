@@ -65,6 +65,9 @@
       "shift-f6": "editor::Rename",
       // Alt+Enter 打开代码操作（快速修复与重构）。
       "alt-enter": "editor::ToggleCodeActions",
+      // 下一个 / 上一个 Git 差异块 (Hunk)
+      "alt-j": "editor::GoToHunk",
+      "alt-k": "editor::GoToPreviousHunk",
       // 编辑器组获得焦点时，只调整当前组的相邻分隔线。
       "ctrl-alt-h": "vim::ResizePaneLeft",
       "ctrl-alt-l": "vim::ResizePaneRight",
@@ -143,6 +146,12 @@
       "shift-k": "pane::ActivateNextItem",
       "space c c": "pane::CloseActiveItem",
       "space c a": "pane::CloseAllItems",
+
+      // ==========================================================
+      //            Git 差异块 (Hunk) 跳转
+      // ==========================================================
+      "alt-j": "editor::GoToHunk",
+      "alt-k": "editor::GoToPreviousHunk",
 
       // ==========================================================
       //            LSP 悬停与文档查看
