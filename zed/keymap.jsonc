@@ -88,6 +88,17 @@
   },
 
   // ==========================================================
+  //            Agent / AI 对话面板按键
+  // ==========================================================
+  {
+    "context": "AgentPanel || AcpThread",
+    "bindings": {
+      // 在 Agent 面板中再次按下 Ctrl+Shift+I 切换回代码编辑器
+      "ctrl-shift-i": "agent::ToggleFocus",
+    },
+  },
+
+  // ==========================================================
   //            Normal 模式快捷键
   // ==========================================================
   //    增加 !menu 约束：当处于补全/提示下拉列表时，不抢占按键，保障 IDE 补全顺畅
@@ -397,12 +408,21 @@
       "cmd-shift-c": "project_panel::CopyPath",
     },
   },
-  // 取消绑定关闭 zed 窗口防止误操作
+  // macOS 针对 Agent 对话面板切回编辑器的快捷键对齐
+  {
+    "context": "os == macos && (AgentPanel || AcpThread)",
+    "bindings": {
+      "cmd-shift-i": "agent::ToggleFocus",
+    },
+  },
+  // 取消绑定关闭 zed 窗口及与 AI 对话面板冲突的按键，防止误操作
   {
     "unbind": {
       "g .": "editor::ToggleCodeActions",
       "ctrl-shift-w": "workspace::CloseWindow",
       "ctrl-shift-n": "workspace::NewWindow",
+      // 解绑 Zed 默认 Windows 键位中 Ctrl+Shift+I 弹出的 Edit Prediction 菜单，避免与呼出/切换 Agent 对话面板冲突
+      "ctrl-shift-i": "edit_prediction::ToggleMenu",
     },
   },
   // Command 解绑也必须限制到 macOS，避免影响 Windows 的 Super 键。

@@ -280,7 +280,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>B</kbd> | `Workspace` | `workspace::ToggleRightDock` | 切换**右侧辅助栏** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>J</kbd> | `Workspace` | `workspace::ToggleBottomDock` | 切换**底部终端面板** |
 | <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>M</kbd> | `Workspace` | `diagnostics::Deploy` | 呼出**错误与诊断面板** |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `Workspace` | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant** |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd> | `Workspace` / `AgentPanel` | `agent::ToggleFocus` | 聚焦 / 唤起 **Zed AI Assistant**（已解绑 Windows 默认弹出的 Edit Prediction 菜单，支持主编辑器与对话面板双向无冲突切换焦点） |
 | <kbd>Ctrl</kbd> + <kbd>Esc</kbd> | `Terminal` / `Workspace` | `workspace::ActivateNextPane` | 从终端或面板**一键切回代码编辑器** |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd>（按住） | `Editor` | `inlay_hints` / `offUnlessPressed` | **显示隐藏的内联提示 (Inlay Hints)**（松开自动恢复隐藏；macOS 上 Zed 为 `Cmd+Option`，IDE 为 `Control+Option`） |
 
@@ -292,7 +292,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | `Cmd+Shift+W` | 仅关闭当前标签页；解绑默认的关闭窗口 |
 | 文件树中 `Cmd+K Cmd+Shift+C` | 禁用旧的复制相对路径组合键，沿用 `Alt+Shift+C` |
 | `Cmd+Shift+G` | 打开 Git 面板；主代码编辑区覆盖默认上一个搜索匹配，搜索输入框保留搜索行为 |
-| `Cmd+Shift+I` | 打开 Zed AI 面板；格式化继续使用 `Space f f` |
+| `Cmd+Shift+I` | 打开 / 切换 Zed AI 面板（主编辑器与 Agent 面板双向切换）；格式化继续使用 `Space f f` |
 | `Cmd+Shift+J` | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为 |
 | 文件树中 `Cmd+Shift+C` | 复制绝对路径 |
 | `Cmd+Option`（按住） | 临时显示内联提示 (Inlay Hints)，松开自动恢复隐藏 |
