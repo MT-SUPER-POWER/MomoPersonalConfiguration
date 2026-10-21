@@ -86,6 +86,28 @@ Zed 打开本仓库后，`.zed/settings.json` 为 Markdown 启用保存格式化
 
 GitHub Actions 的 `.github/workflows/format.yml` 在 push 和 Pull Request 时执行 `npm ci --ignore-scripts` 与 `npm run format:check`。CI 使用 `--ignore-scripts`，无需安装 Git 钩子。检查失败时，本地运行 `npm run format` 后提交改动即可；CI 不自动修改或提交文件。
 
+## Zed 着色器语言服务
+
+`zed/settings.jsonc` 为 GLSL 使用 `shader-ls` 扩展提供的 `shader-language-server`，GLSL 扩展提供语法高亮；禁用同一语言的 `glsl_analyzer`、`glsl_validator`，避免重复或冲突的诊断。常用 `.frag`、`.vert`、`.glsl` 等后缀已关联 GLSL。HLSL、WGSL 沿用各自的语法扩展和 Shader Language Server。
+
+GLSL 的 `targetClient` 和 `spirvVersion` 均设为 `"None"`，支持 GLSLViewer / WebGL 常见写法：
+
+```glsl
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+void main() {
+    gl_FragColor = vec4(1.0);
+}
+```
+
+启动参数 `--config` 确保旧版扩展启动时也能关闭默认 Vulkan / SPIR-V 限制；运行时设置放在 `lsp.shader-language-server.settings["shader-validator"]`，对应服务端请求的配置节名。修改校验目标时需同时更新启动参数中的 JSON 和运行时 GLSL 设置，再执行 `editor: restart language server`。
+
+不全局强制 GLSL 版本，也不手动定义保留宏 `GL_ES`。WebGL 1 可显式写 `#version 100`；WebGL 2 使用 `#version 300 es`，并用自定义 `out vec4` 输出替代 `gl_FragColor`。服务端的符号分析可能把 `GL_ES` 分支显示为未启用提示，这是预定义宏识别的限制；不代表编译校验失败。
+
+macOS 本机读取 `~/.config/zed/settings.json`，与仓库使用复制同步。当前已安装的服务位于 `/opt/homebrew/bin/shader-language-server`，本机通过 `binary.path` 指向它；仓库存档仅保留跨平台启动参数。换机时需先安装语言服务并按实际位置设置路径，不能只复制配置就假定服务已安装。配置方式见 [Shader Language Server](https://github.com/antaalt/shader-sense/tree/master/shader-language-server) 与 [Zed 语言配置](https://zed.dev/docs/configuring-languages)。
+
 ## 代码片段（agyIDE / Zed）
 
 | 项目 | 说明 |

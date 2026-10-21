@@ -177,4 +177,104 @@
       "alt": true,
     },
   },
+  // ==========================================================
+  //            自动安装扩展
+  // ==========================================================
+  "auto_install_extensions": {
+    "shader-ls": true,
+    "glsl": true,
+    "hlsl": true,
+    "wgsl": true,
+  },
+  // ==========================================================
+  //            文件类型关联
+  // ==========================================================
+  "file_types": {
+    "HLSL": ["hlsl", "hlsli", "fx", "fxh", "ush", "usf"],
+    "GLSL": [
+      "glsl",
+      "vert",
+      "frag",
+      "comp",
+      "geom",
+      "tesc",
+      "tese",
+      "mesh",
+      "task",
+      "rgen",
+      "rint",
+      "rahit",
+      "rchit",
+      "rmiss",
+      "rcall",
+    ],
+    "WGSL": ["wgsl"],
+  },
+  // ==========================================================
+  //            语言专属配置 (LSP 绑定与行为)
+  // ==========================================================
+  "languages": {
+    "GLSL": {
+      "language_servers": [
+        "shader-language-server",
+        "!glsl_validator",
+        "!glsl_analyzer",
+        "...",
+      ],
+    },
+    "HLSL": {
+      "language_servers": ["shader-language-server", "..."],
+    },
+    "WGSL": {
+      "language_servers": ["shader-language-server", "..."],
+    },
+  },
+  // ==========================================================
+  //            LSP 语言服务器具体设置
+  // ==========================================================
+  "lsp": {
+    "shader-language-server": {
+      // 提示：Windows / Linux x86_64 扩展会自动从 GitHub 下载预编译服务；
+      // macOS (Apple Silicon / Intel) 官方暂未提供预编译包，Mac 上可使用 cargo 编译并在本机配置中指定 binary.path：
+      // 在下方 binary 对象中添加 "path": "/opt/homebrew/bin/shader-language-server"。
+      // 启动即关闭 Vulkan / SPIR-V 校验，兼容尚未转发 --config 的 shader-ls 版本。
+      "binary": {
+        "arguments": [
+          "--stdio",
+          "--glsl",
+          "--hlsl",
+          "--wgsl",
+          "--config",
+          "{\"glsl\":{\"targetClient\":\"None\",\"spirvVersion\":\"None\"}}",
+        ],
+      },
+      "settings": {
+        // 服务端 workspace/configuration 请求使用此节名。
+        "shader-validator": {
+          // 通用校验与符号配置
+          "validate": true,
+          "symbols": true,
+          "symbolDiagnostics": false,
+          "severity": "info", // "none" | "error" | "warning" | "info" | "hint"
+          "includes": [], // 额外包含路径，如 ["./include"]
+          "defines": {}, // 预处理器全局宏，如 {"DEBUG": "1"}
+
+          // HLSL (DirectX Shader Compiler)
+          "hlsl": {
+            "shaderModel": "ShaderModel6_8",
+            "version": "V2021",
+          },
+
+          // GLSL：按源文件版本校验，支持 gl_FragColor 与 GL_ES，不强制 Vulkan SPIR-V。
+          "glsl": {
+            "targetClient": "None",
+            "spirvVersion": "None",
+          },
+
+          // WGSL (naga)
+          "wgsl": {},
+        },
+      },
+    },
+  },
 }
