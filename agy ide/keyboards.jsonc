@@ -138,10 +138,25 @@
     "key": "ctrl+shift+b",
     "command": "outline.focus",
   },
+  // 禁用反重力自带的 Open/Toggle Agent 命令，避免关闭右侧栏时先跳到 Agent
+  {
+    "key": "ctrl+alt+b",
+    "command": "-antigravity.openAgent",
+  },
+  {
+    "key": "cmd+alt+b",
+    "command": "-antigravity.openAgent",
+    "when": "isMac",
+  },
   // Right Panel 总开关，减少了限制条件
   {
     "key": "ctrl+alt+b",
     "command": "workbench.action.toggleAuxiliaryBar",
+  },
+  {
+    "key": "cmd+alt+b",
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "when": "isMac",
   },
   // Bottom Panel 的总开关
   {
