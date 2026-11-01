@@ -315,7 +315,7 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 | 文件树中 `Cmd+K Cmd+Shift+C` | 禁用旧的复制相对路径组合键，沿用 `Alt+Shift+C` |
 | `Cmd+Shift+G` | 打开 Git 面板；主代码编辑区覆盖默认上一个搜索匹配，搜索输入框保留搜索行为 |
 | `Cmd+Shift+I` | 打开 / 切换 Zed AI 面板（主编辑器与 Agent 面板双向切换）；格式化继续使用 `Space f f` |
-| `Cmd+Shift+J` | Normal / Visual 模式合并行；项目搜索过滤快捷键保持原行为 |
+| `Cmd+Shift+J` | 打开 / 关闭底部终端面板；Normal / Visual 模式合并行使用 `Ctrl+Shift+J` |
 | 文件树中 `Cmd+Shift+C` | 复制绝对路径 |
 | `Cmd+Option`（按住） | 临时显示内联提示 (Inlay Hints)，松开自动恢复隐藏 |
 | `Cmd+Option` + `h/l/j/k` | 调整当前聚焦的分屏或 Dock 尺寸（高度/宽度），与 `Ctrl+Option` 双向生效 |

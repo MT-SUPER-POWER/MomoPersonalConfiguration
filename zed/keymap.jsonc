@@ -352,6 +352,7 @@
       "cmd-shift-n": "file_finder::Toggle",
       "cmd-shift-g": "git_panel::ToggleFocus",
       "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
     },
   },
   // 编辑器各模式均覆盖，避免更深层的 Editor 默认键位抢占。
@@ -361,6 +362,7 @@
       "cmd-shift-w": "pane::CloseActiveItem",
       "cmd-shift-n": "file_finder::Toggle",
       "cmd-shift-i": "agent::ToggleFocus",
+      "cmd-shift-j": "workspace::ToggleBottomDock",
       // macOS Command+Option 与 Ctrl+Option 编辑器分屏尺寸微调
       "ctrl-alt-h": "vim::ResizePaneLeft",
       "ctrl-alt-l": "vim::ResizePaneRight",
@@ -393,13 +395,7 @@
       "cmd-shift-g": "git_panel::ToggleFocus",
     },
   },
-  // 合并行沿用原 Ctrl 版本的 Normal / Visual 作用域。
-  {
-    "context": "os == macos > Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
-    "bindings": {
-      "cmd-shift-j": "editor::JoinLines",
-    },
-  },
+
   // 文件树旧的复制相对路径组合键，也禁用对应的 Command 版本。
   {
     "context": "os == macos > ProjectPanel && not_editing",
