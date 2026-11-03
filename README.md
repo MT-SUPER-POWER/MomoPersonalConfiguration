@@ -108,6 +108,12 @@ void main() {
 
 macOS 本机读取 `~/.config/zed/settings.json`，与仓库使用复制同步。当前已安装的服务位于 `/opt/homebrew/bin/shader-language-server`，本机通过 `binary.path` 指向它；仓库存档仅保留跨平台启动参数。换机时需先安装语言服务并按实际位置设置路径，不能只复制配置就假定服务已安装。配置方式见 [Shader Language Server](https://github.com/antaalt/shader-sense/tree/master/shader-language-server) 与 [Zed 语言配置](https://zed.dev/docs/configuring-languages)。
 
+Windows 本机读取 `%APPDATA%\Zed\settings.json`，同样与仓库存档独立。Shader Language Server 1.6.2 安装在 `D:\Devs\shader-language-server\`，保留同目录的 `dxcompiler.dll`、`dxil.dll`；本机 `lsp.shader-language-server.binary.path` 指向该目录的 `shader-language-server.exe`。仓库存档不写入 Windows 专属路径。
+
+glslViewer 3.5.2 安装在 `D:\Devs\glslViewer\`，用户 PATH 包含其 `bin` 目录及上述语言服务目录。当前下载的 Windows EXE 实际依赖 FFmpeg 8 DLL，已在 `bin` 中配套 FFmpeg 8.1.2 的共享库；[发布说明](https://github.com/patriciogonzalezvivo/glslViewer/releases/tag/3.5.2) 仍标注 FFmpeg 4.4，重新安装时应检查 EXE 实际依赖，不能直接混用系统中的其他主版本 DLL。
+
+安装后重新打开终端，运行 `glslViewer 路径\shader.frag` 预览着色器。Zed 已打开时执行 `editor: restart language server`；若终端尚未识别新 PATH，完整退出并重新启动 Zed。
+
 ## 代码片段（agyIDE / Zed）
 
 | 项目 | 说明 |
