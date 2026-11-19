@@ -61,6 +61,10 @@
   "editor.lineNumbers": "relative",
   // 关闭字体连字，按原始字符显示 >=、!=、=> 等运算符
   "editor.fontLigatures": false,
+  // 读屏模式下允许可变字体，避免 Hop.nvim 的跳转标签显示异常
+  "editor.allowVariableFontsInAccessibilityMode": true,
+  // 读屏模式提示音静音，避免 Hop.nvim 跳转触发提示音
+  "accessibility.signalOptions.volume": 0,
   // 编辑器字体
   "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', 'JetBrains Mono', monospace",
   // 色块之类的颜色提示
@@ -122,6 +126,7 @@
     "editor.fontSize",
     "editor.fontFamily",
     "editor.fontLigatures",
+    "editor.allowVariableFontsInAccessibilityMode",
     "editor.lineHeight",
     "editor.lineNumbers",
     "editor.cursorSmoothCaretAnimation",
@@ -372,13 +377,26 @@
   "mermaidViewer.useVSCodeTheme": false,
   "mermaidViewer.theme": "dark",
   // ==========================================================
-  //            C# 开发工具
+  //            C# 与移动端开发工具
   // ==========================================================
   // C# dev 默认主页
   "csharp-dev-tools.homepage.enabled": false,
+  // 关闭 C# Dev Kit 语义高亮主题，避免与自定义着色冲突
+  "csharp-dev-tools.semanticColors.theme": "off",
+  // Dart/Flutter 调试优先使用 Flutter DevTools
+  "dart.openDevTools": "flutter",
   // ==========================================================
   //            语言工具与格式化
   // ==========================================================
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features",
   },

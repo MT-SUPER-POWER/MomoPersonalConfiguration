@@ -374,4 +374,19 @@
     "command": "editor.action.hideHover",
     "when": "editorHoverFocused",
   },
+  // ==========================================================
+  //            Diff 编辑器差异导航
+  // ==========================================================
+  // Alt+J: 跳转到下一个差异变更块 (Next Change)
+  {
+    "key": "alt+j",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "isInDiffEditor",
+  },
+  // Alt+K: 跳转到上一个差异变更块 (Previous Change)
+  {
+    "key": "alt+k",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "isInDiffEditor",
+  },
 ]

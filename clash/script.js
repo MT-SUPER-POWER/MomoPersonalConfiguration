@@ -4,8 +4,8 @@
  * 功能：
  * 1. 自动分流 AI 与开发者服务（Google Gemini / 反重力 Antigravity / OpenAI ChatGPT / Anthropic Claude / Perplexity / Copilot 等）
  * 2. 严格剔除受限地区（香港 HK、澳门 MO、台湾 TW、新加坡 SG、大陆 CN、俄罗斯 RU、伊朗、朝鲜等易被风控或报 403 / Location unsupported 的区域）
- * 3. 自动筛选并测速「美 / 日 / 英 / 欧」黄金优质节点，时刻保证低延迟与 100% 可用性
- * 4. 无论机场订阅如何自动更新、节点名称如何改变，均自动动态匹配，无需手动切换
+ * 3. 优先测速「美 / 日 / 英 / 欧」节点，订阅更新时重新筛选
+ * 4. AI 出口不可用时拒绝连接，防止回落到通用分流
  */
 
 function main(config, profileName) {
@@ -50,8 +50,22 @@ function main(config, profileName) {
     );
   }
 
-  // 获取所有真实代理节点
+  // 排除可以绕过代理或改写分流的 Mihomo 特殊出站。
+  const nonProxyTypes = new Set([
+    "direct",
+    "pass",
+    "pass-rule",
+    "reject",
+    "reject-drop",
+    "compatible",
+    "rematch",
+  ]);
   const allProxies = (config.proxies || [])
+    .filter(
+      (proxy) =>
+        !nonProxyTypes.has(proxy.type?.toLowerCase()) &&
+        !nonProxyTypes.has(proxy.name?.toLowerCase()),
+    )
     .map((p) => p.name)
     .filter((name) => !isInvalidProxy(name));
 
@@ -61,20 +75,20 @@ function main(config, profileName) {
   );
 
   // 优选池：美/日/英/加/德等黄金节点
-  let primeProxies = cleanProxies.filter((name) => isPrimeAiRegion(name));
-  if (primeProxies.length === 0) {
-    primeProxies = cleanProxies.length > 0 ? cleanProxies : allProxies;
-  }
+  const primeProxies = cleanProxies.filter((name) => isPrimeAiRegion(name));
+  const autoProxies = primeProxies.length > 0 ? primeProxies : cleanProxies;
 
   // 4. 构建策略组
-  // (1) 黄金自动优选组（仅在美/日/英/欧等无限制地区测速，彻底解决反重力和Gemini报地区受限）
+  // url-test 无可用候选时选列表首项。REJECT 测速失败，正常节点测速成功后会胜出。
   const aiAutoPrime = {
     name: "🤖 AI-自动优选(美/日/英)",
     type: "url-test",
     url: "https://www.gstatic.com/generate_204",
     interval: 300,
     tolerance: 50,
-    proxies: primeProxies,
+    lazy: false,
+    "empty-fallback": "REJECT",
+    proxies: ["REJECT", ...autoProxies],
   };
 
   // (2) AI 主控策略组：默认使用黄金自动优选，同时提供所有干净节点供随时手动切换
@@ -83,9 +97,9 @@ function main(config, profileName) {
     type: "select",
     proxies: [
       "🤖 AI-自动优选(美/日/英)",
-      ...primeProxies,
-      ...cleanProxies.filter((p) => !primeProxies.includes(p)),
-      "DIRECT",
+      ...autoProxies,
+      ...cleanProxies.filter((p) => !autoProxies.includes(p)),
+      "REJECT",
     ],
   };
 
@@ -174,8 +188,16 @@ function main(config, profileName) {
     config.rules = [];
   }
 
-  config.rules = config.rules.filter((r) => !r.includes("🤖 AI 平台"));
-  config.rules.unshift(...aiRules);
+  // Mihomo 会跳过不支持 UDP 的出站。同一条匹配条件紧跟 REJECT，截住继续往下的流量。
+  const rulePairs = aiRules.map((rule) => [
+    rule,
+    rule.replace(/,🤖 AI 平台$/, ",REJECT"),
+  ]);
+  const rejectRules = new Set(rulePairs.map(([, rejectRule]) => rejectRule));
+  config.rules = config.rules.filter(
+    (rule) => !rule.includes("🤖 AI 平台") && !rejectRules.has(rule),
+  );
+  config.rules.unshift(...rulePairs.flat());
 
   return config;
 }

@@ -239,6 +239,16 @@
     "command": "-workbench.action.terminal.openNativeConsole",
     "when": "!terminalFocus",
   },
+  // 解绑默认的跳转到行 (Ctrl+G)，防止与 Ctrl+Shift+G 冲突误弹出跳转行号窗口
+  {
+    "key": "ctrl+g",
+    "command": "-workbench.action.gotoLine",
+  },
+  // Ctrl+Shift+G 聚焦/进入 Git 源代码管理面板
+  {
+    "key": "ctrl+shift+g",
+    "command": "workbench.view.scm",
+  },
   // ==========================================================
   //            AI 对话与会话保护
   // ==========================================================
@@ -352,5 +362,20 @@
     "key": "escape",
     "command": "editor.action.hideHover",
     "when": "editorHoverFocused",
+  },
+  // ==========================================================
+  //            Diff 编辑器差异导航
+  // ==========================================================
+  // Alt+J: 跳转到下一个差异变更块 (Next Change)
+  {
+    "key": "alt+j",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "isInDiffEditor",
+  },
+  // Alt+K: 跳转到上一个差异变更块 (Previous Change)
+  {
+    "key": "alt+k",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "isInDiffEditor",
   },
 ]
