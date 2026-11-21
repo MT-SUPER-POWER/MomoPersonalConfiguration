@@ -5,6 +5,12 @@
   "chat.viewSessions.orientation": "stacked",
   // git 自动拉取
   "git.autofetch": true,
+  // Git Blame: 行末内联显示（类似 Zed 效果）
+  "gitblame.inlineMessageEnabled": true,
+  // 内联信息与行尾文字的间距（默认 2，设为 4 拉开更舒适的阅读距离）
+  "gitblame.inlineMessageMargin": 4,
+  // 内联信息格式：带 Git 分支/提交图标，仅保留作者与相对时间
+  "gitblame.inlineMessageFormat": " ${author.name}, ${time.ago}",
   // debug inline values
   "debug.inlineValues": false,
   // 安全提示
@@ -175,6 +181,8 @@
     "colorize.decoration_type",
     "colorize.languages",
     "gitblame.inlineMessageEnabled",
+    "gitblame.inlineMessageMargin",
+    "gitblame.inlineMessageFormat",
   ],
   // ==========================================================
   //            启动时的辅助侧栏
