@@ -9,6 +9,7 @@
 | `agy ide/snippets/` | `~/Library/Application Support/Antigravity IDE/User/snippets/` |
 | `nvim/` | `~/.config/nvim/` |
 | `zed/settings.jsonc`、`zed/keymap.jsonc` | `~/.config/zed/settings.json`、`~/.config/zed/keymap.json` |
+| `zed/tasks.jsonc`、`zed/git-graph.cjs` | `~/.config/zed/tasks.json`、`~/.config/zed/git-graph.cjs`，用法见[根目录 Git Graph 说明](../README.md#4-git-graph-右键菜单-zedtasksjsonc) |
 | `zed/snippets/` | `~/.config/zed/snippets/` |
 | `starship/starship.toml` | `~/.config/starship.toml` |
 | `typora/themes/` | `~/Library/Application Support/abnerworks.Typora/themes/` |

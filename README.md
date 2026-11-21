@@ -38,7 +38,8 @@ MomoPersonalConfiguration/
 ├── zed/                   # Zed 编辑器统一配置
 │   ├── keymap.json        # Zed 快捷键映射（对齐 VS Code/Neovim 肌肉记忆）
 │   ├── settings.json      # Zed 编辑器与 Vim 模式配置
-│   └── tasks.jsonc        # Zed Git Graph 右键菜单（对应 VS Code Git Graph 的提交操作）
+│   ├── tasks.jsonc        # Zed Git Graph 右键菜单
+│   └── git-graph.cjs      # Git Graph 任务的跨平台终端交互
 ├── clash/                 # Clash Verge Rev 订阅扩展脚本
 │   ├── README.md          # AI 分流与区域优选说明
 │   └── script.js          # 自动过滤受限节点并优选美/日/英的核心脚本
@@ -381,27 +382,21 @@ Vim 的默认寄存器已统一接入 Windows 系统剪贴板：在 Antigravity 
 
 ### 4. Git Graph 右键菜单 (`zed/tasks.jsonc`)
 
-Zed 自带 Git Graph 视图；全局 `tasks.json` 中带 `"git-command"` 标签的任务会出现在提交或分支标签的右键菜单中，用来复刻 VS Code Git Graph 插件的常用操作。参考 [Zed Tasks 文档](https://zed.dev/docs/tasks#custom-git-commands)。
+全局 `tasks.json` 中带 `"git-command"` 标签的任务会出现在 Git Graph 的提交或引用标签右键菜单中，默认在选中的仓库根目录运行。参考 [Zed Tasks 文档](https://zed.dev/docs/tasks#custom-git-commands)。
 
-- **本地生效路径**：`%APPDATA%\Zed\tasks.json`。仓库里使用 `.jsonc` 便于编辑时不报注释错误，同步到本机时需复制并改名为 `tasks.json`；只支持全局文件，不支持项目级 `.zed/tasks.json`。
-- **可用变量**：`$ZED_GIT_SHA`、`$ZED_GIT_SHA_SHORT`、`$ZED_GIT_REPOSITORY_PATH`，以及从分支或标签右键时才有的 `$ZED_GIT_REF`。
+- 将 `zed/tasks.jsonc` 复制为全局 `tasks.json`，并把 `zed/git-graph.cjs` 放在同一目录。已有全局任务时，合并 Git Graph 条目。Windows 使用 `%APPDATA%\Zed\`，macOS 使用 `~/.config/zed/`，Linux 使用 `${XDG_CONFIG_HOME:-$HOME/.config}/zed/`（Flatpak 优先读取 `FLATPAK_XDG_CONFIG_HOME`）。使用自定义配置目录时，可通过 `ZED_GIT_GRAPH_DIR` 指定脚本所在目录。
+- 交互任务要求 Zed 终端的 PATH 中有 `node` 和 `git`。复制标题在 Windows 使用 `clip.exe`，macOS 使用 `pbcopy`，Linux 可使用 `wl-copy`、`xclip` 或 `xsel`。
+- `Create Tag…` 从 Zed 1.24.2 起使用原生弹窗。自定义任务的分支名、父提交、Reset 模式和确认信息在 Zed 内置终端输入。 [Zed 1.24.2 发布说明](https://zed.dev/releases/stable/1.24.2)
 
-| VS Code Git Graph 菜单项 | Zed 菜单项 | 实际命令 |
-| :-- | :-- | :-- |
-| Add Tag… | Create Tag… | Zed 1.24.2+ 原生支持（弹窗交互输入标签名） |
-| Create Branch… | - | 暂未配置自定义任务（等待 Zed 官方支持交互弹窗，目前建议在终端创建） |
-| Checkout… | Checkout Commit / Checkout Ref | `git checkout <SHA>` / `git checkout <ref>` |
-| Cherry Pick… | Cherry Pick | `git cherry-pick <SHA>` |
-| Revert… | Revert | `git revert --no-edit <SHA>` |
-| Drop… | Drop Commit | `git rebase --onto <SHA>~1 <SHA>` |
-| Merge into current branch… | Merge into Current Branch | `git merge <SHA>` |
-| Rebase current branch on this Commit… | Rebase Current Branch on Commit | `git rebase <SHA>` |
-| Reset current branch to this Commit… | Reset Current Branch (soft / mixed / hard) | `git reset --soft/--mixed/--hard <SHA>` |
-| Copy Commit Hash / Subject to Clipboard | Copy Commit Hash / Subject to Clipboard | PowerShell `Set-Clipboard` |
-
-与 VS Code 插件的差异：Zed 1.24.2+ 原生提供了 `Create Tag…` 弹窗；任务系统因不支持交互输入，已移除自动命名的 Add Tag 与 Create Branch 任务，等待官方原生支持；其余任务没有确认弹窗，点击即执行，Drop 和 Reset hard 会改写历史或丢弃改动；菜单顺序与分组由任务列表决定，无法分隔。
-
-本机生效文件是 `%APPDATA%\Zed\keymap.json`，与仓库存档独立；后续修改需合并同步。
+| Zed 菜单项 | 行为 |
+| --- | --- |
+| Create Branch... | 输入分支名，从所选提交建分支，可选择同时切换过去 |
+| Checkout | 检出所选提交（游离 HEAD），或检出右键点击的分支或标签 |
+| Cherry Pick / Revert | 普通提交直接执行，合并提交先选择以哪个父提交为基准 |
+| Drop Commit... | 确认后移除当前历史中的单父提交。若重放区间含合并提交，改用交互式 rebase |
+| Merge into Current Branch / Rebase Current Branch Here | 将所选提交合入当前分支，或以它为基准变基 |
+| Reset Current Branch Here... | 选择 Soft、Mixed 或 Hard，Hard 另行确认 |
+| Copy SHA / Copy Commit Subject | 复制完整哈希或提交标题 |
 
 ---
 

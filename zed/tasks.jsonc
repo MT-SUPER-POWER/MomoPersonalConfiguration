@@ -1,46 +1,44 @@
 // Zed tasks
 // Git Graph 右键菜单：带 "git-command" 标签的任务会出现在提交 / 分支标签的右键菜单中。
-// 对应 VS Code Git Graph 插件的右键操作；仅支持全局 tasks.json，本机路径 %APPDATA%\Zed\tasks.json。
-// 任务默认在仓库根目录运行；不支持交互输入，也没有确认弹窗，Drop 与 Reset hard 会改写历史或丢弃改动。
-// 为避免 cmd 把 ^ 当转义符，"上一个提交" 统一写成 SHA~1。
+// 将本文件作为 tasks.json，与 git-graph.cjs 一起放到 Zed 用户配置目录。
+// 任务默认在选中的仓库根目录运行，交互输入在 Zed 内置终端中完成。
+// Git Graph 任务会把命令拼成 shell 命令行。把 -e 的脚本作为带引号的 command 内容。
 [
   // ==========================================================
-  //            检出与摘取
+  //            建立分支、检出与摘取
   // ==========================================================
-  // 从分支标签右键时 $ZED_GIT_REF 是分支名，应切换分支；从提交行右键则进入游离 HEAD。
   {
-    "label": "Checkout Commit (detached HEAD): $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["checkout", "$ZED_GIT_SHA"],
+    "label": "Create Branch...",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" branch $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
   {
-    "label": "Checkout Ref (branch / tag): $ZED_GIT_REF",
-    "command": "git",
-    "args": ["checkout", "$ZED_GIT_REF"],
+    "label": "Checkout",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" checkout $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
   {
-    "label": "Cherry Pick: $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["cherry-pick", "$ZED_GIT_SHA"],
+    "label": "Cherry Pick",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" cherry-pick $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
   {
-    "label": "Revert: $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["revert", "--no-edit", "$ZED_GIT_SHA"],
+    "label": "Revert",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" revert $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
 
   // ==========================================================
   //            改写历史（谨慎）
   // ==========================================================
-  // 该提交必须是当前分支的祖先，工作区需保持干净。
   {
-    "label": "Drop Commit: $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["rebase", "--onto", "$ZED_GIT_SHA~1", "$ZED_GIT_SHA"],
+    "label": "Drop Commit...",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" drop $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
 
@@ -48,58 +46,35 @@
   //            合并与变基
   // ==========================================================
   {
-    "label": "Merge into Current Branch: $ZED_GIT_SHA_SHORT",
+    "label": "Merge into Current Branch",
     "command": "git",
     "args": ["merge", "$ZED_GIT_SHA"],
     "tags": ["git-command"],
   },
   {
-    "label": "Rebase Current Branch on Commit: $ZED_GIT_SHA_SHORT",
+    "label": "Rebase Current Branch Here",
     "command": "git",
     "args": ["rebase", "$ZED_GIT_SHA"],
     "tags": ["git-command"],
   },
 
   // ==========================================================
-  //            重置当前分支（拆成三档，对应 Git Graph 的 Soft / Mixed / Hard）
+  //            重置当前分支
   // ==========================================================
   {
-    "label": "Reset Current Branch (soft): $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["reset", "--soft", "$ZED_GIT_SHA"],
-    "tags": ["git-command"],
-  },
-  {
-    "label": "Reset Current Branch (mixed): $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["reset", "--mixed", "$ZED_GIT_SHA"],
-    "tags": ["git-command"],
-  },
-  {
-    "label": "Reset Current Branch (hard, discards changes): $ZED_GIT_SHA_SHORT",
-    "command": "git",
-    "args": ["reset", "--hard", "$ZED_GIT_SHA"],
+    "label": "Reset Current Branch Here...",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" reset $ZED_GIT_SHA",
+    "show_command": false,
     "tags": ["git-command"],
   },
 
   // ==========================================================
-  //            复制到剪贴板（Windows PowerShell）
+  //            复制到剪贴板
   // ==========================================================
   {
-    "label": "Copy Commit Hash to Clipboard",
-    "command": "powershell",
-    "args": ["-NoProfile", "-Command", "Set-Clipboard -Value '$ZED_GIT_SHA'"],
-    "hide": "on_success",
-    "tags": ["git-command"],
-  },
-  {
-    "label": "Copy Commit Subject to Clipboard",
-    "command": "powershell",
-    "args": [
-      "-NoProfile",
-      "-Command",
-      "git log -1 --format=%s $ZED_GIT_SHA | Set-Clipboard",
-    ],
+    "label": "Copy Commit Subject",
+    "command": "node -e \"const { env, platform, argv } = process; const home = require('node:os').homedir(); const dir = env.ZED_GIT_GRAPH_DIR || (platform === 'win32' ? env.APPDATA + '/Zed' : ((platform !== 'darwin' && (env.FLATPAK_XDG_CONFIG_HOME || env.XDG_CONFIG_HOME)) || home + '/.config') + '/zed'); require(require('node:path').join(dir, 'git-graph.cjs'))(...argv.slice(1));\" copy-subject $ZED_GIT_SHA",
+    "show_command": false,
     "hide": "on_success",
     "tags": ["git-command"],
   },
