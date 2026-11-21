@@ -14,6 +14,7 @@
    - **开发工具/API 高风险区域**：台湾（TW）与新加坡（SG）的机房广播 IP 经常触发 Google Gemini API 与 Antigravity（反重力）的 `403 Forbidden` 或 `User location is not supported for the API use`，本脚本一并将其从 AI 优选池中剔除。
 3. **自动测速与选优**：优先从 **美 / 日 / 英 / 欧** 等地区挑选测速节点。订阅缺少优选地区时，测速池使用其余通过筛选的节点。
 4. **AI 专用出口失效时断网**：测速尚未完成、测速池为空或所有候选均测速失败时，自动优选走 `REJECT`。手动选中的专用节点连接失败时，请求也会失败。专用节点不支持 UDP 时，紧随其后的同条件 `REJECT` 会拦截该请求。
+5. **DNS Fake-IP 过滤保护**：自动补充 `fake-ip-filter`，防止 Atlassian（Jira、Bitbucket 等）及系统/网络连通性检测服务被 Fake-IP 拦截，确保 CLI/API 开发者工具与客户端正常解析真实 IP。
 
 ---
 

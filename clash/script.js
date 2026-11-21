@@ -6,6 +6,7 @@
  * 2. 严格剔除受限地区（香港 HK、澳门 MO、台湾 TW、新加坡 SG、大陆 CN、俄罗斯 RU、伊朗、朝鲜等易被风控或报 403 / Location unsupported 的区域）
  * 3. 优先测速「美 / 日 / 英 / 欧」节点，订阅更新时重新筛选
  * 4. AI 出口不可用时拒绝连接，防止回落到通用分流
+ * 5. 补充 DNS fake-ip-filter，防止特定域名（如 Atlassian / Jira）及系统服务被 Fake-IP 拦截
  */
 
 function main(config, profileName) {
@@ -198,6 +199,50 @@ function main(config, profileName) {
     (rule) => !rule.includes("🤖 AI 平台") && !rejectRules.has(rule),
   );
   config.rules.unshift(...rulePairs.flat());
+
+  // 6. 配置 DNS 与 fake-ip-filter（防止 Atlassian 等开发工具及基础网络服务被 Fake-IP 拦截）
+  if (!config.dns) {
+    config.dns = {};
+  }
+
+  const defaultFakeIpFilter = [
+    // Atlassian / Jira 相关域名（避免因 Fake-IP 拦截导致客户端/CLI/API 请求异常）
+    "jurnal.atlassian.net",
+    "+.atlassian.net",
+    "*.atlassian.net",
+    "+.atlassian.com",
+    "*.atlassian.com",
+    "+.jira.com",
+    "*.jira.com",
+    "+.bitbucket.org",
+    "*.bitbucket.org",
+
+    // 基础局域网、系统与 NTP 检测服务
+    "*.lan",
+    "*.local",
+    "*.arpa",
+    "time.*.com",
+    "time.*.gov",
+    "time.*.apple.com",
+    "ntp.*.com",
+    "*.ntp.org.cn",
+    "pool.ntp.org",
+    "localhost.ptlogin2.qq.com",
+    "*.msftncsi.com",
+    "www.msftconnecttest.com",
+    "*.msftconnecttest.com",
+    "+.market.xiaomi.com",
+  ];
+
+  if (!Array.isArray(config.dns["fake-ip-filter"])) {
+    config.dns["fake-ip-filter"] = [];
+  }
+
+  for (const item of defaultFakeIpFilter) {
+    if (!config.dns["fake-ip-filter"].includes(item)) {
+      config.dns["fake-ip-filter"].push(item);
+    }
+  }
 
   return config;
 }
